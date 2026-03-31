@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dominik Maslan — Growth Architect</title>
+  <style>
+    /* ── Reset & base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0d0d0f;
+      --surface:   #141418;
+      --border:    #232329;
+      --accent:    #6c63ff;
+      --accent-2:  #a78bfa;
+      --text:      #e8e8f0;
+      --muted:     #7b7b8f;
+      --max-w:     1100px;
+      --radius:    14px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Utility ── */
+    .container { max-width: var(--max-w); margin: 0 auto; padding: 0 24px; }
+    .tag {
+      display: inline-block;
+      background: rgba(108, 99, 255, 0.12);
+      color: var(--accent-2);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 99px;
+      border: 1px solid rgba(108, 99, 255, 0.25);
+      margin-bottom: 20px;
+    }
+
+    /* ── Nav ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 20px 0;
+      transition: background .3s, backdrop-filter .3s;
+    }
+    nav.scrolled {
+      background: rgba(13, 13, 15, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    nav .inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .nav-logo {
+      font-weight: 700;
+      font-size: 17px;
+      letter-spacing: -.01em;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    /* ── Hero ── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 120px 0 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    #hero::before {
+      content: '';
+      position: absolute;
+      top: -200px; left: 50%;
+      transform: translateX(-50%);
+      width: 900px; height: 600px;
+      background: radial-gradient(ellipse at center, rgba(108,99,255,.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 60px;
+      align-items: center;
+    }
+    .hero-eyebrow {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 22px;
+    }
+    h1 {
+      font-size: clamp(42px, 6vw, 74px);
+      font-weight: 800;
+      line-height: 1.08;
+      letter-spacing: -.03em;
+      margin-bottom: 28px;
+    }
+    h1 .gradient {
+      background: linear-gradient(135deg, #6c63ff 0%, #a78bfa 50%, #c4b5fd 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-sub {
+      font-size: 18px;
+      color: var(--muted);
+      max-width: 520px;
+      margin-bottom: 44px;
+      line-height: 1.75;
+    }
+    .btn-group { display: flex; gap: 14px; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 13px 26px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all .2s;
+      cursor: pointer;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+    }
+    .btn-primary:hover { background: #7c74ff; transform: translateY(-1px); box-shadow: 0 8px 30px rgba(108,99,255,.35); }
+    .btn-ghost {
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid var(--border);
+    }
+    .btn-ghost:hover { color: var(--text); border-color: #3a3a45; transform: translateY(-1px); }
+
+    .hero-stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 32px;
+      text-align: center;
+      min-width: 180px;
+    }
+    .hero-stat-card .num {
+      font-size: 48px;
+      font-weight: 800;
+      letter-spacing: -.04em;
+      background: linear-gradient(135deg, #6c63ff, #a78bfa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+    }
+    .hero-stat-card .label {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 6px;
+      font-weight: 500;
+    }
+
+    /* ── Section shared ── */
+    section { padding: 100px 0; }
+    section + section { border-top: 1px solid var(--border); }
+    .section-header { margin-bottom: 64px; }
+    h2 {
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 800;
+      letter-spacing: -.03em;
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+    .section-desc {
+      font-size: 17px;
+      color: var(--muted);
+      max-width: 560px;
+      line-height: 1.75;
+    }
+
+    /* ── About ── */
+    #about .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: start;
+    }
+    .about-body p {
+      color: var(--muted);
+      margin-bottom: 20px;
+      font-size: 16px;
+      line-height: 1.85;
+    }
+    .about-body p strong { color: var(--text); font-weight: 600; }
+    .philosophy-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+      position: relative;
+      overflow: hidden;
+    }
+    .philosophy-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    }
+    .philosophy-card h3 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      letter-spacing: -.01em;
+    }
+    .philosophy-card p { color: var(--muted); font-size: 15px; line-height: 1.8; }
+    .philosophy-card p + p { margin-top: 14px; }
+    .career-timeline { margin-top: 36px; display: flex; flex-direction: column; gap: 20px; }
+    .timeline-item {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    .timeline-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--accent);
+      margin-top: 6px;
+      flex-shrink: 0;
+      box-shadow: 0 0 10px rgba(108,99,255,.5);
+    }
+    .timeline-item .year { font-size: 12px; color: var(--accent); font-weight: 600; margin-bottom: 2px; }
+    .timeline-item .role { font-size: 15px; font-weight: 600; }
+    .timeline-item .desc { font-size: 13px; color: var(--muted); margin-top: 2px; }
+
+    /* ── Expertise ── */
+    #expertise .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-bottom: 48px;
+    }
+    .exp-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+      transition: border-color .2s, transform .2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .exp-card:hover { border-color: rgba(108,99,255,.4); transform: translateY(-3px); }
+    .exp-card .icon {
+      width: 48px; height: 48px;
+      border-radius: 12px;
+      background: rgba(108,99,255,.12);
+      border: 1px solid rgba(108,99,255,.2);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px;
+      margin-bottom: 22px;
+    }
+    .exp-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 12px; letter-spacing: -.01em; }
+    .exp-card p { color: var(--muted); font-size: 14px; line-height: 1.8; margin-bottom: 20px; }
+    .skill-list { display: flex; flex-wrap: wrap; gap: 8px; }
+    .skill-pill {
+      font-size: 12px;
+      color: var(--muted);
+      background: rgba(255,255,255,.04);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 4px 10px;
+      font-weight: 500;
+    }
+
+    .data-banner {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 36px 40px;
+      display: flex;
+      gap: 40px;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .data-banner::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(108,99,255,.06) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .data-banner .banner-icon {
+      font-size: 40px;
+      flex-shrink: 0;
+    }
+    .data-banner h3 { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+    .data-banner p { color: var(--muted); font-size: 15px; line-height: 1.75; max-width: 620px; }
+
+    /* ── Contact ── */
+    #contact .inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+    .contact-form { display: flex; flex-direction: column; gap: 16px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .field label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--muted);
+      margin-bottom: 6px;
+      letter-spacing: .03em;
+    }
+    .field input,
+    .field textarea,
+    .field select {
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--text);
+      font-size: 15px;
+      padding: 12px 16px;
+      outline: none;
+      transition: border-color .2s;
+      font-family: inherit;
+    }
+    .field input:focus,
+    .field textarea:focus,
+    .field select:focus { border-color: var(--accent); }
+    .field textarea { resize: vertical; min-height: 120px; }
+    .field select option { background: var(--surface); }
+    .contact-info { display: flex; flex-direction: column; gap: 24px; }
+    .contact-info h3 { font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+    .contact-info p { color: var(--muted); font-size: 15px; line-height: 1.8; }
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--text);
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 500;
+      transition: color .2s;
+    }
+    .contact-link:hover { color: var(--accent); }
+    .contact-link .link-icon {
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 40px 0;
+    }
+    footer .inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    footer p { font-size: 14px; color: var(--muted); }
+    footer .links { display: flex; gap: 24px; }
+    footer .links a { font-size: 14px; color: var(--muted); text-decoration: none; transition: color .2s; }
+    footer .links a:hover { color: var(--text); }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero-stat-card { display: none; }
+      #about .grid { grid-template-columns: 1fr; }
+      #expertise .cards { grid-template-columns: 1fr; }
+      #contact .inner { grid-template-columns: 1fr; gap: 48px; }
+      .form-row { grid-template-columns: 1fr; }
+      .data-banner { flex-direction: column; gap: 20px; }
+      footer .inner { flex-direction: column; gap: 20px; text-align: center; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="navbar">
+    <div class="inner">
+      <a href="#hero" class="nav-logo">DM<span>.</span></a>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#expertise">Expertise</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="container">
+      <div class="hero-inner">
+        <div>
+          <p class="hero-eyebrow">Available for advisory &amp; consulting</p>
+          <h1>
+            Growth<br/>
+            <span class="gradient">Architect</span><br/>
+            for Startups.
+          </h1>
+          <p class="hero-sub">
+            I help startups scale with clarity — blending performance marketing, brand strategy,
+            and data literacy into growth systems that compound over time.
+          </p>
+          <div class="btn-group">
+            <a href="#contact" class="btn btn-primary">Work with me</a>
+            <a href="#about" class="btn btn-ghost">My story</a>
+          </div>
+        </div>
+        <div class="hero-stat-card">
+          <div class="num">7+</div>
+          <div class="label">Years in<br/>growth marketing</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="container">
+      <div class="section-header">
+        <div class="tag">About</div>
+        <h2>Marketer by trade,<br/>architect by ambition.</h2>
+      </div>
+      <div class="grid">
+        <div class="about-body">
+          <p>
+            Over the past <strong>seven years</strong>, I've worked across the full spectrum of marketing —
+            PPC and RTB campaigns, brand development, and account management — building an instinct for
+            what actually moves the needle versus what just looks good in a report.
+          </p>
+          <p>
+            Today I serve as <strong>CMO at a startup building software for stock market investors</strong>,
+            where the challenge is communicating complex financial tooling to a sophisticated audience
+            that has zero patience for vague promises. Every message has to earn its place.
+          </p>
+          <p>
+            My long-term goal is to operate as a <strong>Growth Architect</strong> — a role that sits at
+            the intersection of strategy, execution, and measurement. Not just a marketer,
+            but someone who designs the systems that let companies grow with intention.
+          </p>
+
+          <div class="career-timeline">
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div>
+                <div class="year">Present</div>
+                <div class="role">CMO — Fintech Startup</div>
+                <div class="desc">Marketing software for stock market investors</div>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div>
+                <div class="year">7 Years</div>
+                <div class="role">Performance &amp; Brand Marketing</div>
+                <div class="desc">PPC / RTB, branding, account management</div>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div>
+                <div class="year">Vision</div>
+                <div class="role">Growth Architect</div>
+                <div class="desc">Scaling startups through integrated growth systems</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="philosophy-card">
+          <h3>Core Philosophy</h3>
+          <p>
+            Most marketing teams treat performance and brand as opposing forces — one is science,
+            the other is art. I reject that framing entirely.
+          </p>
+          <p>
+            <strong>Performance marketing without brand</strong> rents attention. It works until it
+            doesn't, and you're always at the mercy of auction dynamics and algorithm changes.
+          </p>
+          <p>
+            <strong>Brand without performance</strong> is faith-based marketing. Beautiful, perhaps,
+            but impossible to optimize and hard to defend in a boardroom.
+          </p>
+          <p>
+            The connective tissue between them is <strong>data literacy</strong> — the ability to ask
+            the right questions, build measurement frameworks that reflect reality, and make decisions
+            that serve both the quarter and the decade.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERTISE -->
+  <section id="expertise">
+    <div class="container">
+      <div class="section-header">
+        <div class="tag">Expertise</div>
+        <h2>Where I create<br/>the most leverage.</h2>
+        <p class="section-desc">
+          Three disciplines, one integrated system. Each reinforces the others.
+        </p>
+      </div>
+
+      <div class="cards">
+        <div class="exp-card">
+          <div class="icon">⚡</div>
+          <h3>Performance Marketing</h3>
+          <p>
+            Paid acquisition that's built to scale — from initial channel testing to full-funnel
+            optimization. I've run PPC and RTB campaigns where every euro had to justify itself.
+          </p>
+          <div class="skill-list">
+            <span class="skill-pill">PPC / Google Ads</span>
+            <span class="skill-pill">RTB / Programmatic</span>
+            <span class="skill-pill">Paid Social</span>
+            <span class="skill-pill">Funnel Optimization</span>
+            <span class="skill-pill">CAC / LTV Modeling</span>
+          </div>
+        </div>
+
+        <div class="exp-card">
+          <div class="icon">✦</div>
+          <h3>Brand Building</h3>
+          <p>
+            Positioning and narrative that create preference before a prospect ever clicks an ad.
+            Brand isn't a logo — it's the reason someone chooses you when the specs look identical.
+          </p>
+          <div class="skill-list">
+            <span class="skill-pill">Brand Strategy</span>
+            <span class="skill-pill">Positioning</span>
+            <span class="skill-pill">Messaging Architecture</span>
+            <span class="skill-pill">Content Strategy</span>
+            <span class="skill-pill">Account Management</span>
+          </div>
+        </div>
+
+        <div class="exp-card">
+          <div class="icon">◈</div>
+          <h3>Data-Driven Growth</h3>
+          <p>
+            Growth strategy grounded in measurement. I build frameworks that connect marketing
+            activity to business outcomes — and help teams actually trust their numbers.
+          </p>
+          <div class="skill-list">
+            <span class="skill-pill">Analytics &amp; Attribution</span>
+            <span class="skill-pill">Growth Experimentation</span>
+            <span class="skill-pill">Marketing Strategy</span>
+            <span class="skill-pill">Reporting Systems</span>
+            <span class="skill-pill">CMO Advisory</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="data-banner">
+        <div class="banner-icon">◎</div>
+        <div>
+          <h3>Data literacy is the difference.</h3>
+          <p>
+            Any marketer can run ads. Any brand consultant can write a positioning doc. What's rare
+            is someone who can hold both worlds simultaneously — who speaks the language of creative
+            and the language of dashboards, and knows which one the room needs to hear.
+            That's the edge I bring.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="container">
+      <div class="section-header">
+        <div class="tag">Contact</div>
+        <h2>Let's build something<br/>that compounds.</h2>
+      </div>
+      <div class="inner">
+        <form class="contact-form" onsubmit="handleSubmit(event)">
+          <div class="form-row">
+            <div class="field">
+              <label for="name">Name</label>
+              <input type="text" id="name" placeholder="Your name" required />
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input type="email" id="email" placeholder="you@company.com" required />
+            </div>
+          </div>
+          <div class="field">
+            <label for="company">Company</label>
+            <input type="text" id="company" placeholder="Company or startup" />
+          </div>
+          <div class="field">
+            <label for="topic">What are you working on?</label>
+            <select id="topic">
+              <option value="">Select a topic…</option>
+              <option>Growth strategy &amp; advisory</option>
+              <option>Performance marketing</option>
+              <option>Brand &amp; positioning</option>
+              <option>CMO fractional work</option>
+              <option>Something else</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="message">Message</label>
+            <textarea id="message" placeholder="Tell me about your stage, challenge, or goal…"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary" style="align-self: flex-start;">
+            Send message →
+          </button>
+          <p id="form-status" style="font-size:14px; color: var(--accent); display:none;">
+            Message sent — I'll be in touch soon.
+          </p>
+        </form>
+
+        <div class="contact-info">
+          <div>
+            <h3>I work best with</h3>
+            <p>
+              Early-to-mid stage startups that are past zero but haven't yet cracked scalable growth.
+              Teams that want to build something that lasts, not just hit next month's number.
+            </p>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 14px;">
+            <a href="mailto:hello@dominikmaslan.com" class="contact-link">
+              <span class="link-icon">✉</span>
+              hello@dominikmaslan.com
+            </a>
+            <a href="https://linkedin.com/in/dominikmaslan" class="contact-link" target="_blank" rel="noopener">
+              <span class="link-icon">in</span>
+              linkedin.com/in/dominikmaslan
+            </a>
+          </div>
+          <div>
+            <p style="font-size:14px; color: var(--muted);">
+              Response time: typically within 24–48 hours.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="inner">
+        <p>© 2026 Dominik Maslan. Growth Architect.</p>
+        <div class="links">
+          <a href="#hero">Top</a>
+          <a href="#about">About</a>
+          <a href="#expertise">Expertise</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Sticky nav
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 40);
+    });
+
+    // Form submit (demo)
+    function handleSubmit(e) {
+      e.preventDefault();
+      const btn = e.target.querySelector('button[type="submit"]');
+      const status = document.getElementById('form-status');
+      btn.textContent = 'Sending…';
+      btn.disabled = true;
+      setTimeout(() => {
+        btn.style.display = 'none';
+        status.style.display = 'block';
+        e.target.reset();
+      }, 900);
+    }
+  </script>
+</body>
+</html>
