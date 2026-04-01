@@ -48,6 +48,21 @@
     .nav-links a { color: var(--muted); text-decoration: none; font-size: 14px; font-weight: 500; transition: color .2s; }
     .nav-links a:hover, .nav-links a.active { color: var(--text); }
 
+    /* ── Language toggle (i18n — separate from .lang-btn article tabs) ── */
+    .i18n-toggle {
+      display: flex; align-items: center;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 8px; overflow: hidden; flex-shrink: 0;
+    }
+    .i18n-btn {
+      padding: 6px 12px; background: none; border: none;
+      color: var(--muted); cursor: pointer; font-family: inherit;
+      font-size: 12px; font-weight: 700; letter-spacing: .06em;
+      transition: all .15s; line-height: 1;
+    }
+    .i18n-btn.active { background: var(--accent); color: #0a0a0c; }
+    .i18n-btn:hover:not(.active) { color: var(--text); }
+
     /* ── Article header ── */
     .article-header {
       padding: 140px 0 60px;
@@ -88,7 +103,7 @@
     .article-meta { font-size: 13px; color: var(--muted); display: flex; gap: 20px; flex-wrap: wrap; }
     .article-meta span { display: flex; align-items: center; gap: 6px; }
 
-    /* ── Language tabs ── */
+    /* ── Programming-language tabs (article-internal switcher) ── */
     .lang-nav-wrap {
       position: sticky; top: 61px; z-index: 50;
       background: rgba(13,13,15,.92); backdrop-filter: blur(12px);
@@ -210,17 +225,17 @@
     pre::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
 
     /* Syntax colors */
-    .kw  { color: #c792ea; }   /* keyword */
-    .fn  { color: #82aaff; }   /* function */
-    .str { color: #c3e88d; }   /* string */
-    .cm  { color: #546e7a; font-style: italic; } /* comment */
-    .num { color: #f78c6c; }   /* number */
-    .tag-c { color: #f07178; } /* html tag */
-    .attr { color: #ffcb6b; }  /* attribute */
-    .val { color: #c3e88d; }   /* attribute value */
-    .sel { color: #ffcb6b; }   /* css selector */
-    .prop { color: #80cbc4; }  /* css property */
-    .op  { color: #89ddff; }   /* operator */
+    .kw  { color: #c792ea; }
+    .fn  { color: #82aaff; }
+    .str { color: #c3e88d; }
+    .cm  { color: #546e7a; font-style: italic; }
+    .num { color: #f78c6c; }
+    .tag-c { color: #f07178; }
+    .attr { color: #ffcb6b; }
+    .val { color: #c3e88d; }
+    .sel { color: #ffcb6b; }
+    .prop { color: #80cbc4; }
+    .op  { color: #89ddff; }
 
     /* Footer */
     footer { border-top: 1px solid var(--border); padding: 40px 0; }
@@ -244,11 +259,15 @@
     <div class="inner">
       <a href="../index.html" class="nav-logo">DM<span>.</span></a>
       <ul class="nav-links">
-        <li><a href="../index.html#about">About</a></li>
-        <li><a href="../index.html#expertise">Expertise</a></li>
-        <li><a href="../blog.html" class="active">Blog</a></li>
-        <li><a href="../index.html#contact">Contact</a></li>
+        <li><a href="../index.html#about" data-i18n="nav-about">About</a></li>
+        <li><a href="../index.html#expertise" data-i18n="nav-expertise">Expertise</a></li>
+        <li><a href="../blog.html" class="active" data-i18n="nav-blog">Blog</a></li>
+        <li><a href="../index.html#contact" data-i18n="nav-contact">Contact</a></li>
       </ul>
+      <div class="i18n-toggle">
+        <button class="i18n-btn" data-locale="en" onclick="setLocale('en')">EN</button>
+        <button class="i18n-btn" data-locale="cs" onclick="setLocale('cs')">CZ</button>
+      </div>
     </div>
   </nav>
 
@@ -256,22 +275,22 @@
   <div class="article-header">
     <div class="container">
       <div class="breadcrumb">
-        <a href="../blog.html">Blog</a>
+        <a href="../blog.html" data-i18n="bc-blog">Blog</a>
         <span>/</span>
-        <span>Tech</span>
+        <span data-i18n="bc-cat">Tech</span>
       </div>
-      <div class="article-cat">Tech</div>
-      <h1>7 Programming Languages<br/><span class="gradient">Every Marketer Should Know</span></h1>
-      <p class="desc">An interactive tour of the building blocks of the modern web — what each language does, why it exists, and when you'd actually reach for it.</p>
+      <div class="article-cat" data-i18n="article-cat">Tech</div>
+      <h1 data-i18n="article-h1">7 Programming Languages<br/><span class="gradient">Every Marketer Should Know</span></h1>
+      <p class="desc" data-i18n="article-desc">An interactive tour of the building blocks of the modern web — what each language does, why it exists, and when you'd actually reach for it.</p>
       <div class="article-meta">
-        <span>📅 April 2026</span>
-        <span>⏱ 8 min read</span>
+        <span data-i18n="meta-date">📅 April 2026</span>
+        <span data-i18n="meta-read">⏱ 8 min read</span>
         <span>🏷 HTML · CSS · JS · React · Next.js · Python · SQL</span>
       </div>
     </div>
   </div>
 
-  <!-- STICKY LANGUAGE NAV -->
+  <!-- STICKY PROGRAMMING-LANGUAGE NAV (article-internal tabs, not i18n) -->
   <div class="lang-nav-wrap">
     <div class="lang-nav" id="langNav">
       <button class="lang-btn active" data-lang="html" onclick="switchLang('html')">
@@ -303,8 +322,8 @@
     <div class="container">
 
       <div class="article-intro">
-        <p>You don't need to be a developer to benefit from understanding the tools developers use. As someone who works at the intersection of <strong>marketing, strategy, and data</strong>, I've found that even a surface-level grasp of these languages changes how you communicate with engineers, read analytics implementations, and make product decisions.</p>
-        <p>Pick a language below and explore what it does, how hard it is to learn, and where it runs.</p>
+        <p data-i18n="intro-p1">You don't need to be a developer to benefit from understanding the tools developers use. As someone who works at the intersection of <strong>marketing, strategy, and data</strong>, I've found that even a surface-level grasp of these languages changes how you communicate with engineers, read analytics implementations, and make product decisions.</p>
+        <p data-i18n="intro-p2">Pick a language below and explore what it does, how hard it is to learn, and where it runs.</p>
       </div>
 
       <!-- ── HTML ── -->
@@ -313,22 +332,22 @@
           <div class="lang-card-top" style="--top-color:#f07178;">
             <div class="lang-card-top" style="position:static; padding:0;">
               <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#f07178,#ff9a8b);"></div>
-              <div class="lang-badge" style="color:#f07178; border-color:rgba(240,113,120,.3); background:rgba(240,113,120,.08);">Language for Structure</div>
+              <div class="lang-badge" style="color:#f07178; border-color:rgba(240,113,120,.3); background:rgba(240,113,120,.08);" data-i18n="html-badge">Language for Structure</div>
               <div class="lang-name">HTML</div>
-              <div class="lang-desc">HyperText Markup Language is the skeleton of every web page. It defines the elements — headings, paragraphs, images, links, forms — but doesn't make them look good or behave interactively. That's CSS and JavaScript's job.</div>
+              <div class="lang-desc" data-i18n="html-desc">HyperText Markup Language is the skeleton of every web page. It defines the elements — headings, paragraphs, images, links, forms — but doesn't make them look good or behave interactively. That's CSS and JavaScript's job.</div>
               <div class="badge-row">
-                <div class="badge"><span class="badge-label">Type</span><span class="badge-val">Markup</span></div>
-                <div class="badge"><span class="badge-label">Difficulty</span><span class="badge-val">⭐ Beginner</span></div>
-                <div class="badge"><span class="badge-label">Runs in</span><span class="badge-val">Browser</span></div>
+                <div class="badge"><span class="badge-label" data-i18n="lbl-type">Type</span><span class="badge-val" data-i18n="html-type">Markup</span></div>
+                <div class="badge"><span class="badge-label" data-i18n="lbl-diff">Difficulty</span><span class="badge-val" data-i18n="html-diff">⭐ Beginner</span></div>
+                <div class="badge"><span class="badge-label" data-i18n="lbl-runs">Runs in</span><span class="badge-val" data-i18n="html-runs">Browser</span></div>
               </div>
               <div class="use-section">
-                <div class="use-label">When to use</div>
+                <div class="use-label" data-i18n="lbl-when">When to use</div>
                 <div class="use-tags">
-                  <span class="use-tag">Building any webpage</span>
-                  <span class="use-tag">Email templates</span>
-                  <span class="use-tag">Landing pages</span>
-                  <span class="use-tag">Reading page source</span>
-                  <span class="use-tag">Understanding SEO structure</span>
+                  <span class="use-tag" data-i18n="html-u1">Building any webpage</span>
+                  <span class="use-tag" data-i18n="html-u2">Email templates</span>
+                  <span class="use-tag" data-i18n="html-u3">Landing pages</span>
+                  <span class="use-tag" data-i18n="html-u4">Reading page source</span>
+                  <span class="use-tag" data-i18n="html-u5">Understanding SEO structure</span>
                 </div>
               </div>
             </div>
@@ -373,22 +392,22 @@
         <div class="lang-card">
           <div class="lang-card-top">
             <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#264de4,#6496ef);"></div>
-            <div class="lang-badge" style="color:#6496ef; border-color:rgba(100,150,239,.3); background:rgba(100,150,239,.08);">Language for Style</div>
+            <div class="lang-badge" style="color:#6496ef; border-color:rgba(100,150,239,.3); background:rgba(100,150,239,.08);" data-i18n="css-badge">Language for Style</div>
             <div class="lang-name">CSS</div>
-            <div class="lang-desc">Cascading Style Sheets control how HTML elements look — colors, fonts, spacing, layout, animations. Without CSS, every website would look like a Wikipedia page from 1999. Modern CSS with Flexbox and Grid is surprisingly powerful.</div>
+            <div class="lang-desc" data-i18n="css-desc">Cascading Style Sheets control how HTML elements look — colors, fonts, spacing, layout, animations. Without CSS, every website would look like a Wikipedia page from 1999. Modern CSS with Flexbox and Grid is surprisingly powerful.</div>
             <div class="badge-row">
-              <div class="badge"><span class="badge-label">Type</span><span class="badge-val">Style Sheet</span></div>
-              <div class="badge"><span class="badge-label">Difficulty</span><span class="badge-val">⭐⭐ Beginner+</span></div>
-              <div class="badge"><span class="badge-label">Runs in</span><span class="badge-val">Browser</span></div>
+              <div class="badge"><span class="badge-label" data-i18n="lbl-type">Type</span><span class="badge-val" data-i18n="css-type">Style Sheet</span></div>
+              <div class="badge"><span class="badge-label" data-i18n="lbl-diff">Difficulty</span><span class="badge-val" data-i18n="css-diff">⭐⭐ Beginner+</span></div>
+              <div class="badge"><span class="badge-label" data-i18n="lbl-runs">Runs in</span><span class="badge-val" data-i18n="css-runs">Browser</span></div>
             </div>
             <div class="use-section">
-              <div class="use-label">When to use</div>
+              <div class="use-label" data-i18n="lbl-when">When to use</div>
               <div class="use-tags">
-                <span class="use-tag">Designing web UI</span>
-                <span class="use-tag">Email styling</span>
-                <span class="use-tag">Responsive layouts</span>
-                <span class="use-tag">Animations & transitions</span>
-                <span class="use-tag">Dark/light mode</span>
+                <span class="use-tag" data-i18n="css-u1">Designing web UI</span>
+                <span class="use-tag" data-i18n="css-u2">Email styling</span>
+                <span class="use-tag" data-i18n="css-u3">Responsive layouts</span>
+                <span class="use-tag" data-i18n="css-u4">Animations &amp; transitions</span>
+                <span class="use-tag" data-i18n="css-u5">Dark/light mode</span>
               </div>
             </div>
           </div>
@@ -434,23 +453,23 @@
         <div class="lang-card">
           <div class="lang-card-top">
             <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#f0db4f,#f5e67a);"></div>
-            <div class="lang-badge" style="color:#c8a800; border-color:rgba(200,168,0,.3); background:rgba(200,168,0,.08);">Language for Behavior</div>
+            <div class="lang-badge" style="color:#c8a800; border-color:rgba(200,168,0,.3); background:rgba(200,168,0,.08);" data-i18n="js-badge">Language for Behavior</div>
             <div class="lang-name">JavaScript</div>
-            <div class="lang-desc">The only programming language that runs natively in every browser. JavaScript makes pages interactive — form validation, dropdown menus, live search, data fetching, animations. It also runs on servers (Node.js) and powers most of the modern web stack.</div>
+            <div class="lang-desc" data-i18n="js-desc">The only programming language that runs natively in every browser. JavaScript makes pages interactive — form validation, dropdown menus, live search, data fetching, animations. It also runs on servers (Node.js) and powers most of the modern web stack.</div>
             <div class="badge-row">
-              <div class="badge"><span class="badge-label">Type</span><span class="badge-val">Programming</span></div>
-              <div class="badge"><span class="badge-label">Difficulty</span><span class="badge-val">⭐⭐⭐ Intermediate</span></div>
-              <div class="badge"><span class="badge-label">Runs in</span><span class="badge-val">Browser + Server</span></div>
+              <div class="badge"><span class="badge-label" data-i18n="lbl-type">Type</span><span class="badge-val" data-i18n="js-type">Programming</span></div>
+              <div class="badge"><span class="badge-label" data-i18n="lbl-diff">Difficulty</span><span class="badge-val" data-i18n="js-diff">⭐⭐⭐ Intermediate</span></div>
+              <div class="badge"><span class="badge-label" data-i18n="lbl-runs">Runs in</span><span class="badge-val" data-i18n="js-runs">Browser + Server</span></div>
             </div>
             <div class="use-section">
-              <div class="use-label">When to use</div>
+              <div class="use-label" data-i18n="lbl-when">When to use</div>
               <div class="use-tags">
-                <span class="use-tag">Interactive UIs</span>
-                <span class="use-tag">Form validation</span>
-                <span class="use-tag">API calls</span>
-                <span class="use-tag">Analytics tracking</span>
-                <span class="use-tag">Web apps</span>
-                <span class="use-tag">Automation scripts</span>
+                <span class="use-tag" data-i18n="js-u1">Interactive UIs</span>
+                <span class="use-tag" data-i18n="js-u2">Form validation</span>
+                <span class="use-tag" data-i18n="js-u3">API calls</span>
+                <span class="use-tag" data-i18n="js-u4">Analytics tracking</span>
+                <span class="use-tag" data-i18n="js-u5">Web apps</span>
+                <span class="use-tag" data-i18n="js-u6">Automation scripts</span>
               </div>
             </div>
           </div>
@@ -486,22 +505,22 @@ document.<span class="fn">addEventListener</span>(<span class="str">'DOMContentL
         <div class="lang-card">
           <div class="lang-card-top">
             <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#61dafb,#a3eafd);"></div>
-            <div class="lang-badge" style="color:#61dafb; border-color:rgba(97,218,251,.3); background:rgba(97,218,251,.08);">UI Library</div>
+            <div class="lang-badge" style="color:#61dafb; border-color:rgba(97,218,251,.3); background:rgba(97,218,251,.08);" data-i18n="react-badge">UI Library</div>
             <div class="lang-name">React</div>
-            <div class="lang-desc">React is a JavaScript library (made by Meta) for building user interfaces out of reusable components. Instead of manually updating the DOM, you describe what the UI should look like — React handles the updates. Powers Facebook, Instagram, Airbnb, and most modern web apps.</div>
+            <div class="lang-desc" data-i18n="react-desc">React is a JavaScript library (made by Meta) for building user interfaces out of reusable components. Instead of manually updating the DOM, you describe what the UI should look like — React handles the updates. Powers Facebook, Instagram, Airbnb, and most modern web apps.</div>
             <div class="badge-row">
-              <div class="badge"><span class="badge-label">Type</span><span class="badge-val">UI Library</span></div>
-              <div class="badge"><span class="badge-label">Difficulty</span><span class="badge-val">⭐⭐⭐ Intermediate</span></div>
-              <div class="badge"><span class="badge-label">Runs in</span><span class="badge-val">Browser + Server</span></div>
+              <div class="badge"><span class="badge-label" data-i18n="lbl-type">Type</span><span class="badge-val" data-i18n="react-type">UI Library</span></div>
+              <div class="badge"><span class="badge-label" data-i18n="lbl-diff">Difficulty</span><span class="badge-val" data-i18n="react-diff">⭐⭐⭐ Intermediate</span></div>
+              <div class="badge"><span class="badge-label" data-i18n="lbl-runs">Runs in</span><span class="badge-val" data-i18n="react-runs">Browser + Server</span></div>
             </div>
             <div class="use-section">
-              <div class="use-label">When to use</div>
+              <div class="use-label" data-i18n="lbl-when">When to use</div>
               <div class="use-tags">
-                <span class="use-tag">SaaS dashboards</span>
-                <span class="use-tag">Complex web apps</span>
-                <span class="use-tag">Reusable UI components</span>
-                <span class="use-tag">Real-time data UIs</span>
-                <span class="use-tag">Single-page apps</span>
+                <span class="use-tag" data-i18n="react-u1">SaaS dashboards</span>
+                <span class="use-tag" data-i18n="react-u2">Complex web apps</span>
+                <span class="use-tag" data-i18n="react-u3">Reusable UI components</span>
+                <span class="use-tag" data-i18n="react-u4">Real-time data UIs</span>
+                <span class="use-tag" data-i18n="react-u5">Single-page apps</span>
               </div>
             </div>
           </div>
@@ -539,23 +558,23 @@ document.<span class="fn">addEventListener</span>(<span class="str">'DOMContentL
         <div class="lang-card">
           <div class="lang-card-top">
             <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#e8e8f0,#a0a0b0);"></div>
-            <div class="lang-badge" style="color:#b0b0c0; border-color:rgba(200,200,220,.25); background:rgba(200,200,220,.06);">Full-Stack Framework</div>
+            <div class="lang-badge" style="color:#b0b0c0; border-color:rgba(200,200,220,.25); background:rgba(200,200,220,.06);" data-i18n="next-badge">Full-Stack Framework</div>
             <div class="lang-name">Next.js</div>
-            <div class="lang-desc">Next.js is a framework built on top of React that adds server-side rendering, routing, and API routes out of the box. It's what most modern startups use to build their marketing sites and web apps — it's fast, SEO-friendly, and deployable in minutes on Vercel.</div>
+            <div class="lang-desc" data-i18n="next-desc">Next.js is a framework built on top of React that adds server-side rendering, routing, and API routes out of the box. It's what most modern startups use to build their marketing sites and web apps — it's fast, SEO-friendly, and deployable in minutes on Vercel.</div>
             <div class="badge-row">
-              <div class="badge"><span class="badge-label">Type</span><span class="badge-val">Framework</span></div>
-              <div class="badge"><span class="badge-label">Difficulty</span><span class="badge-val">⭐⭐⭐⭐ Advanced</span></div>
-              <div class="badge"><span class="badge-label">Runs in</span><span class="badge-val">Browser + Server</span></div>
+              <div class="badge"><span class="badge-label" data-i18n="lbl-type">Type</span><span class="badge-val" data-i18n="next-type">Framework</span></div>
+              <div class="badge"><span class="badge-label" data-i18n="lbl-diff">Difficulty</span><span class="badge-val" data-i18n="next-diff">⭐⭐⭐⭐ Advanced</span></div>
+              <div class="badge"><span class="badge-label" data-i18n="lbl-runs">Runs in</span><span class="badge-val" data-i18n="next-runs">Browser + Server</span></div>
             </div>
             <div class="use-section">
-              <div class="use-label">When to use</div>
+              <div class="use-label" data-i18n="lbl-when">When to use</div>
               <div class="use-tags">
-                <span class="use-tag">Marketing websites</span>
-                <span class="use-tag">SaaS products</span>
-                <span class="use-tag">SEO-critical pages</span>
-                <span class="use-tag">Blog & CMS</span>
-                <span class="use-tag">E-commerce</span>
-                <span class="use-tag">Full-stack apps</span>
+                <span class="use-tag" data-i18n="next-u1">Marketing websites</span>
+                <span class="use-tag" data-i18n="next-u2">SaaS products</span>
+                <span class="use-tag" data-i18n="next-u3">SEO-critical pages</span>
+                <span class="use-tag" data-i18n="next-u4">Blog &amp; CMS</span>
+                <span class="use-tag" data-i18n="next-u5">E-commerce</span>
+                <span class="use-tag" data-i18n="next-u6">Full-stack apps</span>
               </div>
             </div>
           </div>
@@ -594,23 +613,23 @@ document.<span class="fn">addEventListener</span>(<span class="str">'DOMContentL
         <div class="lang-card">
           <div class="lang-card-top">
             <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#3572a5,#ffd54f);"></div>
-            <div class="lang-badge" style="color:#5ba3d9; border-color:rgba(91,163,217,.3); background:rgba(91,163,217,.08);">General Purpose Language</div>
+            <div class="lang-badge" style="color:#5ba3d9; border-color:rgba(91,163,217,.3); background:rgba(91,163,217,.08);" data-i18n="py-badge">General Purpose Language</div>
             <div class="lang-name">Python</div>
-            <div class="lang-desc">Python is the most readable general-purpose language — it reads almost like English. It dominates data science, machine learning, automation, and backend development. If you want to analyze a spreadsheet with code, scrape a website, or build an AI pipeline, Python is your tool.</div>
+            <div class="lang-desc" data-i18n="py-desc">Python is the most readable general-purpose language — it reads almost like English. It dominates data science, machine learning, automation, and backend development. If you want to analyze a spreadsheet with code, scrape a website, or build an AI pipeline, Python is your tool.</div>
             <div class="badge-row">
-              <div class="badge"><span class="badge-label">Type</span><span class="badge-val">Programming</span></div>
-              <div class="badge"><span class="badge-label">Difficulty</span><span class="badge-val">⭐⭐ Beginner+</span></div>
-              <div class="badge"><span class="badge-label">Runs in</span><span class="badge-val">Server / Local</span></div>
+              <div class="badge"><span class="badge-label" data-i18n="lbl-type">Type</span><span class="badge-val" data-i18n="py-type">Programming</span></div>
+              <div class="badge"><span class="badge-label" data-i18n="lbl-diff">Difficulty</span><span class="badge-val" data-i18n="py-diff">⭐⭐ Beginner+</span></div>
+              <div class="badge"><span class="badge-label" data-i18n="lbl-runs">Runs in</span><span class="badge-val" data-i18n="py-runs">Server / Local</span></div>
             </div>
             <div class="use-section">
-              <div class="use-label">When to use</div>
+              <div class="use-label" data-i18n="lbl-when">When to use</div>
               <div class="use-tags">
-                <span class="use-tag">Data analysis</span>
-                <span class="use-tag">Automation scripts</span>
-                <span class="use-tag">Machine learning</span>
-                <span class="use-tag">Backend APIs</span>
-                <span class="use-tag">Web scraping</span>
-                <span class="use-tag">Report generation</span>
+                <span class="use-tag" data-i18n="py-u1">Data analysis</span>
+                <span class="use-tag" data-i18n="py-u2">Automation scripts</span>
+                <span class="use-tag" data-i18n="py-u3">Machine learning</span>
+                <span class="use-tag" data-i18n="py-u4">Backend APIs</span>
+                <span class="use-tag" data-i18n="py-u5">Web scraping</span>
+                <span class="use-tag" data-i18n="py-u6">Report generation</span>
               </div>
             </div>
           </div>
@@ -646,23 +665,23 @@ winners <span class="op">=</span> (df[df[<span class="str">'status'</span>] <spa
         <div class="lang-card">
           <div class="lang-card-top">
             <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#e97c37,#f5a462);"></div>
-            <div class="lang-badge" style="color:#e97c37; border-color:rgba(233,124,55,.3); background:rgba(233,124,55,.08);">Language for Data</div>
+            <div class="lang-badge" style="color:#e97c37; border-color:rgba(233,124,55,.3); background:rgba(233,124,55,.08);" data-i18n="sql-badge">Language for Data</div>
             <div class="lang-name">SQL</div>
-            <div class="lang-desc">Structured Query Language is how you talk to databases. Every analytics platform — Google Analytics, Mixpanel, Redshift, BigQuery — has SQL underneath. If you've ever wanted to answer "show me all users who signed up in Q1 and made a purchase within 7 days," SQL is the answer.</div>
+            <div class="lang-desc" data-i18n="sql-desc">Structured Query Language is how you talk to databases. Every analytics platform — Google Analytics, Mixpanel, Redshift, BigQuery — has SQL underneath. If you've ever wanted to answer "show me all users who signed up in Q1 and made a purchase within 7 days," SQL is the answer.</div>
             <div class="badge-row">
-              <div class="badge"><span class="badge-label">Type</span><span class="badge-val">Query Language</span></div>
-              <div class="badge"><span class="badge-label">Difficulty</span><span class="badge-val">⭐⭐ Beginner+</span></div>
-              <div class="badge"><span class="badge-label">Runs in</span><span class="badge-val">Database</span></div>
+              <div class="badge"><span class="badge-label" data-i18n="lbl-type">Type</span><span class="badge-val" data-i18n="sql-type">Query Language</span></div>
+              <div class="badge"><span class="badge-label" data-i18n="lbl-diff">Difficulty</span><span class="badge-val" data-i18n="sql-diff">⭐⭐ Beginner+</span></div>
+              <div class="badge"><span class="badge-label" data-i18n="lbl-runs">Runs in</span><span class="badge-val" data-i18n="sql-runs">Database</span></div>
             </div>
             <div class="use-section">
-              <div class="use-label">When to use</div>
+              <div class="use-label" data-i18n="lbl-when">When to use</div>
               <div class="use-tags">
-                <span class="use-tag">Business analytics</span>
-                <span class="use-tag">User segmentation</span>
-                <span class="use-tag">Funnel analysis</span>
-                <span class="use-tag">Cohort analysis</span>
-                <span class="use-tag">Revenue reporting</span>
-                <span class="use-tag">Data exploration</span>
+                <span class="use-tag" data-i18n="sql-u1">Business analytics</span>
+                <span class="use-tag" data-i18n="sql-u2">User segmentation</span>
+                <span class="use-tag" data-i18n="sql-u3">Funnel analysis</span>
+                <span class="use-tag" data-i18n="sql-u4">Cohort analysis</span>
+                <span class="use-tag" data-i18n="sql-u5">Revenue reporting</span>
+                <span class="use-tag" data-i18n="sql-u6">Data exploration</span>
               </div>
             </div>
           </div>
@@ -708,38 +727,245 @@ winners <span class="op">=</span> (df[df[<span class="str">'status'</span>] <spa
       <div class="inner">
         <p>© 2026 Dominik Maslan. Growth Architect.</p>
         <div class="links">
-          <a href="../index.html">Home</a>
-          <a href="../blog.html">Blog</a>
-          <a href="../index.html#contact">Contact</a>
+          <a href="../index.html" data-i18n="ft-home">Home</a>
+          <a href="../blog.html" data-i18n="ft-blog">Blog</a>
+          <a href="../index.html#contact" data-i18n="ft-contact">Contact</a>
         </div>
       </div>
     </div>
   </footer>
 
   <script>
-    // Sticky nav
+    // ── Sticky nav ──
     const navbar = document.getElementById('navbar');
     window.addEventListener('scroll', () => {
       navbar.classList.toggle('scrolled', window.scrollY > 40);
     });
 
-    // Language switcher
+    // ── Programming-language tab switcher (article-internal) ──
     function switchLang(lang) {
-      // Update buttons
       document.querySelectorAll('.lang-btn').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.lang === lang);
       });
-      // Update panels
       document.querySelectorAll('.lang-panel').forEach(panel => {
         panel.classList.toggle('active', panel.id === 'panel-' + lang);
       });
-      // Scroll panel into view smoothly
       const panel = document.getElementById('panel-' + lang);
       if (panel) {
         const offset = panel.getBoundingClientRect().top + window.scrollY - 120;
         window.scrollTo({ top: offset, behavior: 'smooth' });
       }
     }
+
+    // ── i18n (EN / CZ) ──
+    const T = {
+      en: {
+        'nav-about':   'About',
+        'nav-expertise':'Expertise',
+        'nav-blog':    'Blog',
+        'nav-contact': 'Contact',
+        'bc-blog':     'Blog',
+        'bc-cat':      'Tech',
+        'article-cat': 'Tech',
+        'article-h1':  '7 Programming Languages<br/><span class="gradient">Every Marketer Should Know</span>',
+        'article-desc':'An interactive tour of the building blocks of the modern web — what each language does, why it exists, and when you\'d actually reach for it.',
+        'meta-date':   '📅 April 2026',
+        'meta-read':   '⏱ 8 min read',
+        'intro-p1':    'You don\'t need to be a developer to benefit from understanding the tools developers use. As someone who works at the intersection of <strong>marketing, strategy, and data</strong>, I\'ve found that even a surface-level grasp of these languages changes how you communicate with engineers, read analytics implementations, and make product decisions.',
+        'intro-p2':    'Pick a language below and explore what it does, how hard it is to learn, and where it runs.',
+        'lbl-type':    'Type',
+        'lbl-diff':    'Difficulty',
+        'lbl-runs':    'Runs in',
+        'lbl-when':    'When to use',
+        'html-badge':  'Language for Structure',
+        'html-desc':   'HyperText Markup Language is the skeleton of every web page. It defines the elements — headings, paragraphs, images, links, forms — but doesn\'t make them look good or behave interactively. That\'s CSS and JavaScript\'s job.',
+        'html-type':   'Markup',
+        'html-diff':   '⭐ Beginner',
+        'html-runs':   'Browser',
+        'html-u1':     'Building any webpage',
+        'html-u2':     'Email templates',
+        'html-u3':     'Landing pages',
+        'html-u4':     'Reading page source',
+        'html-u5':     'Understanding SEO structure',
+        'css-badge':   'Language for Style',
+        'css-desc':    'Cascading Style Sheets control how HTML elements look — colors, fonts, spacing, layout, animations. Without CSS, every website would look like a Wikipedia page from 1999. Modern CSS with Flexbox and Grid is surprisingly powerful.',
+        'css-type':    'Style Sheet',
+        'css-diff':    '⭐⭐ Beginner+',
+        'css-runs':    'Browser',
+        'css-u1':      'Designing web UI',
+        'css-u2':      'Email styling',
+        'css-u3':      'Responsive layouts',
+        'css-u4':      'Animations &amp; transitions',
+        'css-u5':      'Dark/light mode',
+        'js-badge':    'Language for Behavior',
+        'js-desc':     'The only programming language that runs natively in every browser. JavaScript makes pages interactive — form validation, dropdown menus, live search, data fetching, animations. It also runs on servers (Node.js) and powers most of the modern web stack.',
+        'js-type':     'Programming',
+        'js-diff':     '⭐⭐⭐ Intermediate',
+        'js-runs':     'Browser + Server',
+        'js-u1':       'Interactive UIs',
+        'js-u2':       'Form validation',
+        'js-u3':       'API calls',
+        'js-u4':       'Analytics tracking',
+        'js-u5':       'Web apps',
+        'js-u6':       'Automation scripts',
+        'react-badge': 'UI Library',
+        'react-desc':  'React is a JavaScript library (made by Meta) for building user interfaces out of reusable components. Instead of manually updating the DOM, you describe what the UI should look like — React handles the updates. Powers Facebook, Instagram, Airbnb, and most modern web apps.',
+        'react-type':  'UI Library',
+        'react-diff':  '⭐⭐⭐ Intermediate',
+        'react-runs':  'Browser + Server',
+        'react-u1':    'SaaS dashboards',
+        'react-u2':    'Complex web apps',
+        'react-u3':    'Reusable UI components',
+        'react-u4':    'Real-time data UIs',
+        'react-u5':    'Single-page apps',
+        'next-badge':  'Full-Stack Framework',
+        'next-desc':   'Next.js is a framework built on top of React that adds server-side rendering, routing, and API routes out of the box. It\'s what most modern startups use to build their marketing sites and web apps — it\'s fast, SEO-friendly, and deployable in minutes on Vercel.',
+        'next-type':   'Framework',
+        'next-diff':   '⭐⭐⭐⭐ Advanced',
+        'next-runs':   'Browser + Server',
+        'next-u1':     'Marketing websites',
+        'next-u2':     'SaaS products',
+        'next-u3':     'SEO-critical pages',
+        'next-u4':     'Blog &amp; CMS',
+        'next-u5':     'E-commerce',
+        'next-u6':     'Full-stack apps',
+        'py-badge':    'General Purpose Language',
+        'py-desc':     'Python is the most readable general-purpose language — it reads almost like English. It dominates data science, machine learning, automation, and backend development. If you want to analyze a spreadsheet with code, scrape a website, or build an AI pipeline, Python is your tool.',
+        'py-type':     'Programming',
+        'py-diff':     '⭐⭐ Beginner+',
+        'py-runs':     'Server / Local',
+        'py-u1':       'Data analysis',
+        'py-u2':       'Automation scripts',
+        'py-u3':       'Machine learning',
+        'py-u4':       'Backend APIs',
+        'py-u5':       'Web scraping',
+        'py-u6':       'Report generation',
+        'sql-badge':   'Language for Data',
+        'sql-desc':    'Structured Query Language is how you talk to databases. Every analytics platform — Google Analytics, Mixpanel, Redshift, BigQuery — has SQL underneath. If you\'ve ever wanted to answer "show me all users who signed up in Q1 and made a purchase within 7 days," SQL is the answer.',
+        'sql-type':    'Query Language',
+        'sql-diff':    '⭐⭐ Beginner+',
+        'sql-runs':    'Database',
+        'sql-u1':      'Business analytics',
+        'sql-u2':      'User segmentation',
+        'sql-u3':      'Funnel analysis',
+        'sql-u4':      'Cohort analysis',
+        'sql-u5':      'Revenue reporting',
+        'sql-u6':      'Data exploration',
+        'ft-home':     'Home',
+        'ft-blog':     'Blog',
+        'ft-contact':  'Contact',
+      },
+      cs: {
+        'nav-about':   'O mně',
+        'nav-expertise':'Odbornost',
+        'nav-blog':    'Blog',
+        'nav-contact': 'Kontakt',
+        'bc-blog':     'Blog',
+        'bc-cat':      'Tech',
+        'article-cat': 'Tech',
+        'article-h1':  '7 programovacích jazyků,<br/><span class="gradient">které by každý marketér měl znát</span>',
+        'article-desc':'Interaktivní průvodce stavebními kameny moderního webu — co každý jazyk dělá, proč existuje a kdy po něm skutečně sáhnout.',
+        'meta-date':   '📅 Duben 2026',
+        'meta-read':   '⏱ 8 min čtení',
+        'intro-p1':    'Abyste měli z porozumění nástrojům vývojářů prospěch, nemusíte být vývojář. Jako někdo, kdo pracuje na průsečíku <strong>marketingu, strategie a dat</strong>, jsem zjistil, že i povrchní znalost těchto jazyků mění způsob, jakým komunikujete s inženýry, čtete analytické implementace a děláte produktová rozhodnutí.',
+        'intro-p2':    'Vyberte jazyk níže a prozkoumejte, co dělá, jak těžké je se ho naučit a kde běží.',
+        'lbl-type':    'Typ',
+        'lbl-diff':    'Obtížnost',
+        'lbl-runs':    'Běží v',
+        'lbl-when':    'Kdy použít',
+        'html-badge':  'Jazyk pro strukturu',
+        'html-desc':   'HyperText Markup Language je kostra každé webové stránky. Definuje prvky — nadpisy, odstavce, obrázky, odkazy, formuláře — ale nestará se o to, aby vypadaly hezky nebo se interaktivně chovaly. To je práce CSS a JavaScriptu.',
+        'html-type':   'Markup',
+        'html-diff':   '⭐ Začátečník',
+        'html-runs':   'Prohlížeč',
+        'html-u1':     'Tvorba jakékoliv webové stránky',
+        'html-u2':     'E-mailové šablony',
+        'html-u3':     'Landing pages',
+        'html-u4':     'Čtení zdrojového kódu',
+        'html-u5':     'Pochopení SEO struktury',
+        'css-badge':   'Jazyk pro vzhled',
+        'css-desc':    'Cascading Style Sheets určují, jak HTML prvky vypadají — barvy, písma, mezery, rozvržení, animace. Bez CSS by každý web vypadal jako stránka Wikipedie z roku 1999. Moderní CSS s Flexbox a Grid je překvapivě mocné.',
+        'css-type':    'Style Sheet',
+        'css-diff':    '⭐⭐ Začátečník+',
+        'css-runs':    'Prohlížeč',
+        'css-u1':      'Návrh webového UI',
+        'css-u2':      'Styling e-mailů',
+        'css-u3':      'Responzivní rozvržení',
+        'css-u4':      'Animace &amp; přechody',
+        'css-u5':      'Tmavý/světlý režim',
+        'js-badge':    'Jazyk pro chování',
+        'js-desc':     'Jediný programovací jazyk, který nativně běží v každém prohlížeči. JavaScript dělá stránky interaktivními — validace formulářů, rozbalovací nabídky, živé vyhledávání, načítání dat, animace. Běží také na serverech (Node.js) a pohání většinu moderního webového stacku.',
+        'js-type':     'Programovací',
+        'js-diff':     '⭐⭐⭐ Středně pokročilý',
+        'js-runs':     'Prohlížeč + Server',
+        'js-u1':       'Interaktivní UI',
+        'js-u2':       'Validace formulářů',
+        'js-u3':       'API volání',
+        'js-u4':       'Analytics tracking',
+        'js-u5':       'Webové aplikace',
+        'js-u6':       'Automatizační skripty',
+        'react-badge': 'UI knihovna',
+        'react-desc':  'React je JavaScriptová knihovna (od Mety) pro tvorbu uživatelských rozhraní z opakovaně použitelných komponent. Místo ručního updatování DOM popisujete, jak má UI vypadat — React se postará o aktualizace. Pohání Facebook, Instagram, Airbnb a většinu moderních webových aplikací.',
+        'react-type':  'UI knihovna',
+        'react-diff':  '⭐⭐⭐ Středně pokročilý',
+        'react-runs':  'Prohlížeč + Server',
+        'react-u1':    'SaaS dashboardy',
+        'react-u2':    'Komplexní webové aplikace',
+        'react-u3':    'Znovupoužitelné UI komponenty',
+        'react-u4':    'Real-time datová UI',
+        'react-u5':    'Single-page aplikace',
+        'next-badge':  'Full-Stack Framework',
+        'next-desc':   'Next.js je framework postavený na Reactu, který přidává server-side rendering, routing a API routes hned po instalaci. Právě to používá většina moderních startupů pro tvorbu marketingových webů a aplikací — je rychlý, SEO-friendly a nasaditelný během minut na Vercel.',
+        'next-type':   'Framework',
+        'next-diff':   '⭐⭐⭐⭐ Pokročilý',
+        'next-runs':   'Prohlížeč + Server',
+        'next-u1':     'Marketingové weby',
+        'next-u2':     'SaaS produkty',
+        'next-u3':     'SEO-kritické stránky',
+        'next-u4':     'Blog &amp; CMS',
+        'next-u5':     'E-commerce',
+        'next-u6':     'Full-stack aplikace',
+        'py-badge':    'Univerzální jazyk',
+        'py-desc':     'Python je nejčitelnější univerzální jazyk — čte se téměř jako angličtina. Dominuje v data science, machine learningu, automatizaci a backend vývoji. Pokud chcete analyzovat tabulku kódem, scrapovat web nebo vybudovat AI pipeline, Python je váš nástroj.',
+        'py-type':     'Programovací',
+        'py-diff':     '⭐⭐ Začátečník+',
+        'py-runs':     'Server / Lokálně',
+        'py-u1':       'Analýza dat',
+        'py-u2':       'Automatizační skripty',
+        'py-u3':       'Machine learning',
+        'py-u4':       'Backend API',
+        'py-u5':       'Web scraping',
+        'py-u6':       'Generování reportů',
+        'sql-badge':   'Jazyk pro data',
+        'sql-desc':    'Structured Query Language je způsob, jak mluvit s databázemi. Každá analytická platforma — Google Analytics, Mixpanel, Redshift, BigQuery — má pod sebou SQL. Pokud jste někdy chtěli odpovědět na otázku „ukaž mi všechny uživatele, kteří se registrovali v Q1 a nakoupili do 7 dní," SQL je odpověď.',
+        'sql-type':    'Dotazovací jazyk',
+        'sql-diff':    '⭐⭐ Začátečník+',
+        'sql-runs':    'Databáze',
+        'sql-u1':      'Business analytics',
+        'sql-u2':      'Segmentace uživatelů',
+        'sql-u3':      'Funnel analýza',
+        'sql-u4':      'Kohortová analýza',
+        'sql-u5':      'Reportování příjmů',
+        'sql-u6':      'Průzkum dat',
+        'ft-home':     'Domů',
+        'ft-blog':     'Blog',
+        'ft-contact':  'Kontakt',
+      }
+    };
+
+    function setLocale(loc) {
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const v = T[loc]?.[el.dataset.i18n];
+        if (v !== undefined) el.innerHTML = v;
+      });
+      document.querySelectorAll('.i18n-btn').forEach(b => {
+        b.classList.toggle('active', b.dataset.locale === loc);
+      });
+      localStorage.setItem('locale', loc);
+      document.documentElement.lang = loc;
+    }
+
+    setLocale(localStorage.getItem('locale') || 'en');
   </script>
 </body>
 </html>

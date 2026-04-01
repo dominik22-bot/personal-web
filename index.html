@@ -86,6 +86,32 @@
     }
     .nav-links a:hover { color: var(--text); }
 
+    /* ── Language toggle ── */
+    .i18n-toggle {
+      display: flex;
+      align-items: center;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .i18n-btn {
+      padding: 6px 12px;
+      background: none;
+      border: none;
+      color: var(--muted);
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .06em;
+      transition: all .15s;
+      line-height: 1;
+    }
+    .i18n-btn.active { background: var(--accent); color: #0a0a0c; }
+    .i18n-btn:hover:not(.active) { color: var(--text); }
+
     /* ── Hero ── */
     #hero {
       min-height: 100vh;
@@ -421,11 +447,15 @@
     <div class="inner">
       <a href="#hero" class="nav-logo">DM<span>.</span></a>
       <ul class="nav-links">
-        <li><a href="#about">About</a></li>
-        <li><a href="#expertise">Expertise</a></li>
-        <li><a href="blog.html">Blog</a></li>
-        <li><a href="#contact">Contact</a></li>
+        <li><a href="#about" data-i18n="nav-about">About</a></li>
+        <li><a href="#expertise" data-i18n="nav-expertise">Expertise</a></li>
+        <li><a href="blog.html" data-i18n="nav-blog">Blog</a></li>
+        <li><a href="#contact" data-i18n="nav-contact">Contact</a></li>
       </ul>
+      <div class="i18n-toggle">
+        <button class="i18n-btn" data-locale="en" onclick="setLocale('en')">EN</button>
+        <button class="i18n-btn" data-locale="cs" onclick="setLocale('cs')">CZ</button>
+      </div>
     </div>
   </nav>
 
@@ -434,24 +464,20 @@
     <div class="container">
       <div class="hero-inner">
         <div>
-          <p class="hero-eyebrow">Available for advisory &amp; consulting</p>
-          <h1>
-            Growth<br/>
-            <span class="gradient">Architect</span><br/>
-            for Startups.
-          </h1>
-          <p class="hero-sub">
+          <p class="hero-eyebrow" data-i18n="hero-eyebrow">Available for advisory &amp; consulting</p>
+          <h1 data-i18n="hero-h1">Growth<br/><span class="gradient">Architect</span><br/>for Startups.</h1>
+          <p class="hero-sub" data-i18n="hero-sub">
             I help startups scale with clarity — blending performance marketing, brand strategy,
             and data literacy into growth systems that compound over time.
           </p>
           <div class="btn-group">
-            <a href="#contact" class="btn btn-primary">Work with me</a>
-            <a href="#about" class="btn btn-ghost">My story</a>
+            <a href="#contact" class="btn btn-primary" data-i18n="btn-work">Work with me</a>
+            <a href="#about" class="btn btn-ghost" data-i18n="btn-story">My story</a>
           </div>
         </div>
         <div class="hero-stat-card">
           <div class="num">7+</div>
-          <div class="label">Years in<br/>growth marketing</div>
+          <div class="label" data-i18n="stat-label">Years in<br/>growth marketing</div>
         </div>
       </div>
     </div>
@@ -461,22 +487,22 @@
   <section id="about">
     <div class="container">
       <div class="section-header">
-        <div class="tag">About</div>
-        <h2>Marketer by trade,<br/>architect by ambition.</h2>
+        <div class="tag" data-i18n="about-tag">About</div>
+        <h2 data-i18n="about-h2">Marketer by trade,<br/>architect by ambition.</h2>
       </div>
       <div class="grid">
         <div class="about-body">
-          <p>
+          <p data-i18n="about-p1">
             Over the past <strong>seven years</strong>, I've worked across the full spectrum of marketing —
             PPC and RTB campaigns, brand development, and account management — building an instinct for
             what actually moves the needle versus what just looks good in a report.
           </p>
-          <p>
+          <p data-i18n="about-p2">
             Today I serve as <strong>CMO at a startup building software for stock market investors</strong>,
             where the challenge is communicating complex financial tooling to a sophisticated audience
             that has zero patience for vague promises. Every message has to earn its place.
           </p>
-          <p>
+          <p data-i18n="about-p3">
             My long-term goal is to operate as a <strong>Growth Architect</strong> — a role that sits at
             the intersection of strategy, execution, and measurement. Not just a marketer,
             but someone who designs the systems that let companies grow with intention.
@@ -486,45 +512,45 @@
             <div class="timeline-item">
               <div class="timeline-dot"></div>
               <div>
-                <div class="year">Present</div>
-                <div class="role">CMO — Fintech Startup</div>
-                <div class="desc">Marketing software for stock market investors</div>
+                <div class="year" data-i18n="t1-year">Present</div>
+                <div class="role" data-i18n="t1-role">CMO — Fintech Startup</div>
+                <div class="desc" data-i18n="t1-desc">Marketing software for stock market investors</div>
               </div>
             </div>
             <div class="timeline-item">
               <div class="timeline-dot"></div>
               <div>
-                <div class="year">7 Years</div>
-                <div class="role">Performance &amp; Brand Marketing</div>
-                <div class="desc">PPC / RTB, branding, account management</div>
+                <div class="year" data-i18n="t2-year">7 Years</div>
+                <div class="role" data-i18n="t2-role">Performance &amp; Brand Marketing</div>
+                <div class="desc" data-i18n="t2-desc">PPC / RTB, branding, account management</div>
               </div>
             </div>
             <div class="timeline-item">
               <div class="timeline-dot"></div>
               <div>
-                <div class="year">Vision</div>
-                <div class="role">Growth Architect</div>
-                <div class="desc">Scaling startups through integrated growth systems</div>
+                <div class="year" data-i18n="t3-year">Vision</div>
+                <div class="role" data-i18n="t3-role">Growth Architect</div>
+                <div class="desc" data-i18n="t3-desc">Scaling startups through integrated growth systems</div>
               </div>
             </div>
           </div>
         </div>
 
         <div class="philosophy-card">
-          <h3>Core Philosophy</h3>
-          <p>
+          <h3 data-i18n="phil-title">Core Philosophy</h3>
+          <p data-i18n="phil-p1">
             Most marketing teams treat performance and brand as opposing forces — one is science,
             the other is art. I reject that framing entirely.
           </p>
-          <p>
+          <p data-i18n="phil-p2">
             <strong>Performance marketing without brand</strong> rents attention. It works until it
             doesn't, and you're always at the mercy of auction dynamics and algorithm changes.
           </p>
-          <p>
+          <p data-i18n="phil-p3">
             <strong>Brand without performance</strong> is faith-based marketing. Beautiful, perhaps,
             but impossible to optimize and hard to defend in a boardroom.
           </p>
-          <p>
+          <p data-i18n="phil-p4">
             The connective tissue between them is <strong>data literacy</strong> — the ability to ask
             the right questions, build measurement frameworks that reflect reality, and make decisions
             that serve both the quarter and the decade.
@@ -538,9 +564,9 @@
   <section id="expertise">
     <div class="container">
       <div class="section-header">
-        <div class="tag">Expertise</div>
-        <h2>Where I create<br/>the most leverage.</h2>
-        <p class="section-desc">
+        <div class="tag" data-i18n="exp-tag">Expertise</div>
+        <h2 data-i18n="exp-h2">Where I create<br/>the most leverage.</h2>
+        <p class="section-desc" data-i18n="exp-desc">
           Three disciplines, one integrated system. Each reinforces the others.
         </p>
       </div>
@@ -548,8 +574,8 @@
       <div class="cards">
         <div class="exp-card">
           <div class="icon">⚡</div>
-          <h3>Performance Marketing</h3>
-          <p>
+          <h3 data-i18n="exp1-h3">Performance Marketing</h3>
+          <p data-i18n="exp1-p">
             Paid acquisition that's built to scale — from initial channel testing to full-funnel
             optimization. I've run PPC and RTB campaigns where every euro had to justify itself.
           </p>
@@ -564,8 +590,8 @@
 
         <div class="exp-card">
           <div class="icon">✦</div>
-          <h3>Brand Building</h3>
-          <p>
+          <h3 data-i18n="exp2-h3">Brand Building</h3>
+          <p data-i18n="exp2-p">
             Positioning and narrative that create preference before a prospect ever clicks an ad.
             Brand isn't a logo — it's the reason someone chooses you when the specs look identical.
           </p>
@@ -580,8 +606,8 @@
 
         <div class="exp-card">
           <div class="icon">◈</div>
-          <h3>Data-Driven Growth</h3>
-          <p>
+          <h3 data-i18n="exp3-h3">Data-Driven Growth</h3>
+          <p data-i18n="exp3-p">
             Growth strategy grounded in measurement. I build frameworks that connect marketing
             activity to business outcomes — and help teams actually trust their numbers.
           </p>
@@ -598,8 +624,8 @@
       <div class="data-banner">
         <div class="banner-icon">◎</div>
         <div>
-          <h3>Data literacy is the difference.</h3>
-          <p>
+          <h3 data-i18n="banner-h3">Data literacy is the difference.</h3>
+          <p data-i18n="banner-p">
             Any marketer can run ads. Any brand consultant can write a positioning doc. What's rare
             is someone who can hold both worlds simultaneously — who speaks the language of creative
             and the language of dashboards, and knows which one the room needs to hear.
@@ -614,52 +640,52 @@
   <section id="contact">
     <div class="container">
       <div class="section-header">
-        <div class="tag">Contact</div>
-        <h2>Let's build something<br/>that compounds.</h2>
+        <div class="tag" data-i18n="contact-tag">Contact</div>
+        <h2 data-i18n="contact-h2">Let's build something<br/>that compounds.</h2>
       </div>
       <div class="inner">
         <form class="contact-form" onsubmit="handleSubmit(event)">
           <div class="form-row">
             <div class="field">
-              <label for="name">Name</label>
-              <input type="text" id="name" placeholder="Your name" required />
+              <label for="name" data-i18n="lbl-name">Name</label>
+              <input type="text" id="name" data-i18n-placeholder="ph-name" placeholder="Your name" required />
             </div>
             <div class="field">
-              <label for="email">Email</label>
+              <label for="email" data-i18n="lbl-email">Email</label>
               <input type="email" id="email" placeholder="you@company.com" required />
             </div>
           </div>
           <div class="field">
-            <label for="company">Company</label>
-            <input type="text" id="company" placeholder="Company or startup" />
+            <label for="company" data-i18n="lbl-company">Company</label>
+            <input type="text" id="company" data-i18n-placeholder="ph-company" placeholder="Company or startup" />
           </div>
           <div class="field">
-            <label for="topic">What are you working on?</label>
+            <label for="topic" data-i18n="lbl-topic">What are you working on?</label>
             <select id="topic">
-              <option value="">Select a topic…</option>
-              <option>Growth strategy &amp; advisory</option>
-              <option>Performance marketing</option>
-              <option>Brand &amp; positioning</option>
-              <option>CMO fractional work</option>
-              <option>Something else</option>
+              <option value="" data-i18n="opt-0">Select a topic…</option>
+              <option data-i18n="opt-1">Growth strategy &amp; advisory</option>
+              <option data-i18n="opt-2">Performance marketing</option>
+              <option data-i18n="opt-3">Brand &amp; positioning</option>
+              <option data-i18n="opt-4">CMO fractional work</option>
+              <option data-i18n="opt-5">Something else</option>
             </select>
           </div>
           <div class="field">
-            <label for="message">Message</label>
-            <textarea id="message" placeholder="Tell me about your stage, challenge, or goal…"></textarea>
+            <label for="message" data-i18n="lbl-message">Message</label>
+            <textarea id="message" data-i18n-placeholder="ph-message" placeholder="Tell me about your stage, challenge, or goal…"></textarea>
           </div>
-          <button type="submit" class="btn btn-primary" style="align-self: flex-start;">
+          <button type="submit" class="btn btn-primary" style="align-self: flex-start;" data-i18n="btn-send">
             Send message →
           </button>
-          <p id="form-status" style="font-size:14px; color: var(--accent); display:none;">
+          <p id="form-status" style="font-size:14px; color: var(--accent); display:none;" data-i18n="form-success">
             Message sent — I'll be in touch soon.
           </p>
         </form>
 
         <div class="contact-info">
           <div>
-            <h3>I work best with</h3>
-            <p>
+            <h3 data-i18n="ci-h3">I work best with</h3>
+            <p data-i18n="ci-p">
               Early-to-mid stage startups that are past zero but haven't yet cracked scalable growth.
               Teams that want to build something that lasts, not just hit next month's number.
             </p>
@@ -675,7 +701,7 @@
             </a>
           </div>
           <div>
-            <p style="font-size:14px; color: var(--muted);">
+            <p style="font-size:14px; color: var(--muted);" data-i18n="ci-time">
               Response time: typically within 24–48 hours.
             </p>
           </div>
@@ -690,28 +716,28 @@
       <div class="inner">
         <p>© 2026 Dominik Maslan. Growth Architect.</p>
         <div class="links">
-          <a href="#hero">Top</a>
-          <a href="#about">About</a>
-          <a href="#expertise">Expertise</a>
-          <a href="#contact">Contact</a>
+          <a href="#hero" data-i18n="ft-top">Top</a>
+          <a href="#about" data-i18n="ft-about">About</a>
+          <a href="#expertise" data-i18n="ft-expertise">Expertise</a>
+          <a href="#contact" data-i18n="ft-contact">Contact</a>
         </div>
       </div>
     </div>
   </footer>
 
   <script>
-    // Sticky nav
+    // ── Sticky nav ──
     const navbar = document.getElementById('navbar');
     window.addEventListener('scroll', () => {
       navbar.classList.toggle('scrolled', window.scrollY > 40);
     });
 
-    // Form submit (demo)
+    // ── Form submit (demo) ──
     function handleSubmit(e) {
       e.preventDefault();
       const btn = e.target.querySelector('button[type="submit"]');
       const status = document.getElementById('form-status');
-      btn.textContent = 'Sending…';
+      btn.textContent = currentLocale === 'cs' ? 'Odesílám…' : 'Sending…';
       btn.disabled = true;
       setTimeout(() => {
         btn.style.display = 'none';
@@ -719,6 +745,166 @@
         e.target.reset();
       }, 900);
     }
+
+    // ── i18n ──
+    const T = {
+      en: {
+        'nav-about':    'About',
+        'nav-expertise':'Expertise',
+        'nav-blog':     'Blog',
+        'nav-contact':  'Contact',
+        'hero-eyebrow': 'Available for advisory &amp; consulting',
+        'hero-h1':      'Growth<br/><span class="gradient">Architect</span><br/>for Startups.',
+        'hero-sub':     'I help startups scale with clarity — blending performance marketing, brand strategy, and data literacy into growth systems that compound over time.',
+        'btn-work':     'Work with me',
+        'btn-story':    'My story',
+        'stat-label':   'Years in<br/>growth marketing',
+        'about-tag':    'About',
+        'about-h2':     'Marketer by trade,<br/>architect by ambition.',
+        'about-p1':     'Over the past <strong>seven years</strong>, I\'ve worked across the full spectrum of marketing — PPC and RTB campaigns, brand development, and account management — building an instinct for what actually moves the needle versus what just looks good in a report.',
+        'about-p2':     'Today I serve as <strong>CMO at a startup building software for stock market investors</strong>, where the challenge is communicating complex financial tooling to a sophisticated audience that has zero patience for vague promises. Every message has to earn its place.',
+        'about-p3':     'My long-term goal is to operate as a <strong>Growth Architect</strong> — a role that sits at the intersection of strategy, execution, and measurement. Not just a marketer, but someone who designs the systems that let companies grow with intention.',
+        't1-year':      'Present',
+        't1-role':      'CMO — Fintech Startup',
+        't1-desc':      'Marketing software for stock market investors',
+        't2-year':      '7 Years',
+        't2-role':      'Performance &amp; Brand Marketing',
+        't2-desc':      'PPC / RTB, branding, account management',
+        't3-year':      'Vision',
+        't3-role':      'Growth Architect',
+        't3-desc':      'Scaling startups through integrated growth systems',
+        'phil-title':   'Core Philosophy',
+        'phil-p1':      'Most marketing teams treat performance and brand as opposing forces — one is science, the other is art. I reject that framing entirely.',
+        'phil-p2':      '<strong>Performance marketing without brand</strong> rents attention. It works until it doesn\'t, and you\'re always at the mercy of auction dynamics and algorithm changes.',
+        'phil-p3':      '<strong>Brand without performance</strong> is faith-based marketing. Beautiful, perhaps, but impossible to optimize and hard to defend in a boardroom.',
+        'phil-p4':      'The connective tissue between them is <strong>data literacy</strong> — the ability to ask the right questions, build measurement frameworks that reflect reality, and make decisions that serve both the quarter and the decade.',
+        'exp-tag':      'Expertise',
+        'exp-h2':       'Where I create<br/>the most leverage.',
+        'exp-desc':     'Three disciplines, one integrated system. Each reinforces the others.',
+        'exp1-h3':      'Performance Marketing',
+        'exp1-p':       'Paid acquisition that\'s built to scale — from initial channel testing to full-funnel optimization. I\'ve run PPC and RTB campaigns where every euro had to justify itself.',
+        'exp2-h3':      'Brand Building',
+        'exp2-p':       'Positioning and narrative that create preference before a prospect ever clicks an ad. Brand isn\'t a logo — it\'s the reason someone chooses you when the specs look identical.',
+        'exp3-h3':      'Data-Driven Growth',
+        'exp3-p':       'Growth strategy grounded in measurement. I build frameworks that connect marketing activity to business outcomes — and help teams actually trust their numbers.',
+        'banner-h3':    'Data literacy is the difference.',
+        'banner-p':     'Any marketer can run ads. Any brand consultant can write a positioning doc. What\'s rare is someone who can hold both worlds simultaneously — who speaks the language of creative and the language of dashboards, and knows which one the room needs to hear. That\'s the edge I bring.',
+        'contact-tag':  'Contact',
+        'contact-h2':   'Let\'s build something<br/>that compounds.',
+        'lbl-name':     'Name',
+        'ph-name':      'Your name',
+        'lbl-email':    'Email',
+        'lbl-company':  'Company',
+        'ph-company':   'Company or startup',
+        'lbl-topic':    'What are you working on?',
+        'opt-0':        'Select a topic…',
+        'opt-1':        'Growth strategy &amp; advisory',
+        'opt-2':        'Performance marketing',
+        'opt-3':        'Brand &amp; positioning',
+        'opt-4':        'CMO fractional work',
+        'opt-5':        'Something else',
+        'lbl-message':  'Message',
+        'ph-message':   'Tell me about your stage, challenge, or goal…',
+        'btn-send':     'Send message →',
+        'form-success': 'Message sent — I\'ll be in touch soon.',
+        'ci-h3':        'I work best with',
+        'ci-p':         'Early-to-mid stage startups that are past zero but haven\'t yet cracked scalable growth. Teams that want to build something that lasts, not just hit next month\'s number.',
+        'ci-time':      'Response time: typically within 24–48 hours.',
+        'ft-top':       'Top',
+        'ft-about':     'About',
+        'ft-expertise': 'Expertise',
+        'ft-contact':   'Contact',
+      },
+      cs: {
+        'nav-about':    'O mně',
+        'nav-expertise':'Odbornost',
+        'nav-blog':     'Blog',
+        'nav-contact':  'Kontakt',
+        'hero-eyebrow': 'K dispozici pro poradenství &amp; konzultace',
+        'hero-h1':      'Growth<br/><span class="gradient">Architect</span><br/>pro startupy.',
+        'hero-sub':     'Pomáhám startupům růst se záměrem — propojuji performance marketing, brand strategii a data literacy do growth systémů, které se v čase násobí.',
+        'btn-work':     'Spolupracujme',
+        'btn-story':    'Můj příběh',
+        'stat-label':   'let ve<br/>growth marketingu',
+        'about-tag':    'O mně',
+        'about-h2':     'Marketér z profese,<br/>architekt z ambice.',
+        'about-p1':     'Za posledních <strong>sedm let</strong> jsem pracoval napříč celým spektrem marketingu — PPC a RTB kampaně, brand development a account management — a vybudoval si instinkt pro to, co skutečně posouvá výsledky, ne jen to, co dobře vypadá v reportu.',
+        'about-p2':     'Dnes působím jako <strong>CMO ve startupu vyvíjejícím software pro investory na akciovém trhu</strong>, kde je výzvou komunikovat komplexní finanční nástroje sofistikovanému publiku, které nemá trpělivost na vágní sliby. Každá zpráva si musí svůj prostor zasloužit.',
+        'about-p3':     'Mým dlouhodobým cílem je působit jako <strong>Growth Architect</strong> — role na průsečíku strategie, exekuce a měření. Ne jen marketér, ale někdo, kdo navrhuje systémy umožňující firmám záměrně růst.',
+        't1-year':      'Nyní',
+        't1-role':      'CMO — Fintech Startup',
+        't1-desc':      'Marketing software pro investory na akciovém trhu',
+        't2-year':      '7 let',
+        't2-role':      'Performance &amp; Brand Marketing',
+        't2-desc':      'PPC / RTB, branding, account management',
+        't3-year':      'Vize',
+        't3-role':      'Growth Architect',
+        't3-desc':      'Škálování startupů pomocí integrovaných growth systémů',
+        'phil-title':   'Základní filosofie',
+        'phil-p1':      'Většina marketingových týmů vnímá performance a brand jako protichůdné síly — jedna je věda, druhá umění. Tento pohled zcela odmítám.',
+        'phil-p2':      '<strong>Performance marketing bez brandu</strong> pronajímá pozornost. Funguje, dokud nefunguje — a vždy jste vydáni na milost aukcím a změnám algoritmů.',
+        'phil-p3':      '<strong>Brand bez performance</strong> je marketing na víru. Možná krásný, ale neoptimalizovatelný a těžko obhajitelný v boardroomu.',
+        'phil-p4':      'Pojidlem mezi nimi je <strong>data literacy</strong> — schopnost klást správné otázky, budovat measurement frameworky odrážející realitu a dělat rozhodnutí sloužící jak kvartálu, tak dekádě.',
+        'exp-tag':      'Odbornost',
+        'exp-h2':       'Kde vytvářím<br/>největší páku.',
+        'exp-desc':     'Tři disciplíny, jeden integrovaný systém. Každá posiluje ty ostatní.',
+        'exp1-h3':      'Performance Marketing',
+        'exp1-p':       'Placená akvizice postavená na škálování — od počátečního testování kanálů po full-funnel optimalizaci. Vedl jsem PPC a RTB kampaně, kde každé euro muselo obhájit svou existenci.',
+        'exp2-h3':      'Brand Building',
+        'exp2-p':       'Positioning a příběh, které vytvářejí preferenci ještě předtím, než potenciální zákazník vůbec klikne na reklamu. Brand není logo — je to důvod, proč si někdo vybere vás, když specifikace vypadají totožně.',
+        'exp3-h3':      'Data-Driven Growth',
+        'exp3-p':       'Growth strategie ukotvená v měření. Stavím frameworky propojující marketingové aktivity s obchodními výsledky — a pomáhám týmům skutečně věřit jejich číslům.',
+        'banner-h3':    'Data literacy je ten rozdíl.',
+        'banner-p':     'Každý marketér umí spustit reklamy. Každý brand konzultant umí napsat positioning dokument. Co je vzácné, je někdo, kdo dokáže držet oba světy současně — kdo mluví jazykem kreativy i jazykem dashboardů a ví, který z nich místnost potřebuje slyšet. To je výhoda, kterou přináším.',
+        'contact-tag':  'Kontakt',
+        'contact-h2':   'Pojďme postavit něco,<br/>co se násobí.',
+        'lbl-name':     'Jméno',
+        'ph-name':      'Vaše jméno',
+        'lbl-email':    'E-mail',
+        'lbl-company':  'Společnost',
+        'ph-company':   'Společnost nebo startup',
+        'lbl-topic':    'Na čem pracujete?',
+        'opt-0':        'Vyberte téma…',
+        'opt-1':        'Growth strategie &amp; poradenství',
+        'opt-2':        'Performance marketing',
+        'opt-3':        'Brand &amp; positioning',
+        'opt-4':        'CMO fractional work',
+        'opt-5':        'Něco jiného',
+        'lbl-message':  'Zpráva',
+        'ph-message':   'Řekněte mi o své fázi, výzvě nebo cíli…',
+        'btn-send':     'Odeslat zprávu →',
+        'form-success': 'Zpráva odeslána — brzy se ozvu.',
+        'ci-h3':        'Nejlépe pracuji s',
+        'ci-p':         'Startupy v rané až střední fázi, které překonaly nulu, ale ještě nenašly cestu ke škálovatelnému growth. Týmy, které chtějí budovat něco trvalého, ne jen dosáhnout příštího měsíčního čísla.',
+        'ci-time':      'Doba odezvy: obvykle do 24–48 hodin.',
+        'ft-top':       'Nahoru',
+        'ft-about':     'O mně',
+        'ft-expertise': 'Odbornost',
+        'ft-contact':   'Kontakt',
+      }
+    };
+
+    let currentLocale = 'en';
+
+    function setLocale(loc) {
+      currentLocale = loc;
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const v = T[loc]?.[el.dataset.i18n];
+        if (v !== undefined) el.innerHTML = v;
+      });
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const v = T[loc]?.[el.dataset.i18nPlaceholder];
+        if (v !== undefined) el.placeholder = v;
+      });
+      document.querySelectorAll('.i18n-btn').forEach(b => {
+        b.classList.toggle('active', b.dataset.locale === loc);
+      });
+      localStorage.setItem('locale', loc);
+      document.documentElement.lang = loc;
+    }
+
+    // Init from stored preference
+    setLocale(localStorage.getItem('locale') || 'en');
   </script>
 </body>
 </html>
