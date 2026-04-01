@@ -11,8 +11,8 @@
       --surface:  #141418;
       --surface-2:#1a1a20;
       --border:   #232329;
-      --accent:   #6c63ff;
-      --accent-2: #a78bfa;
+      --accent:   #00d0d0;
+      --accent-2: #5ee8e8;
       --text:     #e8e8f0;
       --muted:    #7b7b8f;
       --max-w:    1100px;
@@ -58,7 +58,7 @@
       content: '';
       position: absolute; top: -200px; left: 50%; transform: translateX(-50%);
       width: 900px; height: 500px;
-      background: radial-gradient(ellipse at center, rgba(108,99,255,.15) 0%, transparent 70%);
+      background: radial-gradient(ellipse at center, rgba(0,208,208,.15) 0%, transparent 70%);
       pointer-events: none;
     }
     .breadcrumb {
@@ -70,9 +70,9 @@
     .breadcrumb span { color: var(--border); }
     .article-cat {
       display: inline-block;
-      background: rgba(108,99,255,.12); color: var(--accent);
+      background: rgba(0,208,208,.12); color: var(--accent);
       font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
-      padding: 4px 12px; border-radius: 99px; border: 1px solid rgba(108,99,255,.25);
+      padding: 4px 12px; border-radius: 99px; border: 1px solid rgba(0,208,208,.25);
       margin-bottom: 20px;
     }
     .article-header h1 {
@@ -81,7 +81,7 @@
       margin-bottom: 20px;
     }
     .article-header h1 .gradient {
-      background: linear-gradient(135deg, #6c63ff 0%, #a78bfa 50%, #c4b5fd 100%);
+      background: linear-gradient(135deg, #00d0d0 0%, #5ee8e8 50%, #a0f0f0 100%);
       -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
     }
     .article-header .desc { font-size: 18px; color: var(--muted); max-width: 600px; line-height: 1.75; margin-bottom: 28px; }
@@ -177,8 +177,8 @@
     }
     .use-tags { display: flex; flex-wrap: wrap; gap: 8px; }
     .use-tag {
-      background: rgba(108,99,255,.08); color: var(--accent-2);
-      border: 1px solid rgba(108,99,255,.2);
+      background: rgba(0,208,208,.08); color: var(--accent-2);
+      border: 1px solid rgba(0,208,208,.2);
       border-radius: 8px; padding: 6px 14px;
       font-size: 13px; font-weight: 500;
     }
@@ -196,8 +196,8 @@
     .code-header .file-name { font-size: 13px; color: var(--muted); font-family: 'SF Mono', 'Fira Code', monospace; }
     .code-header .lang-label {
       font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
-      color: var(--accent); background: rgba(108,99,255,.1);
-      border: 1px solid rgba(108,99,255,.2); border-radius: 6px; padding: 3px 10px;
+      color: var(--accent); background: rgba(0,208,208,.1);
+      border: 1px solid rgba(0,208,208,.2); border-radius: 6px; padding: 3px 10px;
     }
     pre {
       padding: 28px 28px; overflow-x: auto;
@@ -399,7 +399,7 @@
             </div>
 <pre><span class="cm">/* Design tokens — change once, updates everywhere */</span>
 <span class="sel">:root</span> {
-  <span class="prop">--brand</span><span class="op">:</span>   <span class="str">#6c63ff</span>;
+  <span class="prop">--brand</span><span class="op">:</span>   <span class="str">#00d0d0</span>;
   <span class="prop">--bg</span><span class="op">:</span>      <span class="str">#0d0d0f</span>;
   <span class="prop">--text</span><span class="op">:</span>    <span class="str">#e8e8f0</span>;
   <span class="prop">--radius</span><span class="op">:</span>  <span class="num">14px</span>;
