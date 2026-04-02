@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Všichni řeší akvizici. Peníze jsou jinde. — Dominik Maslan</title>
+  <meta name="description" content="Proč škálování akvizice nestačí na skutečný growth. Framework na full-funnel audit a tři páky, které většina firem ignoruje." />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:       #0d0d0f;
+      --surface:  #141418;
+      --surface-2:#1a1a20;
+      --border:   #232329;
+      --accent:   #00d0d0;
+      --accent-2: #5ee8e8;
+      --text:     #e8e8f0;
+      --muted:    #7b7b8f;
+      --max-w:    1100px;
+      --radius:   14px;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+      font-size: 16px; line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+    .container { max-width: var(--max-w); margin: 0 auto; padding: 0 24px; }
+
+    /* ── Nav ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 20px 0; transition: background .3s, backdrop-filter .3s;
+    }
+    nav.scrolled {
+      background: rgba(13,13,15,.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    nav .inner {
+      display: flex; align-items: center; justify-content: space-between;
+      max-width: var(--max-w); margin: 0 auto; padding: 0 24px;
+    }
+    .nav-logo { font-weight: 700; font-size: 17px; letter-spacing: -.01em; color: var(--text); text-decoration: none; }
+    .nav-logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 14px; font-weight: 500; transition: color .2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--text); }
+
+    /* ── i18n toggle ── */
+    .i18n-toggle {
+      display: flex; align-items: center;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 8px; overflow: hidden; flex-shrink: 0;
+    }
+    .i18n-btn {
+      padding: 6px 12px; background: none; border: none;
+      color: var(--muted); cursor: pointer; font-family: inherit;
+      font-size: 12px; font-weight: 700; letter-spacing: .06em;
+      transition: all .15s; line-height: 1;
+    }
+    .i18n-btn.active { background: var(--accent); color: #0a0a0c; }
+    .i18n-btn:hover:not(.active) { color: var(--text); }
+
+    /* ── Article header ── */
+    .article-header {
+      padding: 140px 0 60px;
+      position: relative; overflow: hidden;
+      border-bottom: 1px solid var(--border);
+    }
+    .article-header::before {
+      content: '';
+      position: absolute; top: -200px; left: 50%; transform: translateX(-50%);
+      width: 900px; height: 500px;
+      background: radial-gradient(ellipse at center, rgba(0,208,208,.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .breadcrumb {
+      font-size: 13px; color: var(--muted); margin-bottom: 24px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .breadcrumb a { color: var(--muted); text-decoration: none; transition: color .2s; }
+    .breadcrumb a:hover { color: var(--accent-2); }
+    .breadcrumb span { color: var(--border); }
+    .article-cat {
+      display: inline-block;
+      background: rgba(0,208,208,.12); color: var(--accent);
+      font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+      padding: 4px 12px; border-radius: 99px; border: 1px solid rgba(0,208,208,.25);
+      margin-bottom: 20px;
+    }
+    .article-header h1 {
+      font-size: clamp(30px, 4.5vw, 52px);
+      font-weight: 800; letter-spacing: -.03em; line-height: 1.1;
+      margin-bottom: 20px;
+    }
+    .article-header h1 .gradient {
+      background: linear-gradient(135deg, #00d0d0 0%, #5ee8e8 50%, #a0f0f0 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .article-header .desc { font-size: 18px; color: var(--muted); max-width: 600px; line-height: 1.75; margin-bottom: 28px; }
+    .article-meta { font-size: 13px; color: var(--muted); display: flex; gap: 20px; flex-wrap: wrap; }
+    .article-meta span { display: flex; align-items: center; gap: 6px; }
+
+    /* ── Article body ── */
+    .article-body { padding: 60px 0 120px; }
+    .prose { max-width: 720px; margin: 0 auto; }
+
+    .prose p {
+      color: var(--muted); font-size: 16px; line-height: 1.85; margin-bottom: 20px;
+    }
+    .prose p strong { color: var(--text); }
+    .prose p em { color: var(--accent-2); font-style: italic; }
+
+    .prose h2 {
+      font-size: clamp(22px, 3vw, 30px);
+      font-weight: 800; letter-spacing: -.02em; color: var(--text);
+      margin: 56px 0 20px; line-height: 1.2;
+    }
+
+    /* Hook intro — larger text */
+    .hook-intro p {
+      color: var(--text); font-size: 18px; line-height: 1.8; margin-bottom: 18px;
+    }
+    .hook-intro p:last-child { color: var(--muted); font-size: 16px; }
+
+    /* Authority blockquote */
+    .auth-block {
+      border-left: 3px solid rgba(0,208,208,.4);
+      padding: 4px 0 4px 22px;
+      margin: 32px 0 48px;
+    }
+    .auth-block p {
+      color: var(--text); font-size: 15px; font-style: italic; line-height: 1.8; margin: 0;
+    }
+
+    /* Lever cards */
+    .lever-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 32px;
+      margin: 32px 0;
+      position: relative; overflow: hidden;
+    }
+    .lever-block::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    }
+    .lever-num {
+      font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 6px;
+    }
+    .lever-title {
+      font-size: 20px; font-weight: 700; letter-spacing: -.01em;
+      color: var(--text); margin-bottom: 16px; line-height: 1.3;
+    }
+    .lever-block p {
+      color: var(--muted); font-size: 15px; line-height: 1.85; margin-bottom: 14px;
+    }
+    .lever-block p:last-child { margin-bottom: 0; }
+    .lever-block p strong { color: var(--text); }
+    .lever-block p em { color: var(--accent-2); font-style: italic; }
+    .lever-story {
+      margin-top: 16px; padding: 16px 20px;
+      background: rgba(255,255,255,.03);
+      border-radius: 10px; border: 1px solid var(--border);
+    }
+    .lever-story p {
+      font-size: 14px; font-style: italic; margin: 0;
+    }
+
+    /* Framework steps */
+    .audit-steps { margin: 24px 0 8px; }
+    .audit-step {
+      display: flex; gap: 20px; margin: 20px 0; align-items: flex-start;
+    }
+    .audit-num {
+      width: 32px; height: 32px; border-radius: 8px; flex-shrink: 0;
+      background: rgba(0,208,208,.12); border: 1px solid rgba(0,208,208,.25);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--accent); font-weight: 700; font-size: 14px;
+    }
+    .audit-content { padding-top: 4px; }
+    .audit-content p {
+      color: var(--muted); font-size: 15px; line-height: 1.8; margin: 0;
+    }
+    .audit-content p strong { color: var(--text); }
+
+    /* Controversial claim callout */
+    .callout {
+      background: rgba(0,208,208,.06);
+      border: 1px solid rgba(0,208,208,.2);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 24px 28px;
+      margin: 40px 0 24px;
+    }
+    .callout-label {
+      font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 10px;
+    }
+    .callout p {
+      font-size: 17px; color: var(--text); font-weight: 500; line-height: 1.7; margin: 0;
+    }
+
+    /* CTA block */
+    .cta-block {
+      border: 1px solid rgba(0,208,208,.25);
+      border-radius: var(--radius);
+      padding: 32px;
+      margin: 48px 0;
+      text-align: center;
+      background: rgba(0,208,208,.04);
+    }
+    .cta-label {
+      font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 12px;
+    }
+    .cta-block p {
+      color: var(--muted); font-size: 16px; line-height: 1.75; margin: 0;
+    }
+
+    /* P.S. */
+    .ps-block {
+      border-top: 1px solid var(--border);
+      padding-top: 32px; margin-top: 48px;
+    }
+    .ps-block p {
+      color: var(--muted); font-size: 15px; line-height: 1.8;
+    }
+    .ps-block p strong { color: var(--accent-2); }
+
+    /* Footer */
+    footer { border-top: 1px solid var(--border); padding: 40px 0; }
+    footer .inner { display: flex; justify-content: space-between; align-items: center; }
+    footer p { font-size: 14px; color: var(--muted); }
+    footer .links { display: flex; gap: 24px; }
+    footer .links a { font-size: 14px; color: var(--muted); text-decoration: none; transition: color .2s; }
+    footer .links a:hover { color: var(--text); }
+
+    @media (max-width: 768px) {
+      .lever-block { padding: 22px 20px; }
+      .nav-links { display: none; }
+      footer .inner { flex-direction: column; gap: 20px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav id="navbar">
+    <div class="inner">
+      <a href="../index.html" class="nav-logo">DM<span>.</span></a>
+      <ul class="nav-links">
+        <li><a href="../index.html#about" data-i18n="nav-about">About</a></li>
+        <li><a href="../index.html#expertise" data-i18n="nav-expertise">Expertise</a></li>
+        <li><a href="../blog.html" class="active" data-i18n="nav-blog">Blog</a></li>
+        <li><a href="../index.html#contact" data-i18n="nav-contact">Contact</a></li>
+      </ul>
+      <div class="i18n-toggle">
+        <button class="i18n-btn" data-locale="en" onclick="setLocale('en')">EN</button>
+        <button class="i18n-btn" data-locale="cs" onclick="setLocale('cs')">CZ</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HEADER -->
+  <div class="article-header">
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="../blog.html" data-i18n="bc-blog">Blog</a>
+        <span>/</span>
+        <span data-i18n="bc-cat">Growth</span>
+      </div>
+      <div class="article-cat" data-i18n="article-cat">Growth</div>
+      <h1 data-i18n="article-h1">Všichni řeší akvizici.<br/><span class="gradient">Peníze jsou jinde.</span></h1>
+      <p class="desc" data-i18n="article-desc">Proč škálování akvizice nestačí na skutečný growth — a tři páky, které většina firem kompletně ignoruje.</p>
+      <div class="article-meta">
+        <span data-i18n="meta-date">📅 Duben 2026</span>
+        <span data-i18n="meta-read">⏱ 7 min čtení</span>
+        <span>🏷 Growth · CAC · LTV · conversion rate · full-funnel</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- BODY -->
+  <div class="article-body">
+    <div class="container">
+      <div class="prose">
+
+        <!-- Hook + Promise -->
+        <div class="hook-intro">
+          <p data-i18n="hook-p1">73 % marketingových rozpočtů jde do akvizice. 80 % growthového potenciálu sedí úplně jinde.</p>
+          <p data-i18n="promise-p">Po přečtení budeš přesně vědět, která část tvého funnelu přichází o peníze — a budeš mít 60minutový framework, jak to opravit.</p>
+        </div>
+
+        <!-- Authority signal -->
+        <div class="auth-block">
+          <p data-i18n="auth-p">Strávil jsem roky škálováním PPC kampaní a laděním attribution modelů pro klienty. Pak jeden audit změnil, jak o growth přemýšlím: klient s 40% CTR na top-of-funnel reklamách měl 1,2% konverzní poměr na checkoutu. Nejlepší kampaň v účtu plnila děravý kbelík.</p>
+        </div>
+
+        <!-- Section 1: Why acquisition is wrong -->
+        <h2 data-i18n="s1-h2">Proč akvizice není odpověď na growth problém</h2>
+        <p data-i18n="s1-p1">Většina marketing týmů žije v jednom myšlenkovém vzorci: <strong>chceme růst → potřebujeme více lidí → zvýšíme akvizicní budget.</strong> Je to intuitivní. Je to špatně.</p>
+        <p data-i18n="s1-p2">Acquisition je nejdražší a nejpomalejší páka na growth. CAC roste s každým dalším utraceným eurem — nejdřív zachytíš nejlevnější zákazníky, pak ty dražší, pak ty nejdražší. Lineární škálování neexistuje.</p>
+        <p data-i18n="s1-p3">Přitom tři páky pod tím jsou levnější a akcelerují rychleji.</p>
+
+        <!-- Lever 1 -->
+        <div class="lever-block">
+          <div class="lever-num" data-i18n="lever1-num">Páka 1</div>
+          <div class="lever-title" data-i18n="lever1-title">Conversion rate na stávající traffic</div>
+          <p data-i18n="lever1-p1">Pokud tvůj web konvertuje na 2 % a dostaneš ho na 3 %, právě jsi zvýšil revenue o 50 % — bez jediného eura navíc do akvizice. Nepotřebuješ 50 % více návštěvníků. Potřebuješ lepší stránku pro ty, co tam už jsou.</p>
+          <div class="lever-story">
+            <p data-i18n="lever1-story">U jednoho SaaS klienta jsme přepsali onboarding flow — nula nových uživatelů, nová kopie a tři odstraněné kroky. Trial-to-paid conversion vzrostla z <strong>8 % na 13,4 %</strong>. ARR se posunulo o víc než jakákoliv kampaň za posledních šest měsíců.</p>
+          </div>
+        </div>
+
+        <!-- Lever 2 -->
+        <div class="lever-block">
+          <div class="lever-num" data-i18n="lever2-num">Páka 2</div>
+          <div class="lever-title" data-i18n="lever2-title">Retence a LTV</div>
+          <p data-i18n="lever2-p1">Nový zákazník tě stojí 5–7× víc než udržení stávajícího. Znáš tenhle fakt. Přesto většina firem nemá dedikovanou retence strategii — jen sporadické newslettery a „loyalty" program, který nikdo nepoužívá.</p>
+          <p data-i18n="lever2-p2">Zvýšení retention rate o 5 % zvyšuje profit o <strong>25–95 %</strong> (Bain &amp; Company). Tohle není marketingové klišé — je to matematika compoundingu. Zákazník, který zůstane o šest měsíců déle, nepřinese lineárně víc: nakupuje častěji, utrácí více za objednávku a doporučuje tě dál.</p>
+        </div>
+
+        <!-- Lever 3 -->
+        <div class="lever-block">
+          <div class="lever-num" data-i18n="lever3-num">Páka 3</div>
+          <div class="lever-title" data-i18n="lever3-title">Monetizace stávající základny</div>
+          <p data-i18n="lever3-p1">Máš zákazníky. Kupují od tebe. Víš, co kupují? Víš, co <em>nekupují</em> — přestože by mohli?</p>
+          <p data-i18n="lever3-p2">Upsell a cross-sell mají CAC blízký nule — zákazník tě zná, věří ti, není potřeba ho přesvědčovat od začátku. Přesto většina growth plánů tuto páku zcela ignoruje a orientuje se výhradně na nové logo.</p>
+        </div>
+
+        <!-- Framework -->
+        <h2 data-i18n="fw-h2">Framework: Full-funnel audit za 60 minut</h2>
+        <p data-i18n="fw-intro">Než příště schválíš akvizicní budget, projdi tři otázky:</p>
+        <div class="audit-steps">
+          <div class="audit-step">
+            <div class="audit-num">1</div>
+            <div class="audit-content">
+              <p data-i18n="fw-q1"><strong>Kde leakuje funnel?</strong> Otevři analytics. Najdi největší drop-off mezi kroky. Tenhle krok optimalizuj dřív, než přivedeš jednoho nového návštěvníka.</p>
+            </div>
+          </div>
+          <div class="audit-step">
+            <div class="audit-num">2</div>
+            <div class="audit-content">
+              <p data-i18n="fw-q2"><strong>Jaký je tvůj retention curve?</strong> Pokud nevíš, jak vypadá křivka retence zákazníků po 30, 60 a 90 dnech, nemáš data pro growth rozhodnutí. Nastav si to ještě dnes.</p>
+            </div>
+          </div>
+          <div class="audit-step">
+            <div class="audit-num">3</div>
+            <div class="audit-content">
+              <p data-i18n="fw-q3"><strong>Jaký je průměrný počet nákupů na zákazníka za rok?</strong> Pokud je to 1,0 — máš obrovský prostor. Pokud nevíš — máš datový problém, ne growth problém.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Controversial claim -->
+        <div class="callout">
+          <div class="callout-label" data-i18n="claim-label">Kontroverzní tvrzení</div>
+          <p data-i18n="claim-quote">Většina e-shopů a SaaS firem by měla zmrazit akvizicní budget na 90 dní, zainvestovat do konverzní optimalizace a retence — a za tři měsíce reportovat lepší čísla.</p>
+        </div>
+        <p data-i18n="claim-p1">Acquisition je nejviditelnější práce. Není to nejefektivnější práce.</p>
+        <p data-i18n="claim-share">Pošli tento článek kolegovi, který přichází na každý growth meeting s návrhem na zvýšení akvizicního budgetu.</p>
+
+        <!-- CTA -->
+        <div class="cta-block">
+          <div class="cta-label" data-i18n="cta-label">Jedna otázka</div>
+          <p data-i18n="cta-p1">Která část funnelu je u tebe nejvíce podceňována — a proč? Napiš mi odpověď do komentářů nebo přímo na LinkedIn. Z nejzajímavějších odpovědí sestavím follow-up článek s reálnými daty od čtenářů.</p>
+        </div>
+
+        <!-- P.S. -->
+        <div class="ps-block">
+          <p data-i18n="ps-text"><strong>P.S.</strong> Největší growth hack, který jsem za poslední rok viděl v praxi? Firma přestala měřit CTR a začala měřit <em>revenue per visitor</em>. Celý tým najednou optimalizoval jiné věci. Revenue vzrostlo o <strong>34 %</strong> bez změny budgetu. Příště napíšu o tom, jak vybrat správnou north star metric — protože špatná metrika zabíjí growth tiše a pomalu.</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <div class="inner">
+        <p>© 2026 Dominik Maslan. Growth Architect.</p>
+        <div class="links">
+          <a href="../index.html" data-i18n="ft-home">Home</a>
+          <a href="../blog.html" data-i18n="ft-blog">Blog</a>
+          <a href="../index.html#contact" data-i18n="ft-contact">Contact</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ── Sticky nav ──
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 40);
+    });
+
+    // ── i18n ──
+    const T = {
+      en: {
+        'nav-about':    'About',
+        'nav-expertise':'Expertise',
+        'nav-blog':     'Blog',
+        'nav-contact':  'Contact',
+        'bc-blog':      'Blog',
+        'bc-cat':       'Growth',
+        'article-cat':  'Growth',
+        'article-h1':   'Everyone\'s Chasing Acquisition.<br/><span class="gradient">The Money Is Somewhere Else.</span>',
+        'article-desc': 'Why scaling acquisition isn\'t enough for real growth — and the three levers most companies completely ignore.',
+        'meta-date':    '📅 April 2026',
+        'meta-read':    '⏱ 7 min read',
+        'hook-p1':      '73% of marketing budgets go into acquisition. 80% of growth potential sits somewhere else entirely.',
+        'promise-p':    'After reading this you\'ll know exactly which part of your funnel is leaking — and have a 60-minute framework to fix it.',
+        'auth-p':       'I spent years scaling PPC campaigns and optimizing attribution models for clients. Then one audit changed how I think about growth: a client with 40% CTR on top-of-funnel ads had a 1.2% conversion rate at checkout. The best campaign in the account was filling a leaking bucket.',
+        's1-h2':        'Why Acquisition Is the Wrong Answer to a Growth Problem',
+        's1-p1':        'Most marketing teams live inside one mental model: <strong>we want to grow → we need more people → increase acquisition budget.</strong> It\'s intuitive. It\'s wrong.',
+        's1-p2':        'Acquisition is the most expensive and slowest growth lever. CAC grows with every additional euro spent — first you capture the cheapest customers, then the more expensive ones, then the most expensive. Linear scaling doesn\'t exist.',
+        's1-p3':        'Meanwhile, three levers below it are cheaper and accelerate faster.',
+        'lever1-num':   'Lever 1',
+        'lever1-title': 'Conversion Rate on Existing Traffic',
+        'lever1-p1':    'If your website converts at 2% and you get it to 3%, you just grew revenue by 50% — without a single additional euro in acquisition. You don\'t need 50% more visitors. You need a better page for the ones already there.',
+        'lever1-story': 'For one SaaS client, we rewrote the onboarding flow — zero new users, new copy and three removed steps. Trial-to-paid conversion went from <strong>8% to 13.4%</strong>. ARR moved more than any campaign had in the previous six months.',
+        'lever2-num':   'Lever 2',
+        'lever2-title': 'Retention and LTV',
+        'lever2-p1':    'Acquiring a new customer costs 5–7× more than retaining an existing one. You know this fact. Yet most companies have no dedicated retention strategy — just sporadic newsletters and a "loyalty" program nobody uses.',
+        'lever2-p2':    'Increasing retention rate by 5% increases profit by <strong>25–95%</strong> (Bain &amp; Company). This isn\'t marketing cliché — it\'s the math of compounding. A customer who stays six months longer doesn\'t bring linearly more: they buy more frequently, spend more per order, and refer others.',
+        'lever3-num':   'Lever 3',
+        'lever3-title': 'Monetize Your Existing Base',
+        'lever3-p1':    'You have customers. They buy from you. Do you know what they buy? Do you know what they <em>don\'t</em> buy — even though they could?',
+        'lever3-p2':    'Upsell and cross-sell have CAC close to zero — the customer knows you, trusts you, doesn\'t need convincing from scratch. Yet most growth plans completely ignore this lever and focus exclusively on new logo acquisition.',
+        'fw-h2':        'Framework: Full-Funnel Audit in 60 Minutes',
+        'fw-intro':     'Before approving your next acquisition budget, run through three questions:',
+        'fw-q1':        '<strong>Where is the funnel leaking?</strong> Open analytics. Find the biggest drop-off between steps. Optimize that step before bringing in a single new visitor.',
+        'fw-q2':        '<strong>What does your retention curve look like?</strong> If you don\'t know the retention curve at 30, 60, and 90 days, you don\'t have data for growth decisions. Set it up today.',
+        'fw-q3':        '<strong>What\'s the average number of purchases per customer per year?</strong> If it\'s 1.0 — you have enormous room. If you don\'t know — you have a data problem, not a growth problem.',
+        'claim-label':  'Controversial claim',
+        'claim-quote':  'Most e-commerce stores and SaaS companies should freeze their acquisition budget for 90 days, invest it into conversion optimization and retention — and report better numbers after three months.',
+        'claim-p1':     'Acquisition is the most visible work. It is not the most effective work.',
+        'claim-share':  'Send this article to a colleague who brings the same acquisition budget increase proposal to every growth meeting.',
+        'cta-label':    'One question',
+        'cta-p1':       'Which part of your funnel is most underestimated at your company — and why? Write your answer in the comments or directly on LinkedIn. From the most interesting answers, I\'ll compile a follow-up article with real data from readers.',
+        'ps-text':      '<strong>P.S.</strong> The biggest growth hack I\'ve seen in practice in the last year? A company stopped measuring CTR and started measuring <em>revenue per visitor</em>. The whole team suddenly optimized different things. Revenue grew by <strong>34%</strong> without a budget change. Next time I\'ll write about how to choose the right north star metric — because the wrong metric kills growth quietly and slowly.',
+        'ft-home':      'Home',
+        'ft-blog':      'Blog',
+        'ft-contact':   'Contact',
+      },
+      cs: {
+        'nav-about':    'O mně',
+        'nav-expertise':'Odbornost',
+        'nav-blog':     'Blog',
+        'nav-contact':  'Kontakt',
+        'bc-blog':      'Blog',
+        'bc-cat':       'Growth',
+        'article-cat':  'Growth',
+        'article-h1':   'Všichni řeší akvizici.<br/><span class="gradient">Peníze jsou jinde.</span>',
+        'article-desc': 'Proč škálování akvizice nestačí na skutečný growth — a tři páky, které většina firem kompletně ignoruje.',
+        'meta-date':    '📅 Duben 2026',
+        'meta-read':    '⏱ 7 min čtení',
+        'hook-p1':      '73 % marketingových rozpočtů jde do akvizice. 80 % growthového potenciálu sedí úplně jinde.',
+        'promise-p':    'Po přečtení budeš přesně vědět, která část tvého funnelu přichází o peníze — a budeš mít 60minutový framework, jak to opravit.',
+        'auth-p':       'Strávil jsem roky škálováním PPC kampaní a laděním attribution modelů pro klienty. Pak jeden audit změnil, jak o growth přemýšlím: klient s 40% CTR na top-of-funnel reklamách měl 1,2% konverzní poměr na checkoutu. Nejlepší kampaň v účtu plnila děravý kbelík.',
+        's1-h2':        'Proč akvizice není odpověď na growth problém',
+        's1-p1':        'Většina marketing týmů žije v jednom myšlenkovém vzorci: <strong>chceme růst → potřebujeme více lidí → zvýšíme akvizicní budget.</strong> Je to intuitivní. Je to špatně.',
+        's1-p2':        'Acquisition je nejdražší a nejpomalejší páka na growth. CAC roste s každým dalším utraceným eurem — nejdřív zachytíš nejlevnější zákazníky, pak ty dražší, pak ty nejdražší. Lineární škálování neexistuje.',
+        's1-p3':        'Přitom tři páky pod tím jsou levnější a akcelerují rychleji.',
+        'lever1-num':   'Páka 1',
+        'lever1-title': 'Conversion rate na stávající traffic',
+        'lever1-p1':    'Pokud tvůj web konvertuje na 2 % a dostaneš ho na 3 %, právě jsi zvýšil revenue o 50 % — bez jediného eura navíc do akvizice. Nepotřebuješ 50 % více návštěvníků. Potřebuješ lepší stránku pro ty, co tam už jsou.',
+        'lever1-story': 'U jednoho SaaS klienta jsme přepsali onboarding flow — nula nových uživatelů, nová kopie a tři odstraněné kroky. Trial-to-paid conversion vzrostla z <strong>8 % na 13,4 %</strong>. ARR se posunulo o víc než jakákoliv kampaň za posledních šest měsíců.',
+        'lever2-num':   'Páka 2',
+        'lever2-title': 'Retence a LTV',
+        'lever2-p1':    'Nový zákazník tě stojí 5–7× víc než udržení stávajícího. Znáš tenhle fakt. Přesto většina firem nemá dedikovanou retence strategii — jen sporadické newslettery a „loyalty" program, který nikdo nepoužívá.',
+        'lever2-p2':    'Zvýšení retention rate o 5 % zvyšuje profit o <strong>25–95 %</strong> (Bain &amp; Company). Tohle není marketingové klišé — je to matematika compoundingu. Zákazník, který zůstane o šest měsíců déle, nepřinese lineárně víc: nakupuje častěji, utrácí více za objednávku a doporučuje tě dál.',
+        'lever3-num':   'Páka 3',
+        'lever3-title': 'Monetizace stávající základny',
+        'lever3-p1':    'Máš zákazníky. Kupují od tebe. Víš, co kupují? Víš, co <em>nekupují</em> — přestože by mohli?',
+        'lever3-p2':    'Upsell a cross-sell mají CAC blízký nule — zákazník tě zná, věří ti, není potřeba ho přesvědčovat od začátku. Přesto většina growth plánů tuto páku zcela ignoruje a orientuje se výhradně na nové logo.',
+        'fw-h2':        'Framework: Full-funnel audit za 60 minut',
+        'fw-intro':     'Než příště schválíš akvizicní budget, projdi tři otázky:',
+        'fw-q1':        '<strong>Kde leakuje funnel?</strong> Otevři analytics. Najdi největší drop-off mezi kroky. Tenhle krok optimalizuj dřív, než přivedeš jednoho nového návštěvníka.',
+        'fw-q2':        '<strong>Jaký je tvůj retention curve?</strong> Pokud nevíš, jak vypadá křivka retence zákazníků po 30, 60 a 90 dnech, nemáš data pro growth rozhodnutí. Nastav si to ještě dnes.',
+        'fw-q3':        '<strong>Jaký je průměrný počet nákupů na zákazníka za rok?</strong> Pokud je to 1,0 — máš obrovský prostor. Pokud nevíš — máš datový problém, ne growth problém.',
+        'claim-label':  'Kontroverzní tvrzení',
+        'claim-quote':  'Většina e-shopů a SaaS firem by měla zmrazit akvizicní budget na 90 dní, zainvestovat do konverzní optimalizace a retence — a za tři měsíce reportovat lepší čísla.',
+        'claim-p1':     'Acquisition je nejviditelnější práce. Není to nejefektivnější práce.',
+        'claim-share':  'Pošli tento článek kolegovi, který přichází na každý growth meeting s návrhem na zvýšení akvizicního budgetu.',
+        'cta-label':    'Jedna otázka',
+        'cta-p1':       'Která část funnelu je u tebe nejvíce podceňována — a proč? Napiš mi odpověď do komentářů nebo přímo na LinkedIn. Z nejzajímavějších odpovědí sestavím follow-up článek s reálnými daty od čtenářů.',
+        'ps-text':      '<strong>P.S.</strong> Největší growth hack, který jsem za poslední rok viděl v praxi? Firma přestala měřit CTR a začala měřit <em>revenue per visitor</em>. Celý tým najednou optimalizoval jiné věci. Revenue vzrostlo o <strong>34 %</strong> bez změny budgetu. Příště napíšu o tom, jak vybrat správnou north star metric — protože špatná metrika zabíjí growth tiše a pomalu.',
+        'ft-home':      'Domů',
+        'ft-blog':      'Blog',
+        'ft-contact':   'Kontakt',
+      }
+    };
+
+    function setLocale(loc) {
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const v = T[loc]?.[el.dataset.i18n];
+        if (v !== undefined) el.innerHTML = v;
+      });
+      document.querySelectorAll('.i18n-btn').forEach(b => {
+        b.classList.toggle('active', b.dataset.locale === loc);
+      });
+      localStorage.setItem('locale', loc);
+      document.documentElement.lang = loc;
+    }
+
+    setLocale(localStorage.getItem('locale') || 'en');
+  </script>
+</body>
+</html>
