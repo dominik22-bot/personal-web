@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>O mně — Dominik Maslan · Growth Architect</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg-primary:   #08090a;
+      --bg-surface:   #111213;
+      --bg-elevated:  #1a1b1e;
+      --border:       #2a2b2e;
+      --text-primary: #f0f0f0;
+      --text-secondary:#888890;
+      --text-muted:   #555560;
+      --accent:       #00D0D0;
+      --accent-dim:   rgba(0,208,208,0.12);
+      --max-w:        1100px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg-primary);
+      color: var(--text-secondary);
+      font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      font-weight: 400;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container { max-width: var(--max-w); margin: 0 auto; padding: 0 24px; }
+
+    h1 {
+      font-size: clamp(42px, 5vw, 72px);
+      font-weight: 300;
+      letter-spacing: -0.03em;
+      line-height: 1.08;
+      color: var(--text-primary);
+    }
+    h2 {
+      font-size: clamp(28px, 3.5vw, 44px);
+      font-weight: 300;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      color: var(--text-primary);
+    }
+    h3 { font-size: 18px; font-weight: 500; color: var(--text-primary); }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+    .section-label .accent { color: var(--accent); }
+
+    /* ── Nav ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 20px 0;
+      transition: background 0.3s, backdrop-filter 0.3s, box-shadow 0.3s;
+    }
+    nav.scrolled {
+      background: rgba(8,9,10,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 1px 20px rgba(0,0,0,0.4);
+    }
+    nav .inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .nav-logo {
+      font-weight: 600;
+      font-size: 17px;
+      color: var(--text-primary);
+      text-decoration: none;
+      letter-spacing: -0.01em;
+    }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 400;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text-primary); }
+    .nav-links a.active { color: var(--accent); }
+
+    .i18n-toggle {
+      display: flex;
+      align-items: center;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .i18n-btn {
+      padding: 6px 12px;
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      transition: all 0.15s;
+      line-height: 1;
+    }
+    .i18n-btn.active { background: var(--accent); color: #08090a; font-weight: 600; }
+    .i18n-btn:hover:not(.active) { color: var(--text-primary); }
+
+    /* ── Page Header ── */
+    #page-header {
+      padding: 140px 0 100px;
+      position: relative;
+      overflow: hidden;
+    }
+    #page-header::before {
+      content: '';
+      position: absolute;
+      top: -80px; left: 20%;
+      width: 700px; height: 500px;
+      background: radial-gradient(ellipse, rgba(0,208,208,0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .page-header-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+    .page-header-sub {
+      font-size: 20px;
+      color: var(--text-secondary);
+      margin-top: 20px;
+      line-height: 1.5;
+    }
+
+    /* ── Sections ── */
+    section { padding: 100px 0; border-top: 1px solid var(--border); }
+    .section-header { margin-bottom: 56px; }
+    .section-header h2 { margin-top: 12px; }
+
+    /* ── Bio section ── */
+    .bio-grid {
+      display: grid;
+      grid-template-columns: 2fr 3fr;
+      gap: 72px;
+      align-items: start;
+    }
+    .bio-photo-wrap { position: relative; }
+    .about-hero-photo {
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      max-width: 380px;
+      background: radial-gradient(ellipse at center, rgba(0,208,208,0.06) 0%, var(--bg-elevated) 70%);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+    }
+    .about-hero-photo .ph-icon { font-size: 48px; color: var(--text-muted); }
+    .about-hero-photo .ph-name { font-size: 15px; font-weight: 500; color: var(--text-primary); }
+    .about-hero-photo .ph-sub { font-size: 12px; color: var(--text-muted); }
+    .bio-info {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 20px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    .bio-text p {
+      color: var(--text-secondary);
+      font-size: 16px;
+      line-height: 1.85;
+      margin-bottom: 20px;
+    }
+    .bio-text p:last-child { margin-bottom: 0; }
+
+    /* ── Philosophy cards ── */
+    .phil-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 20px;
+    }
+    .phil-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 32px;
+      transition: border-color 0.2s;
+    }
+    .phil-card:hover { border-color: var(--accent); }
+    .phil-card.featured { border-color: var(--accent); }
+    .phil-icon { font-size: 28px; color: var(--accent); margin-bottom: 16px; display: block; }
+    .phil-card h3 { margin-bottom: 12px; }
+    .phil-card p { font-size: 14px; color: var(--text-secondary); line-height: 1.7; }
+    .phil-card .phil-quote {
+      display: block;
+      margin-top: 16px;
+      font-weight: 500;
+      font-style: italic;
+      color: var(--text-primary);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    /* ── Timeline ── */
+    .timeline {
+      position: relative;
+      padding-left: 44px;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 16px;
+      top: 6px;
+      bottom: 0;
+      width: 2px;
+      background: var(--border);
+    }
+    .tl-item {
+      position: relative;
+      padding-bottom: 48px;
+    }
+    .tl-item:last-child { padding-bottom: 0; }
+    .tl-dot {
+      position: absolute;
+      left: -34px;
+      top: 4px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+    .tl-dot.tl-dot-future {
+      background: transparent;
+      border: 2px solid var(--accent);
+      width: 16px;
+      height: 16px;
+      left: -36px;
+      top: 2px;
+    }
+    .tl-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+    .tl-item h3 { font-size: 18px; margin-bottom: 8px; }
+    .tl-item p { font-size: 14px; color: var(--text-secondary); line-height: 1.7; max-width: 560px; }
+
+    /* ── Principles grid ── */
+    .principles-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+    .principle-item {
+      border-left: 3px solid var(--accent);
+      padding-left: 24px;
+    }
+    .principle-num {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+    .principle-item h3 { font-size: 17px; margin-bottom: 10px; }
+    .principle-item p { font-size: 14px; color: var(--text-secondary); line-height: 1.7; }
+
+    /* ── CTA ── */
+    #cta-section {
+      padding: 80px 0;
+      text-align: center;
+      border-top: 1px solid var(--border);
+    }
+    .cta-h2 {
+      font-size: 32px;
+      font-weight: 300;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+      margin-bottom: 20px;
+    }
+    .cta-text {
+      font-size: 16px;
+      color: var(--text-secondary);
+      max-width: 480px;
+      margin: 0 auto 40px;
+      line-height: 1.7;
+    }
+    .cta-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+      font-family: inherit;
+      border: none;
+    }
+    .btn-primary { background: var(--accent); color: #08090a; }
+    .btn-primary:hover { filter: brightness(110%); }
+    .btn-secondary { background: transparent; color: var(--text-primary); border: 1px solid var(--border); }
+    .btn-secondary:hover { border-color: var(--accent); }
+
+    /* ── Footer ── */
+    footer { border-top: 1px solid var(--border); padding: 40px 0; }
+    footer .inner { display: flex; justify-content: space-between; align-items: center; }
+    footer p { font-size: 13px; color: var(--text-muted); }
+    footer .links { display: flex; gap: 24px; }
+    footer .links a { font-size: 13px; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+    footer .links a:hover { color: var(--text-primary); }
+
+    /* ── Animations ── */
+    .animate-in {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .animate-in.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      #page-header { padding: 120px 0 64px; }
+      section { padding: 72px 0; }
+      .bio-grid { grid-template-columns: 1fr; gap: 40px; }
+      .about-hero-photo { max-width: 100%; aspect-ratio: 4 / 3; }
+      .phil-grid { grid-template-columns: 1fr; }
+      .principles-grid { grid-template-columns: 1fr; gap: 32px; }
+      .timeline { padding-left: 36px; }
+      footer .inner { flex-direction: column; gap: 20px; text-align: center; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="inner">
+    <a href="index.html" class="nav-logo">DM.</a>
+    <ul class="nav-links">
+      <li><a href="services.html" data-i18n="nav-services">Služby</a></li>
+      <li><a href="about.html" class="active" data-i18n="nav-about">O mně</a></li>
+      <li><a href="blog.html" data-i18n="nav-blog">Blog</a></li>
+      <li><a href="index.html#contact" data-i18n="nav-contact">Kontakt</a></li>
+    </ul>
+    <div class="i18n-toggle">
+      <button class="i18n-btn" data-locale="en" onclick="setLocale('en')">EN</button>
+      <button class="i18n-btn" data-locale="cs" onclick="setLocale('cs')">CZ</button>
+    </div>
+  </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<div id="page-header">
+  <div class="container">
+    <p class="page-header-label animate-in" data-i18n="hdr-label">O MNĚ</p>
+    <h1 class="animate-in" style="transition-delay:0.08s" data-i18n="hdr-h1">Sedm let praxe.<br>Jeden cíl.</h1>
+    <p class="page-header-sub animate-in" style="transition-delay:0.16s" data-i18n="hdr-sub">Marketer by trade, architect by ambition.</p>
+  </div>
+</div>
+
+<!-- BIO -->
+<section id="bio">
+  <div class="container">
+    <div class="section-header animate-in">
+      <div class="section-label"><span class="accent">01</span> — <span data-i18n="s-bio">BIO</span></div>
+    </div>
+    <div class="bio-grid">
+      <div class="bio-photo-wrap animate-in">
+        <div class="about-hero-photo">
+          <span class="ph-icon">◎</span>
+          <span class="ph-name">Dominik Maslan</span>
+          <span class="ph-sub" data-i18n="photo-sub">Fotografie připravuje se</span>
+        </div>
+        <div class="bio-info">
+          <span>📍 <span data-i18n="bio-loc">Česká republika</span></span>
+          <span>💼 CMO · Fintech Startup</span>
+          <span>🚀 Growth Architect</span>
+        </div>
+      </div>
+      <div class="bio-text animate-in" style="transition-delay:0.1s">
+        <p data-i18n="bio-p1">Za posledních sedm let jsem pracoval napříč celým spektrem marketingu — PPC a RTB kampaně, brand development a account management. Vybudoval jsem si instinkt pro to, co skutečně posouvá výsledky versus co jen vypadá dobře v reportu.</p>
+        <p data-i18n="bio-p2">Dnes působím jako CMO ve startupu vyvíjejícím software pro investory na akciovém trhu. Výzvou je komunikovat komplexní finanční nástroje sofistikovanému publiku, které má nulovou toleranci k vágním slibům. Každá zpráva musí vydělat své místo.</p>
+        <p data-i18n="bio-p3">Paralelně stavím growth systémy pro ambiciózní startupy jako Growth Architect — role která sedí na průsečíku strategie, exekuce a měření. Nejde mi jen o marketing, ale o navrhování systémů které firmám umožní růst se záměrem.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHILOSOPHY -->
+<section id="philosophy">
+  <div class="container">
+    <div class="section-header animate-in">
+      <div class="section-label"><span class="accent">02</span> — <span data-i18n="s-phil">FILOZOFIE</span></div>
+      <h2 data-i18n="phil-h2">Proč performance a brand nejsou protiklady.</h2>
+    </div>
+    <div class="phil-grid">
+      <div class="phil-card animate-in">
+        <span class="phil-icon">⚡</span>
+        <h3 data-i18n="phil1-h3">Performance bez brandu</h3>
+        <p data-i18n="phil1-text">Pronajímá pozornost. Funguje dokud platíte — a pak jste plně závislí na aukční dynamice a změnách algoritmů. Náklady rostou, výsledky stagnují.</p>
+      </div>
+      <div class="phil-card featured animate-in" style="transition-delay:0.1s">
+        <span class="phil-icon">◎</span>
+        <h3 data-i18n="phil2-h3">Data literacy jako pojítko</h3>
+        <p data-i18n="phil2-text">Schopnost klást správné otázky, budovat měřící frameworky které odráží realitu a dělat rozhodnutí která slouží zároveň kvartálu i desetiletí.</p>
+        <span class="phil-quote" data-i18n="phil2-quote">„The connective tissue between them is data literacy."</span>
+      </div>
+      <div class="phil-card animate-in" style="transition-delay:0.2s">
+        <span class="phil-icon">✦</span>
+        <h3 data-i18n="phil3-h3">Brand bez performance</h3>
+        <p data-i18n="phil3-text">Marketing na víru. Krásný, možná, ale neoptimalizovatelný a těžko obhajitelný v boardroomu. Bez čísel nevíte co funguje.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="container">
+    <div class="section-header animate-in">
+      <div class="section-label"><span class="accent">03</span> — <span data-i18n="s-exp">ZKUŠENOSTI</span></div>
+      <h2 data-i18n="exp-h2">Cesta k systémovému myšlení.</h2>
+    </div>
+    <div class="timeline animate-in">
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-label" data-i18n="tl1-label">2024 — dnes</div>
+        <h3 data-i18n="tl1-title">CMO · Fintech Startup</h3>
+        <p data-i18n="tl1-text">Marketing software pro investory na akciovém trhu. Komunikace komplexních finančních nástrojů sofistikovanému B2C publiku.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-label" data-i18n="tl2-label">2021 — 2024</div>
+        <h3 data-i18n="tl2-title">Performance & Brand Marketing</h3>
+        <p data-i18n="tl2-text">PPC, RTB a programatická reklama. Brand development a account management pro středně velké e-commerce a B2B klienty. Správa budgetů v řádech milionů korun.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-label" data-i18n="tl3-label">2019 — 2021</div>
+        <h3 data-i18n="tl3-title">PPC Specialista & Account Manager</h3>
+        <p data-i18n="tl3-text">Začátky v digitálním marketingu — Google Ads, Meta, první kampaně a první data. Budování instinktu pro to, co funguje a co jen vypadá že funguje.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot tl-dot-future"></div>
+        <div class="tl-label" data-i18n="tl4-label">Vize</div>
+        <h3 data-i18n="tl4-title">Growth Architect</h3>
+        <p data-i18n="tl4-text">Škálování startupů skrze integrované growth systémy. Propojení performance marketingu, brand strategie a datové infrastruktury do systémů které se samy zlepšují.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRINCIPLES -->
+<section id="principles">
+  <div class="container">
+    <div class="section-header animate-in">
+      <div class="section-label"><span class="accent">04</span> — <span data-i18n="s-prin">PRINCIPY</span></div>
+      <h2 data-i18n="prin-h2">Jak přemýšlím o práci.</h2>
+    </div>
+    <div class="principles-grid">
+      <div class="principle-item animate-in">
+        <div class="principle-num">01</div>
+        <h3 data-i18n="pr1-title">Data first, vždy.</h3>
+        <p data-i18n="pr1-text">Každé rozhodnutí musí mít datový základ. Ne proto že to zní dobře, ale proto že bez čísel nevíte jestli se zlepšujete nebo jen točíte v kruhu.</p>
+      </div>
+      <div class="principle-item animate-in" style="transition-delay:0.1s">
+        <div class="principle-num">02</div>
+        <h3 data-i18n="pr2-title">Systémy nad hacky.</h3>
+        <p data-i18n="pr2-text">Jednorázové taktiky přinesou jednorázové výsledky. Stavím procesy a infrastrukturu které fungují i když nejsem v místnosti.</p>
+      </div>
+      <div class="principle-item animate-in">
+        <div class="principle-num">03</div>
+        <h3 data-i18n="pr3-title">Rychlost přes perfekcionismus.</h3>
+        <p data-i18n="pr3-text">Dobrý systém spuštěný dnes je lepší než dokonalý systém spuštěný příští čtvrtletí. Iterujeme rychle a zlepšujeme na základě dat.</p>
+      </div>
+      <div class="principle-item animate-in" style="transition-delay:0.1s">
+        <div class="principle-num">04</div>
+        <h3 data-i18n="pr4-title">Méně klientů, více hloubky.</h3>
+        <p data-i18n="pr4-text">Nechci desítky projektů. Chci několik partnerství kde mohu opravdu porozumět byznysu a přinést nelineární hodnotu.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div id="cta-section">
+  <div class="container">
+    <h2 class="cta-h2 animate-in" data-i18n="cta-h2">Pojďme spolupracovat.</h2>
+    <p class="cta-text animate-in" data-i18n="cta-text">Hledám startupy které jsou past zero — mají produkt, první zákazníky, a chuť škálovat systematicky.</p>
+    <div class="cta-btns animate-in">
+      <a href="index.html#contact" class="btn btn-primary" data-i18n="cta-btn1">Sjednat konzultaci →</a>
+      <a href="services.html" class="btn btn-secondary" data-i18n="cta-btn2">Prozkoumat služby →</a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="inner">
+      <p>© 2026 Dominik Maslan. Growth Architect.</p>
+      <div class="links">
+        <a href="index.html" data-i18n="ft-home">Domů</a>
+        <a href="services.html" data-i18n="ft-services">Služby</a>
+        <a href="blog.html" data-i18n="ft-blog">Blog</a>
+        <a href="index.html#contact" data-i18n="ft-contact">Kontakt</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Sticky nav
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // Scroll animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.animate-in').forEach(el => observer.observe(el));
+
+  // i18n
+  let currentLocale = 'en';
+
+  const T = {
+    en: {
+      'nav-services':  'Services',
+      'nav-about':     'About',
+      'nav-blog':      'Blog',
+      'nav-contact':   'Contact',
+      'hdr-label':     'ABOUT',
+      'hdr-h1':        'Seven years of practice.<br>One goal.',
+      'hdr-sub':       'Marketer by trade, architect by ambition.',
+      's-bio':         'BIO',
+      'photo-sub':     'Photo coming soon',
+      'bio-loc':       'Czech Republic',
+      'bio-p1':        'Over the past seven years I worked across the full spectrum of marketing — PPC and RTB campaigns, brand development and account management. I built an instinct for what actually moves the needle versus what just looks good in a report.',
+      'bio-p2':        'Today I serve as CMO at a startup building software for stock market investors. The challenge is communicating complex financial tooling to a sophisticated audience that has zero tolerance for vague promises. Every message has to earn its place.',
+      'bio-p3':        'In parallel, I build growth systems for ambitious startups as a Growth Architect — a role that sits at the intersection of strategy, execution and measurement. My goal isn\'t just marketing, but designing systems that allow companies to scale with intent.',
+      's-phil':        'PHILOSOPHY',
+      'phil-h2':       'Why performance and brand aren\'t opposites.',
+      'phil1-h3':      'Performance without brand',
+      'phil1-text':    'Rents attention. Works while you pay — and then you\'re fully dependent on auction dynamics and algorithm changes. Costs rise, results plateau.',
+      'phil2-h3':      'Data literacy as the connective tissue',
+      'phil2-text':    'The ability to ask the right questions, build measurement frameworks that reflect reality, and make decisions that serve both the quarter and the decade.',
+      'phil2-quote':   '"The connective tissue between them is data literacy."',
+      'phil3-h3':      'Brand without performance',
+      'phil3-text':    'Faith-based marketing. Beautiful, perhaps, but unoptimisable and hard to defend in the boardroom. Without data, you don\'t know what works.',
+      's-exp':         'EXPERIENCE',
+      'exp-h2':        'The path to systems thinking.',
+      'tl1-label':     '2024 — present',
+      'tl1-title':     'CMO · Fintech Startup',
+      'tl1-text':      'Marketing software for stock market investors. Communicating complex financial tools to a sophisticated B2C audience.',
+      'tl2-label':     '2021 — 2024',
+      'tl2-title':     'Performance & Brand Marketing',
+      'tl2-text':      'PPC, RTB and programmatic advertising. Brand development and account management for mid-size e-commerce and B2B clients. Managing budgets in the millions.',
+      'tl3-label':     '2019 — 2021',
+      'tl3-title':     'PPC Specialist & Account Manager',
+      'tl3-text':      'Beginnings in digital marketing — Google Ads, Meta, first campaigns and first data. Building intuition for what works versus what just looks like it works.',
+      'tl4-label':     'Vision',
+      'tl4-title':     'Growth Architect',
+      'tl4-text':      'Scaling startups through integrated growth systems. Connecting performance marketing, brand strategy and data infrastructure into systems that self-improve.',
+      's-prin':        'PRINCIPLES',
+      'prin-h2':       'How I think about work.',
+      'pr1-title':     'Data first, always.',
+      'pr1-text':      'Every decision needs a data foundation. Not because it sounds good, but because without numbers you don\'t know if you\'re improving or just spinning in circles.',
+      'pr2-title':     'Systems over hacks.',
+      'pr2-text':      'One-off tactics bring one-off results. I build processes and infrastructure that work even when I\'m not in the room.',
+      'pr3-title':     'Speed over perfectionism.',
+      'pr3-text':      'A good system launched today beats a perfect system launched next quarter. We iterate fast and improve based on data.',
+      'pr4-title':     'Fewer clients, more depth.',
+      'pr4-text':      'I don\'t want dozens of projects. I want a few partnerships where I can truly understand the business and bring non-linear value.',
+      'cta-h2':        'Let\'s work together.',
+      'cta-text':      'I\'m looking for startups that are past zero — with a product, early customers, and the drive to scale systematically.',
+      'cta-btn1':      'Book a consultation →',
+      'cta-btn2':      'Explore services →',
+      'ft-home':       'Home',
+      'ft-services':   'Services',
+      'ft-blog':       'Blog',
+      'ft-contact':    'Contact',
+    },
+    cs: {
+      'nav-services':  'Služby',
+      'nav-about':     'O mně',
+      'nav-blog':      'Blog',
+      'nav-contact':   'Kontakt',
+      'hdr-label':     'O MNĚ',
+      'hdr-h1':        'Sedm let praxe.<br>Jeden cíl.',
+      'hdr-sub':       'Marketer by trade, architect by ambition.',
+      's-bio':         'BIO',
+      'photo-sub':     'Fotografie připravuje se',
+      'bio-loc':       'Česká republika',
+      'bio-p1':        'Za posledních sedm let jsem pracoval napříč celým spektrem marketingu — PPC a RTB kampaně, brand development a account management. Vybudoval jsem si instinkt pro to, co skutečně posouvá výsledky versus co jen vypadá dobře v reportu.',
+      'bio-p2':        'Dnes působím jako CMO ve startupu vyvíjejícím software pro investory na akciovém trhu. Výzvou je komunikovat komplexní finanční nástroje sofistikovanému publiku, které má nulovou toleranci k vágním slibům. Každá zpráva musí vydělat své místo.',
+      'bio-p3':        'Paralelně stavím growth systémy pro ambiciózní startupy jako Growth Architect — role která sedí na průsečíku strategie, exekuce a měření. Nejde mi jen o marketing, ale o navrhování systémů které firmám umožní růst se záměrem.',
+      's-phil':        'FILOZOFIE',
+      'phil-h2':       'Proč performance a brand nejsou protiklady.',
+      'phil1-h3':      'Performance bez brandu',
+      'phil1-text':    'Pronajímá pozornost. Funguje dokud platíte — a pak jste plně závislí na aukční dynamice a změnách algoritmů. Náklady rostou, výsledky stagnují.',
+      'phil2-h3':      'Data literacy jako pojítko',
+      'phil2-text':    'Schopnost klást správné otázky, budovat měřící frameworky které odráží realitu a dělat rozhodnutí která slouží zároveň kvartálu i desetiletí.',
+      'phil2-quote':   '„The connective tissue between them is data literacy."',
+      'phil3-h3':      'Brand bez performance',
+      'phil3-text':    'Marketing na víru. Krásný, možná, ale neoptimalizovatelný a těžko obhajitelný v boardroomu. Bez čísel nevíte co funguje.',
+      's-exp':         'ZKUŠENOSTI',
+      'exp-h2':        'Cesta k systémovému myšlení.',
+      'tl1-label':     '2024 — dnes',
+      'tl1-title':     'CMO · Fintech Startup',
+      'tl1-text':      'Marketing software pro investory na akciovém trhu. Komunikace komplexních finančních nástrojů sofistikovanému B2C publiku.',
+      'tl2-label':     '2021 — 2024',
+      'tl2-title':     'Performance & Brand Marketing',
+      'tl2-text':      'PPC, RTB a programatická reklama. Brand development a account management pro středně velké e-commerce a B2B klienty. Správa budgetů v řádech milionů korun.',
+      'tl3-label':     '2019 — 2021',
+      'tl3-title':     'PPC Specialista & Account Manager',
+      'tl3-text':      'Začátky v digitálním marketingu — Google Ads, Meta, první kampaně a první data. Budování instinktu pro to, co funguje a co jen vypadá že funguje.',
+      'tl4-label':     'Vize',
+      'tl4-title':     'Growth Architect',
+      'tl4-text':      'Škálování startupů skrze integrované growth systémy. Propojení performance marketingu, brand strategie a datové infrastruktury do systémů které se samy zlepšují.',
+      's-prin':        'PRINCIPY',
+      'prin-h2':       'Jak přemýšlím o práci.',
+      'pr1-title':     'Data first, vždy.',
+      'pr1-text':      'Každé rozhodnutí musí mít datový základ. Ne proto že to zní dobře, ale proto že bez čísel nevíte jestli se zlepšujete nebo jen točíte v kruhu.',
+      'pr2-title':     'Systémy nad hacky.',
+      'pr2-text':      'Jednorázové taktiky přinesou jednorázové výsledky. Stavím procesy a infrastrukturu které fungují i když nejsem v místnosti.',
+      'pr3-title':     'Rychlost přes perfekcionismus.',
+      'pr3-text':      'Dobrý systém spuštěný dnes je lepší než dokonalý systém spuštěný příští čtvrtletí. Iterujeme rychle a zlepšujeme na základě dat.',
+      'pr4-title':     'Méně klientů, více hloubky.',
+      'pr4-text':      'Nechci desítky projektů. Chci několik partnerství kde mohu opravdu porozumět byznysu a přinést nelineární hodnotu.',
+      'cta-h2':        'Pojďme spolupracovat.',
+      'cta-text':      'Hledám startupy které jsou past zero — mají produkt, první zákazníky, a chuť škálovat systematicky.',
+      'cta-btn1':      'Sjednat konzultaci →',
+      'cta-btn2':      'Prozkoumat služby →',
+      'ft-home':       'Domů',
+      'ft-services':   'Služby',
+      'ft-blog':       'Blog',
+      'ft-contact':    'Kontakt',
+    }
+  };
+
+  function setLocale(loc) {
+    currentLocale = loc;
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const v = T[loc]?.[el.dataset.i18n];
+      if (v !== undefined) el.innerHTML = v;
+    });
+    document.querySelectorAll('.i18n-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.locale === loc);
+    });
+    document.documentElement.lang = loc === 'cs' ? 'cs' : 'en';
+    localStorage.setItem('locale', loc);
+  }
+
+  const saved = localStorage.getItem('locale');
+  setLocale(saved === 'cs' ? 'cs' : 'en');
+</script>
+</body>
+</html>

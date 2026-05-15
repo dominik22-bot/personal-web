@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>7 Programming Languages — Dominik Maslan Blog</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg-primary:    #08090a;
+      --bg-surface:    #111213;
+      --bg-elevated:   #1a1b1e;
+      --border:        #2a2b2e;
+      --text-primary:  #f0f0f0;
+      --text-secondary:#888890;
+      --text-muted:    #555560;
+      --accent:        #00D0D0;
+      --accent-dim:    rgba(0,208,208,0.12);
+      --max-w:         1100px;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg-primary);
+      color: var(--text-secondary);
+      font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+      font-size: 16px; line-height: 1.7; font-weight: 400;
+      -webkit-font-smoothing: antialiased;
+    }
+    .container { max-width: var(--max-w); margin: 0 auto; padding: 0 24px; }
+
+    /* Reading progress bar */
+    #read-progress {
+      position: fixed; top: 0; left: 0; z-index: 200;
+      height: 3px; background: var(--accent); width: 0%;
+      transition: width 0.1s linear;
+    }
+
+    /* Nav */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 20px 0; transition: background 0.3s, backdrop-filter 0.3s, box-shadow 0.3s;
+    }
+    nav.scrolled {
+      background: rgba(8,9,10,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 1px 20px rgba(0,0,0,0.4);
+    }
+    nav .inner {
+      display: flex; align-items: center; justify-content: space-between;
+      max-width: var(--max-w); margin: 0 auto; padding: 0 24px;
+    }
+    .nav-logo { font-weight: 600; font-size: 17px; letter-spacing: -0.01em; color: var(--text-primary); text-decoration: none; }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 14px; font-weight: 400; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--text-primary); }
+
+    /* Language toggle (i18n — separate from .lang-btn article tabs) */
+    .i18n-toggle {
+      display: flex; align-items: center;
+      background: var(--bg-surface); border: 1px solid var(--border);
+      border-radius: 8px; overflow: hidden; flex-shrink: 0;
+    }
+    .i18n-btn {
+      padding: 6px 12px; background: none; border: none;
+      color: var(--text-muted); cursor: pointer; font-family: inherit;
+      font-size: 12px; font-weight: 500; letter-spacing: 0.06em;
+      transition: all 0.15s; line-height: 1;
+    }
+    .i18n-btn.active { background: var(--accent); color: #08090a; font-weight: 600; }
+    .i18n-btn:hover:not(.active) { color: var(--text-primary); }
+
+    /* Article header */
+    .article-header {
+      padding: 140px 0 60px;
+      position: relative; overflow: hidden;
+      border-bottom: 1px solid var(--border);
+    }
+    .article-header::before {
+      content: '';
+      position: absolute; top: -200px; left: 50%; transform: translateX(-50%);
+      width: 900px; height: 500px;
+      background: radial-gradient(ellipse at center, rgba(0,208,208,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .breadcrumb {
+      font-size: 13px; color: var(--text-muted); margin-bottom: 24px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .breadcrumb a { color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+    .breadcrumb a:hover { color: var(--accent); }
+    .breadcrumb .sep { color: var(--border); }
+    .article-cat {
+      display: inline-block;
+      background: var(--accent-dim); color: var(--accent);
+      font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 4px 12px; border-radius: 999px; border: 1px solid rgba(0,208,208,0.25);
+      margin-bottom: 20px;
+    }
+    .article-header h1 {
+      font-size: clamp(30px, 4.5vw, 52px);
+      font-weight: 300; letter-spacing: -0.03em; line-height: 1.1;
+      color: var(--text-primary); margin-bottom: 20px;
+    }
+    .article-header h1 .gradient {
+      background: linear-gradient(135deg, #00d0d0 0%, #5ee8e8 50%, #a0f0f0 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .article-header .desc { font-size: 18px; color: var(--text-secondary); max-width: 600px; line-height: 1.75; margin-bottom: 28px; }
+    .article-meta { font-size: 13px; color: var(--text-muted); display: flex; gap: 20px; flex-wrap: wrap; }
+    .article-meta span { display: flex; align-items: center; gap: 6px; }
+
+    /* Programming-language tabs (article-internal switcher) */
+    .lang-nav-wrap {
+      position: sticky; top: 65px; z-index: 50;
+      background: rgba(8,9,10,0.92); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0;
+    }
+    .lang-nav {
+      max-width: var(--max-w); margin: 0 auto; padding: 0 24px;
+      display: flex; gap: 4px; overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .lang-nav::-webkit-scrollbar { display: none; }
+    .lang-btn {
+      display: flex; align-items: center; gap: 8px;
+      padding: 14px 18px;
+      background: none; border: none; cursor: pointer;
+      color: var(--text-muted); font-size: 13px; font-weight: 500;
+      white-space: nowrap;
+      border-bottom: 2px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+      font-family: inherit;
+    }
+    .lang-btn:hover { color: var(--text-primary); }
+    .lang-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+    .lang-btn .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+    /* Article body */
+    .article-body { padding: 60px 0 80px; }
+    .article-intro { max-width: 720px; margin-bottom: 56px; }
+    .article-intro p { color: var(--text-secondary); font-size: 17px; line-height: 1.85; margin-bottom: 18px; }
+    .article-intro p strong { color: var(--text-primary); font-weight: 500; }
+
+    /* Language panel */
+    .lang-panel { display: none; }
+    .lang-panel.active { display: block; }
+
+    .lang-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+    }
+    .lang-card-top {
+      padding: 36px 40px 32px;
+      position: relative;
+    }
+    .lang-card-top::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; }
+    .lang-badge {
+      display: inline-block;
+      font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 4px 12px; border-radius: 999px;
+      border: 1px solid; margin-bottom: 20px;
+    }
+    .lang-name {
+      font-size: clamp(28px, 4vw, 40px); font-weight: 600;
+      letter-spacing: -0.03em; margin-bottom: 14px; line-height: 1;
+      color: var(--text-primary);
+    }
+    .lang-desc { font-size: 16px; color: var(--text-secondary); max-width: 580px; line-height: 1.8; margin-bottom: 28px; }
+
+    /* Badges row */
+    .badge-row { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 28px; }
+    .badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 8px; padding: 6px 14px;
+      font-size: 13px; font-weight: 500; color: var(--text-secondary);
+    }
+    .badge .badge-label { font-size: 11px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted); margin-right: 4px; }
+    .badge .badge-val { color: var(--text-primary); font-weight: 500; }
+
+    /* When-to-use tags */
+    .use-section { margin-bottom: 0; }
+    .use-label { font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; }
+    .use-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .use-tag {
+      background: var(--accent-dim); color: var(--accent);
+      border: 1px solid rgba(0,208,208,0.2);
+      border-radius: 8px; padding: 6px 14px;
+      font-size: 13px; font-weight: 400;
+    }
+
+    /* Code block */
+    .code-block { border-top: 1px solid var(--border); background: #0a0a0c; }
+    .code-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 20px; border-bottom: 1px solid var(--border);
+    }
+    .code-header .file-name { font-size: 13px; color: var(--text-muted); font-family: 'SF Mono', 'Fira Code', monospace; }
+    .code-header .lang-label {
+      font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--accent); background: var(--accent-dim);
+      border: 1px solid rgba(0,208,208,0.2); border-radius: 6px; padding: 3px 10px;
+    }
+    pre {
+      padding: 28px; overflow-x: auto;
+      font-family: 'SF Mono', 'Fira Code', 'Fira Mono', monospace;
+      font-size: 13.5px; line-height: 1.75;
+      scrollbar-width: thin; scrollbar-color: var(--border) transparent;
+    }
+    pre::-webkit-scrollbar { height: 6px; }
+    pre::-webkit-scrollbar-track { background: transparent; }
+    pre::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+    /* Syntax colors — intentional, do not change */
+    .kw  { color: #c792ea; }
+    .fn  { color: #82aaff; }
+    .str { color: #c3e88d; }
+    .cm  { color: #546e7a; font-style: italic; }
+    .num { color: #f78c6c; }
+    .tag-c { color: #f07178; }
+    .attr { color: #ffcb6b; }
+    .val { color: #c3e88d; }
+    .sel { color: #ffcb6b; }
+    .prop { color: #80cbc4; }
+    .op  { color: #89ddff; }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex; align-items: center;
+      padding: 12px 24px; border-radius: 8px;
+      font-size: 14px; font-weight: 600; text-decoration: none;
+      transition: all 0.2s; cursor: pointer; font-family: inherit; border: none;
+    }
+    .btn-primary { background: var(--accent); color: #08090a; }
+    .btn-primary:hover { filter: brightness(110%); }
+    .btn-secondary { background: transparent; color: var(--text-primary); border: 1px solid var(--border); }
+    .btn-secondary:hover { border-color: var(--accent); }
+
+    /* Article footer */
+    .article-footer { margin-top: 64px; padding-top: 40px; border-top: 1px solid var(--border); padding-bottom: 80px; }
+    .article-footer-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+
+    /* Page footer */
+    footer { border-top: 1px solid var(--border); padding: 40px 0; }
+    footer .inner { display: flex; justify-content: space-between; align-items: center; }
+    footer p { font-size: 13px; color: var(--text-muted); }
+    footer .links { display: flex; gap: 24px; }
+    footer .links a { font-size: 13px; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+    footer .links a:hover { color: var(--text-primary); }
+
+    @media (max-width: 768px) {
+      .lang-card-top { padding: 28px 24px 24px; }
+      pre { padding: 20px 18px; font-size: 12.5px; }
+      .nav-links { display: none; }
+      footer .inner { flex-direction: column; gap: 20px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+<div id="read-progress"></div>
+
+<nav id="navbar">
+  <div class="inner">
+    <a href="../index.html" class="nav-logo">DM.</a>
+    <ul class="nav-links">
+      <li><a href="../index.html#sluzby" data-i18n="nav-services">Služby</a></li>
+      <li><a href="../index.html#pristup" data-i18n="nav-about">Přístup</a></li>
+      <li><a href="../blog.html" class="active" data-i18n="nav-blog">Blog</a></li>
+      <li><a href="../index.html#contact" data-i18n="nav-contact">Kontakt</a></li>
+    </ul>
+    <div class="i18n-toggle">
+      <button class="i18n-btn" data-locale="en" onclick="setLocale('en')">EN</button>
+      <button class="i18n-btn" data-locale="cs" onclick="setLocale('cs')">CZ</button>
+    </div>
+  </div>
+</nav>
+
+<!-- HEADER -->
+<div class="article-header">
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="../blog.html" data-i18n="bc-blog">Blog</a>
+      <span class="sep">/</span>
+      <span data-i18n="bc-cat">Tech</span>
+    </div>
+    <div class="article-cat" data-i18n="article-cat">Tech</div>
+    <h1 data-i18n="article-h1">7 Programming Languages<br/><span class="gradient">Every Marketer Should Know</span></h1>
+    <p class="desc" data-i18n="article-desc">An interactive tour of the building blocks of the modern web — what each language does, why it exists, and when you'd actually reach for it.</p>
+    <div class="article-meta">
+      <span data-i18n="meta-date">📅 April 2026</span>
+      <span data-i18n="meta-read">⏱ 8 min read</span>
+      <span>🏷 HTML · CSS · JS · React · Next.js · Python · SQL</span>
+    </div>
+  </div>
+</div>
+
+<!-- STICKY PROGRAMMING-LANGUAGE NAV (article-internal tabs, not i18n) -->
+<div class="lang-nav-wrap">
+  <div class="lang-nav" id="langNav">
+    <button class="lang-btn active" data-lang="html" onclick="switchLang('html')">
+      <span class="dot" style="background:#f07178;"></span> HTML
+    </button>
+    <button class="lang-btn" data-lang="css" onclick="switchLang('css')">
+      <span class="dot" style="background:#264de4;"></span> CSS
+    </button>
+    <button class="lang-btn" data-lang="js" onclick="switchLang('js')">
+      <span class="dot" style="background:#f0db4f;"></span> JavaScript
+    </button>
+    <button class="lang-btn" data-lang="react" onclick="switchLang('react')">
+      <span class="dot" style="background:#61dafb;"></span> React
+    </button>
+    <button class="lang-btn" data-lang="nextjs" onclick="switchLang('nextjs')">
+      <span class="dot" style="background:#e8e8f0;"></span> Next.js
+    </button>
+    <button class="lang-btn" data-lang="python" onclick="switchLang('python')">
+      <span class="dot" style="background:#3572a5;"></span> Python
+    </button>
+    <button class="lang-btn" data-lang="sql" onclick="switchLang('sql')">
+      <span class="dot" style="background:#e97c37;"></span> SQL
+    </button>
+  </div>
+</div>
+
+<!-- ARTICLE BODY -->
+<div class="article-body">
+  <div class="container">
+
+    <div class="article-intro">
+      <p data-i18n="intro-p1">You don't need to be a developer to benefit from understanding the tools developers use. As someone who works at the intersection of <strong>marketing, strategy, and data</strong>, I've found that even a surface-level grasp of these languages changes how you communicate with engineers, read analytics implementations, and make product decisions.</p>
+      <p data-i18n="intro-p2">Pick a language below and explore what it does, how hard it is to learn, and where it runs.</p>
+    </div>
+
+    <!-- ── HTML ── -->
+    <div class="lang-panel active" id="panel-html">
+      <div class="lang-card">
+        <div class="lang-card-top">
+          <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#f07178,#ff9a8b);"></div>
+          <div class="lang-badge" style="color:#f07178; border-color:rgba(240,113,120,.3); background:rgba(240,113,120,.08);" data-i18n="html-badge">Language for Structure</div>
+          <div class="lang-name">HTML</div>
+          <div class="lang-desc" data-i18n="html-desc">HyperText Markup Language is the skeleton of every web page. It defines the elements — headings, paragraphs, images, links, forms — but doesn't make them look good or behave interactively. That's CSS and JavaScript's job.</div>
+          <div class="badge-row">
+            <div class="badge"><span class="badge-label" data-i18n="lbl-type">Type</span><span class="badge-val" data-i18n="html-type">Markup</span></div>
+            <div class="badge"><span class="badge-label" data-i18n="lbl-diff">Difficulty</span><span class="badge-val" data-i18n="html-diff">⭐ Beginner</span></div>
+            <div class="badge"><span class="badge-label" data-i18n="lbl-runs">Runs in</span><span class="badge-val" data-i18n="html-runs">Browser</span></div>
+          </div>
+          <div class="use-section">
+            <div class="use-label" data-i18n="lbl-when">When to use</div>
+            <div class="use-tags">
+              <span class="use-tag" data-i18n="html-u1">Building any webpage</span>
+              <span class="use-tag" data-i18n="html-u2">Email templates</span>
+              <span class="use-tag" data-i18n="html-u3">Landing pages</span>
+              <span class="use-tag" data-i18n="html-u4">Reading page source</span>
+              <span class="use-tag" data-i18n="html-u5">Understanding SEO structure</span>
+            </div>
+          </div>
+        </div>
+        <div class="code-block">
+          <div class="code-header">
+            <span class="file-name">index.html</span>
+            <span class="lang-label">HTML</span>
+          </div>
+<pre><span class="cm">&lt;!-- A simple landing page skeleton --&gt;</span>
+<span class="tag-c">&lt;!DOCTYPE html&gt;</span>
+<span class="tag-c">&lt;html</span> <span class="attr">lang</span><span class="op">=</span><span class="val">"en"</span><span class="tag-c">&gt;</span>
+<span class="tag-c">&lt;head&gt;</span>
+  <span class="tag-c">&lt;meta</span> <span class="attr">charset</span><span class="op">=</span><span class="val">"UTF-8"</span> <span class="tag-c">/&gt;</span>
+  <span class="tag-c">&lt;title&gt;</span>My Startup<span class="tag-c">&lt;/title&gt;</span>
+<span class="tag-c">&lt;/head&gt;</span>
+<span class="tag-c">&lt;body&gt;</span>
+
+  <span class="tag-c">&lt;header&gt;</span>
+    <span class="tag-c">&lt;h1&gt;</span>Grow faster, with data.<span class="tag-c">&lt;/h1&gt;</span>
+    <span class="tag-c">&lt;p&gt;</span>We help startups build scalable growth systems.<span class="tag-c">&lt;/p&gt;</span>
+    <span class="tag-c">&lt;a</span> <span class="attr">href</span><span class="op">=</span><span class="val">"#contact"</span><span class="tag-c">&gt;</span>Work with us<span class="tag-c">&lt;/a&gt;</span>
+  <span class="tag-c">&lt;/header&gt;</span>
+
+  <span class="tag-c">&lt;section</span> <span class="attr">id</span><span class="op">=</span><span class="val">"features"</span><span class="tag-c">&gt;</span>
+    <span class="tag-c">&lt;h2&gt;</span>What we do<span class="tag-c">&lt;/h2&gt;</span>
+    <span class="tag-c">&lt;ul&gt;</span>
+      <span class="tag-c">&lt;li&gt;</span>Performance marketing<span class="tag-c">&lt;/li&gt;</span>
+      <span class="tag-c">&lt;li&gt;</span>Brand strategy<span class="tag-c">&lt;/li&gt;</span>
+      <span class="tag-c">&lt;li&gt;</span>Data-driven growth<span class="tag-c">&lt;/li&gt;</span>
+    <span class="tag-c">&lt;/ul&gt;</span>
+  <span class="tag-c">&lt;/section&gt;</span>
+
+<span class="tag-c">&lt;/body&gt;</span>
+<span class="tag-c">&lt;/html&gt;</span></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── CSS ── -->
+    <div class="lang-panel" id="panel-css">
+      <div class="lang-card">
+        <div class="lang-card-top">
+          <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#264de4,#6496ef);"></div>
+          <div class="lang-badge" style="color:#6496ef; border-color:rgba(100,150,239,.3); background:rgba(100,150,239,.08);" data-i18n="css-badge">Language for Style</div>
+          <div class="lang-name">CSS</div>
+          <div class="lang-desc" data-i18n="css-desc">Cascading Style Sheets control how HTML elements look — colors, fonts, spacing, layout, animations. Without CSS, every website would look like a Wikipedia page from 1999. Modern CSS with Flexbox and Grid is surprisingly powerful.</div>
+          <div class="badge-row">
+            <div class="badge"><span class="badge-label" data-i18n="lbl-type">Type</span><span class="badge-val" data-i18n="css-type">Style Sheet</span></div>
+            <div class="badge"><span class="badge-label" data-i18n="lbl-diff">Difficulty</span><span class="badge-val" data-i18n="css-diff">⭐⭐ Beginner+</span></div>
+            <div class="badge"><span class="badge-label" data-i18n="lbl-runs">Runs in</span><span class="badge-val" data-i18n="css-runs">Browser</span></div>
+          </div>
+          <div class="use-section">
+            <div class="use-label" data-i18n="lbl-when">When to use</div>
+            <div class="use-tags">
+              <span class="use-tag" data-i18n="css-u1">Designing web UI</span>
+              <span class="use-tag" data-i18n="css-u2">Email styling</span>
+              <span class="use-tag" data-i18n="css-u3">Responsive layouts</span>
+              <span class="use-tag" data-i18n="css-u4">Animations &amp; transitions</span>
+              <span class="use-tag" data-i18n="css-u5">Dark/light mode</span>
+            </div>
+          </div>
+        </div>
+        <div class="code-block">
+          <div class="code-header">
+            <span class="file-name">styles.css</span>
+            <span class="lang-label">CSS</span>
+          </div>
+<pre><span class="cm">/* Design tokens — change once, updates everywhere */</span>
+<span class="sel">:root</span> {
+  <span class="prop">--brand</span><span class="op">:</span>   <span class="str">#00d0d0</span>;
+  <span class="prop">--bg</span><span class="op">:</span>      <span class="str">#08090a</span>;
+  <span class="prop">--text</span><span class="op">:</span>    <span class="str">#f0f0f0</span>;
+  <span class="prop">--radius</span><span class="op">:</span>  <span class="num">12px</span>;
+}
+
+<span class="cm">/* Hero section */</span>
+<span class="sel">.hero</span> {
+  <span class="prop">display</span><span class="op">:</span>         <span class="str">flex</span>;
+  <span class="prop">flex-direction</span><span class="op">:</span>  <span class="str">column</span>;
+  <span class="prop">align-items</span><span class="op">:</span>     <span class="str">center</span>;
+  <span class="prop">padding</span><span class="op">:</span>         <span class="num">120px</span> <span class="num">24px</span>;
+  <span class="prop">background</span><span class="op">:</span>      <span class="str">var(--bg)</span>;
+}
+
+<span class="sel">.hero h1</span> {
+  <span class="prop">font-size</span><span class="op">:</span>    <span class="num">56px</span>;
+  <span class="prop">font-weight</span><span class="op">:</span>  <span class="num">300</span>;
+  <span class="prop">color</span><span class="op">:</span>        <span class="str">var(--brand)</span>;
+  <span class="prop">transition</span><span class="op">:</span>  <span class="str">color .2s</span>;
+}
+
+<span class="cm">/* Responsive: shrink on mobile */</span>
+<span class="sel">@media (max-width: 768px)</span> {
+  <span class="sel">.hero h1</span> { <span class="prop">font-size</span><span class="op">:</span> <span class="num">32px</span>; }
+}</pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── JavaScript ── -->
+    <div class="lang-panel" id="panel-js">
+      <div class="lang-card">
+        <div class="lang-card-top">
+          <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#f0db4f,#f5e67a);"></div>
+          <div class="lang-badge" style="color:#c8a800; border-color:rgba(200,168,0,.3); background:rgba(200,168,0,.08);" data-i18n="js-badge">Language for Behavior</div>
+          <div class="lang-name">JavaScript</div>
+          <div class="lang-desc" data-i18n="js-desc">The only programming language that runs natively in every browser. JavaScript makes pages interactive — form validation, dropdown menus, live search, data fetching, animations. It also runs on servers (Node.js) and powers most of the modern web stack.</div>
+          <div class="badge-row">
+            <div class="badge"><span class="badge-label" data-i18n="lbl-type">Type</span><span class="badge-val" data-i18n="js-type">Programming</span></div>
+            <div class="badge"><span class="badge-label" data-i18n="lbl-diff">Difficulty</span><span class="badge-val" data-i18n="js-diff">⭐⭐⭐ Intermediate</span></div>
+            <div class="badge"><span class="badge-label" data-i18n="lbl-runs">Runs in</span><span class="badge-val" data-i18n="js-runs">Browser + Server</span></div>
+          </div>
+          <div class="use-section">
+            <div class="use-label" data-i18n="lbl-when">When to use</div>
+            <div class="use-tags">
+              <span class="use-tag" data-i18n="js-u1">Interactive UIs</span>
+              <span class="use-tag" data-i18n="js-u2">Form validation</span>
+              <span class="use-tag" data-i18n="js-u3">API calls</span>
+              <span class="use-tag" data-i18n="js-u4">Analytics tracking</span>
+              <span class="use-tag" data-i18n="js-u5">Web apps</span>
+              <span class="use-tag" data-i18n="js-u6">Automation scripts</span>
+            </div>
+          </div>
+        </div>
+        <div class="code-block">
+          <div class="code-header">
+            <span class="file-name">app.js</span>
+            <span class="lang-label">JavaScript</span>
+          </div>
+<pre><span class="cm">// Fetch campaign data from an API and display it</span>
+<span class="kw">async function</span> <span class="fn">loadCampaignStats</span>() {
+  <span class="kw">const</span> response <span class="op">=</span> <span class="kw">await</span> <span class="fn">fetch</span>(<span class="str">'/api/campaigns'</span>);
+  <span class="kw">const</span> data     <span class="op">=</span> <span class="kw">await</span> response.<span class="fn">json</span>();
+
+  data.<span class="fn">forEach</span>(campaign <span class="op">=&gt;</span> {
+    <span class="kw">const</span> roas <span class="op">=</span> campaign.revenue <span class="op">/</span> campaign.spend;
+
+    <span class="kw">if</span> (roas <span class="op">&gt;</span> <span class="num">3</span>) {
+      <span class="fn">highlight</span>(campaign.id, <span class="str">'green'</span>);
+    } <span class="kw">else if</span> (roas <span class="op">&lt;</span> <span class="num">1</span>) {
+      <span class="fn">highlight</span>(campaign.id, <span class="str">'red'</span>);
+    }
+  });
+}
+
+<span class="cm">// Run when page loads</span>
+document.<span class="fn">addEventListener</span>(<span class="str">'DOMContentLoaded'</span>, loadCampaignStats);</pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── React ── -->
+    <div class="lang-panel" id="panel-react">
+      <div class="lang-card">
+        <div class="lang-card-top">
+          <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#61dafb,#a3eafd);"></div>
+          <div class="lang-badge" style="color:#61dafb; border-color:rgba(97,218,251,.3); background:rgba(97,218,251,.08);" data-i18n="react-badge">UI Library</div>
+          <div class="lang-name">React</div>
+          <div class="lang-desc" data-i18n="react-desc">React is a JavaScript library (made by Meta) for building user interfaces out of reusable components. Instead of manually updating the DOM, you describe what the UI should look like — React handles the updates. Powers Facebook, Instagram, Airbnb, and most modern web apps.</div>
+          <div class="badge-row">
+            <div class="badge"><span class="badge-label" data-i18n="lbl-type">Type</span><span class="badge-val" data-i18n="react-type">UI Library</span></div>
+            <div class="badge"><span class="badge-label" data-i18n="lbl-diff">Difficulty</span><span class="badge-val" data-i18n="react-diff">⭐⭐⭐ Intermediate</span></div>
+            <div class="badge"><span class="badge-label" data-i18n="lbl-runs">Runs in</span><span class="badge-val" data-i18n="react-runs">Browser + Server</span></div>
+          </div>
+          <div class="use-section">
+            <div class="use-label" data-i18n="lbl-when">When to use</div>
+            <div class="use-tags">
+              <span class="use-tag" data-i18n="react-u1">SaaS dashboards</span>
+              <span class="use-tag" data-i18n="react-u2">Complex web apps</span>
+              <span class="use-tag" data-i18n="react-u3">Reusable UI components</span>
+              <span class="use-tag" data-i18n="react-u4">Real-time data UIs</span>
+              <span class="use-tag" data-i18n="react-u5">Single-page apps</span>
+            </div>
+          </div>
+        </div>
+        <div class="code-block">
+          <div class="code-header">
+            <span class="file-name">CampaignCard.jsx</span>
+            <span class="lang-label">React</span>
+          </div>
+<pre><span class="cm">// A reusable campaign stat component</span>
+<span class="kw">function</span> <span class="fn">CampaignCard</span>({ name, spend, revenue }) {
+  <span class="kw">const</span> roas  <span class="op">=</span> (revenue <span class="op">/</span> spend).<span class="fn">toFixed</span>(<span class="num">2</span>);
+  <span class="kw">const</span> color <span class="op">=</span> roas <span class="op">&gt;=</span> <span class="num">3</span> <span class="op">?</span> <span class="str">'green'</span> <span class="op">:</span> <span class="str">'red'</span>;
+
+  <span class="kw">return</span> (
+    <span class="tag-c">&lt;div</span> <span class="attr">className</span><span class="op">=</span><span class="val">"card"</span><span class="tag-c">&gt;</span>
+      <span class="tag-c">&lt;h3&gt;</span>{name}<span class="tag-c">&lt;/h3&gt;</span>
+      <span class="tag-c">&lt;p&gt;</span>Spend: <span class="tag-c">&lt;strong&gt;</span>€{spend.<span class="fn">toLocaleString</span>()}<span class="tag-c">&lt;/strong&gt;&lt;/p&gt;</span>
+      <span class="tag-c">&lt;p&gt;</span>ROAS: <span class="tag-c">&lt;strong</span> <span class="attr">style</span><span class="op">=</span>{{ color }}<span class="tag-c">&gt;</span>{roas}x<span class="tag-c">&lt;/strong&gt;&lt;/p&gt;</span>
+    <span class="tag-c">&lt;/div&gt;</span>
+  );
+}
+
+<span class="cm">// Usage</span>
+<span class="tag-c">&lt;CampaignCard</span>
+  <span class="attr">name</span><span class="op">=</span><span class="val">"Brand Awareness Q2"</span>
+  <span class="attr">spend</span><span class="op">=</span>{<span class="num">12000</span>}
+  <span class="attr">revenue</span><span class="op">=</span>{<span class="num">48000</span>}
+<span class="tag-c">/&gt;</span></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Next.js ── -->
+    <div class="lang-panel" id="panel-nextjs">
+      <div class="lang-card">
+        <div class="lang-card-top">
+          <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#e8e8f0,#a0a0b0);"></div>
+          <div class="lang-badge" style="color:#b0b0c0; border-color:rgba(200,200,220,.25); background:rgba(200,200,220,.06);" data-i18n="next-badge">Full-Stack Framework</div>
+          <div class="lang-name">Next.js</div>
+          <div class="lang-desc" data-i18n="next-desc">Next.js is a framework built on top of React that adds server-side rendering, routing, and API routes out of the box. It's what most modern startups use to build their marketing sites and web apps — it's fast, SEO-friendly, and deployable in minutes on Vercel.</div>
+          <div class="badge-row">
+            <div class="badge"><span class="badge-label" data-i18n="lbl-type">Type</span><span class="badge-val" data-i18n="next-type">Framework</span></div>
+            <div class="badge"><span class="badge-label" data-i18n="lbl-diff">Difficulty</span><span class="badge-val" data-i18n="next-diff">⭐⭐⭐⭐ Advanced</span></div>
+            <div class="badge"><span class="badge-label" data-i18n="lbl-runs">Runs in</span><span class="badge-val" data-i18n="next-runs">Browser + Server</span></div>
+          </div>
+          <div class="use-section">
+            <div class="use-label" data-i18n="lbl-when">When to use</div>
+            <div class="use-tags">
+              <span class="use-tag" data-i18n="next-u1">Marketing websites</span>
+              <span class="use-tag" data-i18n="next-u2">SaaS products</span>
+              <span class="use-tag" data-i18n="next-u3">SEO-critical pages</span>
+              <span class="use-tag" data-i18n="next-u4">Blog &amp; CMS</span>
+              <span class="use-tag" data-i18n="next-u5">E-commerce</span>
+              <span class="use-tag" data-i18n="next-u6">Full-stack apps</span>
+            </div>
+          </div>
+        </div>
+        <div class="code-block">
+          <div class="code-header">
+            <span class="file-name">app/blog/[slug]/page.tsx</span>
+            <span class="lang-label">Next.js</span>
+          </div>
+<pre><span class="cm">// Server component — data fetched at build time</span>
+<span class="kw">export async function</span> <span class="fn">generateStaticParams</span>() {
+  <span class="kw">const</span> posts <span class="op">=</span> <span class="kw">await</span> <span class="fn">getPosts</span>();
+  <span class="kw">return</span> posts.<span class="fn">map</span>(p <span class="op">=&gt;</span> ({ slug: p.slug }));
+}
+
+<span class="kw">export default async function</span> <span class="fn">BlogPost</span>({ params }) {
+  <span class="kw">const</span> post <span class="op">=</span> <span class="kw">await</span> <span class="fn">getPost</span>(params.slug);
+
+  <span class="kw">return</span> (
+    <span class="tag-c">&lt;article&gt;</span>
+      <span class="tag-c">&lt;h1&gt;</span>{post.title}<span class="tag-c">&lt;/h1&gt;</span>
+      <span class="tag-c">&lt;p</span> <span class="attr">className</span><span class="op">=</span><span class="val">"date"</span><span class="tag-c">&gt;</span>{post.date}<span class="tag-c">&lt;/p&gt;</span>
+      <span class="tag-c">&lt;div</span>
+        <span class="attr">dangerouslySetInnerHTML</span><span class="op">=</span>{{ __html: post.html }}
+      <span class="tag-c">/&gt;</span>
+    <span class="tag-c">&lt;/article&gt;</span>
+  );
+}
+
+<span class="cm">// Next.js handles routing, SSR, and caching automatically</span></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Python ── -->
+    <div class="lang-panel" id="panel-python">
+      <div class="lang-card">
+        <div class="lang-card-top">
+          <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#3572a5,#ffd54f);"></div>
+          <div class="lang-badge" style="color:#5ba3d9; border-color:rgba(91,163,217,.3); background:rgba(91,163,217,.08);" data-i18n="py-badge">General Purpose Language</div>
+          <div class="lang-name">Python</div>
+          <div class="lang-desc" data-i18n="py-desc">Python is the most readable general-purpose language — it reads almost like English. It dominates data science, machine learning, automation, and backend development. If you want to analyze a spreadsheet with code, scrape a website, or build an AI pipeline, Python is your tool.</div>
+          <div class="badge-row">
+            <div class="badge"><span class="badge-label" data-i18n="lbl-type">Type</span><span class="badge-val" data-i18n="py-type">Programming</span></div>
+            <div class="badge"><span class="badge-label" data-i18n="lbl-diff">Difficulty</span><span class="badge-val" data-i18n="py-diff">⭐⭐ Beginner+</span></div>
+            <div class="badge"><span class="badge-label" data-i18n="lbl-runs">Runs in</span><span class="badge-val" data-i18n="py-runs">Server / Local</span></div>
+          </div>
+          <div class="use-section">
+            <div class="use-label" data-i18n="lbl-when">When to use</div>
+            <div class="use-tags">
+              <span class="use-tag" data-i18n="py-u1">Data analysis</span>
+              <span class="use-tag" data-i18n="py-u2">Automation scripts</span>
+              <span class="use-tag" data-i18n="py-u3">Machine learning</span>
+              <span class="use-tag" data-i18n="py-u4">Backend APIs</span>
+              <span class="use-tag" data-i18n="py-u5">Web scraping</span>
+              <span class="use-tag" data-i18n="py-u6">Report generation</span>
+            </div>
+          </div>
+        </div>
+        <div class="code-block">
+          <div class="code-header">
+            <span class="file-name">analyze_campaigns.py</span>
+            <span class="lang-label">Python</span>
+          </div>
+<pre><span class="kw">import</span> pandas <span class="kw">as</span> pd
+
+<span class="cm"># Load campaign export from CSV</span>
+df <span class="op">=</span> pd.<span class="fn">read_csv</span>(<span class="str">'campaigns.csv'</span>)
+
+<span class="cm"># Calculate ROAS and flag winners</span>
+df[<span class="str">'roas'</span>] <span class="op">=</span> df[<span class="str">'revenue'</span>] <span class="op">/</span> df[<span class="str">'spend'</span>]
+df[<span class="str">'status'</span>] <span class="op">=</span> df[<span class="str">'roas'</span>].<span class="fn">apply</span>(
+  <span class="kw">lambda</span> r: <span class="str">'winner'</span> <span class="kw">if</span> r <span class="op">&gt;=</span> <span class="num">3</span> <span class="kw">else</span> <span class="str">'pause'</span>
+)
+
+<span class="cm"># Winners only, sorted by ROAS</span>
+winners <span class="op">=</span> (df[df[<span class="str">'status'</span>] <span class="op">==</span> <span class="str">'winner'</span>]
+           .<span class="fn">sort_values</span>(<span class="str">'roas'</span>, ascending<span class="op">=</span><span class="kw">False</span>))
+
+<span class="fn">print</span>(winners[[<span class="str">'name'</span>, <span class="str">'spend'</span>, <span class="str">'revenue'</span>, <span class="str">'roas'</span>]])
+<span class="cm"># → name             spend   revenue   roas</span>
+<span class="cm"># → Brand Awareness  12000   48000     4.0</span></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SQL ── -->
+    <div class="lang-panel" id="panel-sql">
+      <div class="lang-card">
+        <div class="lang-card-top">
+          <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#e97c37,#f5a462);"></div>
+          <div class="lang-badge" style="color:#e97c37; border-color:rgba(233,124,55,.3); background:rgba(233,124,55,.08);" data-i18n="sql-badge">Language for Data</div>
+          <div class="lang-name">SQL</div>
+          <div class="lang-desc" data-i18n="sql-desc">Structured Query Language is how you talk to databases. Every analytics platform — Google Analytics, Mixpanel, Redshift, BigQuery — has SQL underneath. If you've ever wanted to answer "show me all users who signed up in Q1 and made a purchase within 7 days," SQL is the answer.</div>
+          <div class="badge-row">
+            <div class="badge"><span class="badge-label" data-i18n="lbl-type">Type</span><span class="badge-val" data-i18n="sql-type">Query Language</span></div>
+            <div class="badge"><span class="badge-label" data-i18n="lbl-diff">Difficulty</span><span class="badge-val" data-i18n="sql-diff">⭐⭐ Beginner+</span></div>
+            <div class="badge"><span class="badge-label" data-i18n="lbl-runs">Runs in</span><span class="badge-val" data-i18n="sql-runs">Database</span></div>
+          </div>
+          <div class="use-section">
+            <div class="use-label" data-i18n="lbl-when">When to use</div>
+            <div class="use-tags">
+              <span class="use-tag" data-i18n="sql-u1">Business analytics</span>
+              <span class="use-tag" data-i18n="sql-u2">User segmentation</span>
+              <span class="use-tag" data-i18n="sql-u3">Funnel analysis</span>
+              <span class="use-tag" data-i18n="sql-u4">Cohort analysis</span>
+              <span class="use-tag" data-i18n="sql-u5">Revenue reporting</span>
+              <span class="use-tag" data-i18n="sql-u6">Data exploration</span>
+            </div>
+          </div>
+        </div>
+        <div class="code-block">
+          <div class="code-header">
+            <span class="file-name">growth_analysis.sql</span>
+            <span class="lang-label">SQL</span>
+          </div>
+<pre><span class="cm">-- Users who signed up in Q1 2026 and converted within 7 days</span>
+<span class="kw">SELECT</span>
+  u.id,
+  u.email,
+  u.signup_date,
+  o.created_at    <span class="kw">AS</span> first_purchase,
+  <span class="fn">DATEDIFF</span>(o.created_at, u.signup_date) <span class="kw">AS</span> days_to_convert
+<span class="kw">FROM</span> users u
+<span class="kw">INNER JOIN</span> orders o <span class="kw">ON</span> o.user_id <span class="op">=</span> u.id
+<span class="kw">WHERE</span>
+  u.signup_date <span class="kw">BETWEEN</span> <span class="str">'2026-01-01'</span> <span class="kw">AND</span> <span class="str">'2026-03-31'</span>
+  <span class="kw">AND</span> <span class="fn">DATEDIFF</span>(o.created_at, u.signup_date) <span class="op">&lt;=</span> <span class="num">7</span>
+<span class="kw">ORDER BY</span> days_to_convert <span class="kw">ASC</span>;
+
+<span class="cm">-- Aggregate: conversion rate by acquisition channel</span>
+<span class="kw">SELECT</span>
+  u.channel,
+  <span class="fn">COUNT</span>(<span class="kw">DISTINCT</span> u.id)  <span class="kw">AS</span> signups,
+  <span class="fn">COUNT</span>(<span class="kw">DISTINCT</span> o.user_id) <span class="kw">AS</span> converters,
+  <span class="fn">ROUND</span>(<span class="fn">COUNT</span>(<span class="kw">DISTINCT</span> o.user_id) <span class="op">*</span> <span class="num">100.0</span>
+        <span class="op">/</span> <span class="fn">COUNT</span>(<span class="kw">DISTINCT</span> u.id), <span class="num">1</span>) <span class="kw">AS</span> cvr_pct
+<span class="kw">FROM</span> users u
+<span class="kw">LEFT JOIN</span> orders o <span class="kw">ON</span> o.user_id <span class="op">=</span> u.id
+<span class="kw">GROUP BY</span> u.channel
+<span class="kw">ORDER BY</span> cvr_pct <span class="kw">DESC</span>;</pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- Article footer -->
+    <div class="article-footer">
+      <div class="article-footer-btns">
+        <a href="../blog.html" class="btn btn-secondary" data-i18n="art-back">← Zpět na blog</a>
+        <a href="../index.html#contact" class="btn btn-primary" data-i18n="art-cta">Sjednat konzultaci →</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    <div class="inner">
+      <p>© 2026 Dominik Maslan. Growth Architect.</p>
+      <div class="links">
+        <a href="../index.html" data-i18n="ft-home">Domů</a>
+        <a href="../blog.html" data-i18n="ft-blog">Blog</a>
+        <a href="../index.html#contact" data-i18n="ft-contact">Kontakt</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Sticky nav
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // Reading progress bar
+  const progress = document.getElementById('read-progress');
+  window.addEventListener('scroll', () => {
+    const total = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    progress.style.width = (window.scrollY / total * 100) + '%';
+  });
+
+  // Programming-language tab switcher (article-internal)
+  function switchLang(lang) {
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.lang === lang);
+    });
+    document.querySelectorAll('.lang-panel').forEach(panel => {
+      panel.classList.toggle('active', panel.id === 'panel-' + lang);
+    });
+    const panel = document.getElementById('panel-' + lang);
+    if (panel) {
+      const offset = panel.getBoundingClientRect().top + window.scrollY - 120;
+      window.scrollTo({ top: offset, behavior: 'smooth' });
+    }
+  }
+
+  // i18n (EN / CZ)
+  const T = {
+    en: {
+      'nav-services':  'Services',
+      'nav-about':     'Approach',
+      'nav-blog':      'Blog',
+      'nav-contact':   'Contact',
+      'bc-blog':       'Blog',
+      'bc-cat':        'Tech',
+      'article-cat':   'Tech',
+      'article-h1':    '7 Programming Languages<br/><span class="gradient">Every Marketer Should Know</span>',
+      'article-desc':  'An interactive tour of the building blocks of the modern web — what each language does, why it exists, and when you\'d actually reach for it.',
+      'meta-date':     '📅 April 2026',
+      'meta-read':     '⏱ 8 min read',
+      'intro-p1':      'You don\'t need to be a developer to benefit from understanding the tools developers use. As someone who works at the intersection of <strong>marketing, strategy, and data</strong>, I\'ve found that even a surface-level grasp of these languages changes how you communicate with engineers, read analytics implementations, and make product decisions.',
+      'intro-p2':      'Pick a language below and explore what it does, how hard it is to learn, and where it runs.',
+      'lbl-type':      'Type',
+      'lbl-diff':      'Difficulty',
+      'lbl-runs':      'Runs in',
+      'lbl-when':      'When to use',
+      'html-badge':    'Language for Structure',
+      'html-desc':     'HyperText Markup Language is the skeleton of every web page. It defines the elements — headings, paragraphs, images, links, forms — but doesn\'t make them look good or behave interactively. That\'s CSS and JavaScript\'s job.',
+      'html-type':     'Markup',
+      'html-diff':     '⭐ Beginner',
+      'html-runs':     'Browser',
+      'html-u1':       'Building any webpage',
+      'html-u2':       'Email templates',
+      'html-u3':       'Landing pages',
+      'html-u4':       'Reading page source',
+      'html-u5':       'Understanding SEO structure',
+      'css-badge':     'Language for Style',
+      'css-desc':      'Cascading Style Sheets control how HTML elements look — colors, fonts, spacing, layout, animations. Without CSS, every website would look like a Wikipedia page from 1999. Modern CSS with Flexbox and Grid is surprisingly powerful.',
+      'css-type':      'Style Sheet',
+      'css-diff':      '⭐⭐ Beginner+',
+      'css-runs':      'Browser',
+      'css-u1':        'Designing web UI',
+      'css-u2':        'Email styling',
+      'css-u3':        'Responsive layouts',
+      'css-u4':        'Animations &amp; transitions',
+      'css-u5':        'Dark/light mode',
+      'js-badge':      'Language for Behavior',
+      'js-desc':       'The only programming language that runs natively in every browser. JavaScript makes pages interactive — form validation, dropdown menus, live search, data fetching, animations. It also runs on servers (Node.js) and powers most of the modern web stack.',
+      'js-type':       'Programming',
+      'js-diff':       '⭐⭐⭐ Intermediate',
+      'js-runs':       'Browser + Server',
+      'js-u1':         'Interactive UIs',
+      'js-u2':         'Form validation',
+      'js-u3':         'API calls',
+      'js-u4':         'Analytics tracking',
+      'js-u5':         'Web apps',
+      'js-u6':         'Automation scripts',
+      'react-badge':   'UI Library',
+      'react-desc':    'React is a JavaScript library (made by Meta) for building user interfaces out of reusable components. Instead of manually updating the DOM, you describe what the UI should look like — React handles the updates. Powers Facebook, Instagram, Airbnb, and most modern web apps.',
+      'react-type':    'UI Library',
+      'react-diff':    '⭐⭐⭐ Intermediate',
+      'react-runs':    'Browser + Server',
+      'react-u1':      'SaaS dashboards',
+      'react-u2':      'Complex web apps',
+      'react-u3':      'Reusable UI components',
+      'react-u4':      'Real-time data UIs',
+      'react-u5':      'Single-page apps',
+      'next-badge':    'Full-Stack Framework',
+      'next-desc':     'Next.js is a framework built on top of React that adds server-side rendering, routing, and API routes out of the box. It\'s what most modern startups use to build their marketing sites and web apps — it\'s fast, SEO-friendly, and deployable in minutes on Vercel.',
+      'next-type':     'Framework',
+      'next-diff':     '⭐⭐⭐⭐ Advanced',
+      'next-runs':     'Browser + Server',
+      'next-u1':       'Marketing websites',
+      'next-u2':       'SaaS products',
+      'next-u3':       'SEO-critical pages',
+      'next-u4':       'Blog &amp; CMS',
+      'next-u5':       'E-commerce',
+      'next-u6':       'Full-stack apps',
+      'py-badge':      'General Purpose Language',
+      'py-desc':       'Python is the most readable general-purpose language — it reads almost like English. It dominates data science, machine learning, automation, and backend development. If you want to analyze a spreadsheet with code, scrape a website, or build an AI pipeline, Python is your tool.',
+      'py-type':       'Programming',
+      'py-diff':       '⭐⭐ Beginner+',
+      'py-runs':       'Server / Local',
+      'py-u1':         'Data analysis',
+      'py-u2':         'Automation scripts',
+      'py-u3':         'Machine learning',
+      'py-u4':         'Backend APIs',
+      'py-u5':         'Web scraping',
+      'py-u6':         'Report generation',
+      'sql-badge':     'Language for Data',
+      'sql-desc':      'Structured Query Language is how you talk to databases. Every analytics platform — Google Analytics, Mixpanel, Redshift, BigQuery — has SQL underneath. If you\'ve ever wanted to answer "show me all users who signed up in Q1 and made a purchase within 7 days," SQL is the answer.',
+      'sql-type':      'Query Language',
+      'sql-diff':      '⭐⭐ Beginner+',
+      'sql-runs':      'Database',
+      'sql-u1':        'Business analytics',
+      'sql-u2':        'User segmentation',
+      'sql-u3':        'Funnel analysis',
+      'sql-u4':        'Cohort analysis',
+      'sql-u5':        'Revenue reporting',
+      'sql-u6':        'Data exploration',
+      'art-back':      '← Back to blog',
+      'art-cta':       'Book a consultation →',
+      'ft-home':       'Home',
+      'ft-blog':       'Blog',
+      'ft-contact':    'Contact',
+    },
+    cs: {
+      'nav-services':  'Služby',
+      'nav-about':     'Přístup',
+      'nav-blog':      'Blog',
+      'nav-contact':   'Kontakt',
+      'bc-blog':       'Blog',
+      'bc-cat':        'Tech',
+      'article-cat':   'Tech',
+      'article-h1':    '7 programovacích jazyků,<br/><span class="gradient">které by každý marketér měl znát</span>',
+      'article-desc':  'Interaktivní průvodce stavebními kameny moderního webu — co každý jazyk dělá, proč existuje a kdy po něm skutečně sáhnout.',
+      'meta-date':     '📅 Duben 2026',
+      'meta-read':     '⏱ 8 min čtení',
+      'intro-p1':      'Abyste měli z porozumění nástrojům vývojářů prospěch, nemusíte být vývojář. Jako někdo, kdo pracuje na průsečíku <strong>marketingu, strategie a dat</strong>, jsem zjistil, že i povrchní znalost těchto jazyků mění způsob, jakým komunikujete s inženýry, čtete analytické implementace a děláte produktová rozhodnutí.',
+      'intro-p2':      'Vyberte jazyk níže a prozkoumejte, co dělá, jak těžké je se ho naučit a kde běží.',
+      'lbl-type':      'Typ',
+      'lbl-diff':      'Obtížnost',
+      'lbl-runs':      'Běží v',
+      'lbl-when':      'Kdy použít',
+      'html-badge':    'Jazyk pro strukturu',
+      'html-desc':     'HyperText Markup Language je kostra každé webové stránky. Definuje prvky — nadpisy, odstavce, obrázky, odkazy, formuláře — ale nestará se o to, aby vypadaly hezky nebo se interaktivně chovaly. To je práce CSS a JavaScriptu.',
+      'html-type':     'Markup',
+      'html-diff':     '⭐ Začátečník',
+      'html-runs':     'Prohlížeč',
+      'html-u1':       'Tvorba jakékoliv webové stránky',
+      'html-u2':       'E-mailové šablony',
+      'html-u3':       'Landing pages',
+      'html-u4':       'Čtení zdrojového kódu',
+      'html-u5':       'Pochopení SEO struktury',
+      'css-badge':     'Jazyk pro vzhled',
+      'css-desc':      'Cascading Style Sheets určují, jak HTML prvky vypadají — barvy, písma, mezery, rozvržení, animace. Bez CSS by každý web vypadal jako stránka Wikipedie z roku 1999. Moderní CSS s Flexbox a Grid je překvapivě mocné.',
+      'css-type':      'Style Sheet',
+      'css-diff':      '⭐⭐ Začátečník+',
+      'css-runs':      'Prohlížeč',
+      'css-u1':        'Návrh webového UI',
+      'css-u2':        'Styling e-mailů',
+      'css-u3':        'Responzivní rozvržení',
+      'css-u4':        'Animace &amp; přechody',
+      'css-u5':        'Tmavý/světlý režim',
+      'js-badge':      'Jazyk pro chování',
+      'js-desc':       'Jediný programovací jazyk, který nativně běží v každém prohlížeči. JavaScript dělá stránky interaktivními — validace formulářů, rozbalovací nabídky, živé vyhledávání, načítání dat, animace. Běží také na serverech (Node.js) a pohání většinu moderního webového stacku.',
+      'js-type':       'Programovací',
+      'js-diff':       '⭐⭐⭐ Středně pokročilý',
+      'js-runs':       'Prohlížeč + Server',
+      'js-u1':         'Interaktivní UI',
+      'js-u2':         'Validace formulářů',
+      'js-u3':         'API volání',
+      'js-u4':         'Analytics tracking',
+      'js-u5':         'Webové aplikace',
+      'js-u6':         'Automatizační skripty',
+      'react-badge':   'UI knihovna',
+      'react-desc':    'React je JavaScriptová knihovna (od Mety) pro tvorbu uživatelských rozhraní z opakovaně použitelných komponent. Místo ručního updatování DOM popisujete, jak má UI vypadat — React se postará o aktualizace. Pohání Facebook, Instagram, Airbnb a většinu moderních webových aplikací.',
+      'react-type':    'UI knihovna',
+      'react-diff':    '⭐⭐⭐ Středně pokročilý',
+      'react-runs':    'Prohlížeč + Server',
+      'react-u1':      'SaaS dashboardy',
+      'react-u2':      'Komplexní webové aplikace',
+      'react-u3':      'Znovupoužitelné UI komponenty',
+      'react-u4':      'Real-time datová UI',
+      'react-u5':      'Single-page aplikace',
+      'next-badge':    'Full-Stack Framework',
+      'next-desc':     'Next.js je framework postavený na Reactu, který přidává server-side rendering, routing a API routes hned po instalaci. Právě to používá většina moderních startupů pro tvorbu marketingových webů a aplikací — je rychlý, SEO-friendly a nasaditelný během minut na Vercel.',
+      'next-type':     'Framework',
+      'next-diff':     '⭐⭐⭐⭐ Pokročilý',
+      'next-runs':     'Prohlížeč + Server',
+      'next-u1':       'Marketingové weby',
+      'next-u2':       'SaaS produkty',
+      'next-u3':       'SEO-kritické stránky',
+      'next-u4':       'Blog &amp; CMS',
+      'next-u5':       'E-commerce',
+      'next-u6':       'Full-stack aplikace',
+      'py-badge':      'Univerzální jazyk',
+      'py-desc':       'Python je nejčitelnější univerzální jazyk — čte se téměř jako angličtina. Dominuje v data science, machine learningu, automatizaci a backend vývoji. Pokud chcete analyzovat tabulku kódem, scrapovat web nebo vybudovat AI pipeline, Python je váš nástroj.',
+      'py-type':       'Programovací',
+      'py-diff':       '⭐⭐ Začátečník+',
+      'py-runs':       'Server / Lokálně',
+      'py-u1':         'Analýza dat',
+      'py-u2':         'Automatizační skripty',
+      'py-u3':         'Machine learning',
+      'py-u4':         'Backend API',
+      'py-u5':         'Web scraping',
+      'py-u6':         'Generování reportů',
+      'sql-badge':     'Jazyk pro data',
+      'sql-desc':      'Structured Query Language je způsob, jak mluvit s databázemi. Každá analytická platforma — Google Analytics, Mixpanel, Redshift, BigQuery — má pod sebou SQL. Pokud jste někdy chtěli odpovědět na otázku „ukaž mi všechny uživatele, kteří se registrovali v Q1 a nakoupili do 7 dní," SQL je odpověď.',
+      'sql-type':      'Dotazovací jazyk',
+      'sql-diff':      '⭐⭐ Začátečník+',
+      'sql-runs':      'Databáze',
+      'sql-u1':        'Business analytics',
+      'sql-u2':        'Segmentace uživatelů',
+      'sql-u3':        'Funnel analýza',
+      'sql-u4':        'Kohortová analýza',
+      'sql-u5':        'Reportování příjmů',
+      'sql-u6':        'Průzkum dat',
+      'art-back':      '← Zpět na blog',
+      'art-cta':       'Sjednat konzultaci →',
+      'ft-home':       'Domů',
+      'ft-blog':       'Blog',
+      'ft-contact':    'Kontakt',
+    }
+  };
+
+  function setLocale(loc) {
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const v = T[loc]?.[el.dataset.i18n];
+      if (v !== undefined) el.innerHTML = v;
+    });
+    document.querySelectorAll('.i18n-btn').forEach(b => {
+      b.classList.toggle('active', b.dataset.locale === loc);
+    });
+    localStorage.setItem('locale', loc);
+    document.documentElement.lang = loc;
+  }
+
+  setLocale(localStorage.getItem('locale') || 'en');
+</script>
+</body>
+</html>

@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Služby — Dominik Maslan · Growth Architect</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg-primary:   #08090a;
+      --bg-surface:   #111213;
+      --bg-elevated:  #1a1b1e;
+      --border:       #2a2b2e;
+      --text-primary: #f0f0f0;
+      --text-secondary:#888890;
+      --text-muted:   #555560;
+      --accent:       #00D0D0;
+      --accent-dim:   rgba(0,208,208,0.12);
+      --max-w:        1100px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg-primary);
+      color: var(--text-secondary);
+      font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      font-weight: 400;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container { max-width: var(--max-w); margin: 0 auto; padding: 0 24px; }
+
+    h1 {
+      font-size: clamp(42px, 6vw, 72px);
+      font-weight: 300;
+      letter-spacing: -0.03em;
+      line-height: 1.08;
+      color: var(--text-primary);
+    }
+    h2 {
+      font-size: clamp(32px, 4vw, 52px);
+      font-weight: 300;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      color: var(--text-primary);
+    }
+    h3 { font-size: 20px; font-weight: 500; color: var(--text-primary); }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+    .section-label .accent { color: var(--accent); }
+
+    /* ── Nav ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 20px 0;
+      transition: background 0.3s, backdrop-filter 0.3s, box-shadow 0.3s;
+    }
+    nav.scrolled {
+      background: rgba(8,9,10,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 1px 20px rgba(0,0,0,0.4);
+    }
+    nav .inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .nav-logo {
+      font-weight: 600;
+      font-size: 17px;
+      color: var(--text-primary);
+      text-decoration: none;
+      letter-spacing: -0.01em;
+    }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 400;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text-primary); }
+    .nav-links a.active { color: var(--accent); }
+
+    .i18n-toggle {
+      display: flex;
+      align-items: center;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .i18n-btn {
+      padding: 6px 12px;
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      transition: all 0.15s;
+      line-height: 1;
+    }
+    .i18n-btn.active { background: var(--accent); color: #08090a; font-weight: 600; }
+    .i18n-btn:hover:not(.active) { color: var(--text-primary); }
+
+    /* ── Page Header ── */
+    #page-header {
+      padding: 160px 0 100px;
+      position: relative;
+      overflow: hidden;
+    }
+    #page-header::before {
+      content: '';
+      position: absolute;
+      top: -60px; left: 30%;
+      width: 700px; height: 500px;
+      background: radial-gradient(ellipse, rgba(0,208,208,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .page-header-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+    .page-header-sub {
+      font-size: 18px;
+      color: var(--text-secondary);
+      max-width: 560px;
+      margin-top: 24px;
+      line-height: 1.7;
+    }
+
+    /* ── Sections ── */
+    section { padding: 100px 0; border-top: 1px solid var(--border); }
+    .section-header { margin-bottom: 56px; }
+    .section-header h2 { margin-top: 12px; }
+
+    /* ── Package Cards ── */
+    .packages-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    .package-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 36px;
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .package-card:hover { border-color: rgba(0,208,208,0.4); transform: translateY(-3px); }
+    .package-badge {
+      display: inline-block;
+      background: var(--accent-dim);
+      border: 1px solid rgba(0,208,208,0.25);
+      border-radius: 999px;
+      padding: 4px 12px;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--accent);
+      letter-spacing: 0.04em;
+      margin-bottom: 20px;
+    }
+    .package-card h3 { font-size: 22px; margin-bottom: 16px; }
+    .package-price { font-size: 28px; font-weight: 300; color: var(--text-primary); line-height: 1.1; }
+    .package-price-sub { font-size: 13px; color: var(--text-muted); margin-top: 4px; margin-bottom: 20px; }
+    .package-sep { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+    .package-bullets {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex: 1;
+    }
+    .package-bullets li {
+      font-size: 14px;
+      color: var(--text-secondary);
+      padding-left: 18px;
+      position: relative;
+      line-height: 1.5;
+    }
+    .package-bullets li::before {
+      content: '–';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+    }
+    .package-out-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-top: 24px;
+      margin-bottom: 4px;
+    }
+    .package-out-value {
+      font-size: 14px;
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+    .package-cta {
+      display: inline-flex;
+      align-items: center;
+      margin-top: 24px;
+      padding: 10px 20px;
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-primary);
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s;
+      align-self: flex-start;
+    }
+    .package-cta:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ── Pricing Table ── */
+    .pricing-table-wrap { overflow-x: auto; }
+    .pricing-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    .pricing-table th {
+      text-align: left;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    .pricing-table td {
+      padding: 14px 16px;
+      color: var(--text-secondary);
+      border-bottom: 1px solid rgba(42,43,46,0.5);
+    }
+    .pricing-table .td-name { color: var(--text-primary); font-weight: 500; }
+    .pricing-table tbody tr:nth-child(even) { background: var(--bg-surface); }
+    .pricing-table tbody tr:hover { background: var(--accent-dim); }
+    .pricing-model-badge {
+      display: inline-block;
+      background: var(--accent-dim);
+      border: 1px solid rgba(0,208,208,0.25);
+      border-radius: 999px;
+      padding: 3px 10px;
+      font-size: 11px;
+      color: var(--accent);
+      font-weight: 500;
+    }
+    .pricing-disclaimer {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 20px;
+      font-style: italic;
+    }
+
+    /* ── Contact ── */
+    #contact .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+    .contact-desc { font-size: 16px; color: var(--text-secondary); line-height: 1.75; max-width: 380px; margin-bottom: 32px; }
+    .contact-links { display: flex; flex-direction: column; gap: 14px; }
+    .contact-link { display: flex; align-items: center; gap: 12px; font-size: 14px; color: var(--text-secondary); text-decoration: none; transition: color 0.2s; }
+    .contact-link:hover { color: var(--accent); }
+    .contact-link .link-icon { width: 36px; height: 36px; border-radius: 8px; background: var(--bg-surface); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+    .contact-response { margin-top: 24px; font-size: 13px; color: var(--text-muted); }
+    .contact-form { display: flex; flex-direction: column; gap: 16px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .field label { display: block; font-size: 12px; font-weight: 500; color: var(--text-muted); margin-bottom: 6px; letter-spacing: 0.03em; }
+    .field input, .field textarea, .field select {
+      width: 100%;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text-primary);
+      font-size: 14px;
+      padding: 10px 14px;
+      outline: none;
+      transition: border-color 0.2s;
+      font-family: inherit;
+      font-weight: 400;
+    }
+    .field input:focus, .field textarea:focus, .field select:focus { border-color: var(--accent); }
+    .field textarea { resize: vertical; min-height: 120px; }
+    .field select option { background: var(--bg-surface); }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+      font-family: inherit;
+      border: none;
+    }
+    .btn-primary { background: var(--accent); color: #08090a; }
+    .btn-primary:hover { filter: brightness(110%); }
+    .btn-full { width: 100%; justify-content: center; }
+
+    /* ── Footer ── */
+    footer { border-top: 1px solid var(--border); padding: 40px 0; }
+    footer .inner { display: flex; justify-content: space-between; align-items: center; }
+    footer p { font-size: 13px; color: var(--text-muted); }
+    footer .links { display: flex; gap: 24px; }
+    footer .links a { font-size: 13px; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+    footer .links a:hover { color: var(--text-primary); }
+
+    /* ── Animations ── */
+    .animate-in {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .animate-in.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      #page-header { padding: 120px 0 64px; }
+      section { padding: 72px 0; }
+      .packages-grid { grid-template-columns: 1fr; }
+      #contact .grid { grid-template-columns: 1fr; gap: 48px; }
+      .form-row { grid-template-columns: 1fr; }
+      footer .inner { flex-direction: column; gap: 20px; text-align: center; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="inner">
+    <a href="index.html" class="nav-logo">DM.</a>
+    <ul class="nav-links">
+      <li><a href="services.html" class="active" data-i18n="nav-services">Služby</a></li>
+      <li><a href="index.html#pristup" data-i18n="nav-about">Přístup</a></li>
+      <li><a href="blog.html" data-i18n="nav-blog">Blog</a></li>
+      <li><a href="#contact" data-i18n="nav-contact">Kontakt</a></li>
+    </ul>
+    <div class="i18n-toggle">
+      <button class="i18n-btn" data-locale="en" onclick="setLocale('en')">EN</button>
+      <button class="i18n-btn" data-locale="cs" onclick="setLocale('cs')">CZ</button>
+    </div>
+  </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<div id="page-header">
+  <div class="container">
+    <p class="page-header-label animate-in" data-i18n="hdr-label">SLUŽBY</p>
+    <h1 class="animate-in" style="transition-delay:0.08s" data-i18n="hdr-h1">Čtyři způsoby,<br>jak mohu pomoci.</h1>
+    <p class="page-header-sub animate-in" style="transition-delay:0.16s" data-i18n="hdr-sub">Value-based pricing — platíte za doručený systém a výsledky, ne za odpracované hodiny.</p>
+  </div>
+</div>
+
+<!-- PACKAGES -->
+<section id="packages">
+  <div class="container">
+    <div class="section-header animate-in">
+      <div class="section-label"><span class="accent">01</span> — <span data-i18n="s1-label">BALÍČKY</span></div>
+      <h2 data-i18n="s1-h2">Vyberte si způsob spolupráce.</h2>
+    </div>
+    <div class="packages-grid">
+
+      <!-- Card 1 -->
+      <div class="package-card animate-in">
+        <span class="package-badge" data-i18n="pkg1-badge">Jednorázový projekt · 2–4 týdny</span>
+        <h3 data-i18n="pkg1-title">Growth Audit & Roadmap</h3>
+        <div class="package-price" data-i18n="pkg1-price">od 30 000 Kč</div>
+        <div class="package-price-sub" data-i18n="pkg1-price-sub">1 200 – 2 200 € · fixní cena</div>
+        <hr class="package-sep">
+        <ul class="package-bullets">
+          <li data-i18n="pkg1-b1">Unit Economics Audit (LTV, CAC, Payback period)</li>
+          <li data-i18n="pkg1-b2">Funnel Deep-Dive a analýza churnu</li>
+          <li data-i18n="pkg1-b3">Tech Stack Review a revize měření</li>
+          <li data-i18n="pkg1-b4">Master Plan s ICE skórováním priorit</li>
+        </ul>
+        <p class="package-out-label" data-i18n="pkg-out-lbl">Výstup</p>
+        <p class="package-out-value" data-i18n="pkg1-output">Auditní zpráva + Strategický workshop</p>
+        <a href="#contact" class="package-cta" data-i18n="pkg-cta">Zjistit více →</a>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="package-card animate-in" style="transition-delay:0.1s">
+        <span class="package-badge" data-i18n="pkg2-badge">Projektová realizace · 1–3 měsíce</span>
+        <h3 data-i18n="pkg2-title">Data & Growth Infrastructure</h3>
+        <div class="package-price" data-i18n="pkg2-price">od 80 000 Kč</div>
+        <div class="package-price-sub" data-i18n="pkg2-price-sub">3 200 – 6 000+ € · fixní cena</div>
+        <hr class="package-sep">
+        <ul class="package-bullets">
+          <li data-i18n="pkg2-b1">Custom Data Pipeline (BigQuery, SQL)</li>
+          <li data-i18n="pkg2-b2">Looker Studio dashboardy sledující ziskovost</li>
+          <li data-i18n="pkg2-b3">GA4 a GTM tracking zaměřený na byznys eventy</li>
+          <li data-i18n="pkg2-b4">Growth Loops design přímo do produktu</li>
+        </ul>
+        <p class="package-out-label" data-i18n="pkg-out-lbl">Výstup</p>
+        <p class="package-out-value" data-i18n="pkg2-output">Plně funkční datová infrastruktura a dashboardy</p>
+        <a href="#contact" class="package-cta" data-i18n="pkg-cta">Zjistit více →</a>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="package-card animate-in">
+        <span class="package-badge" data-i18n="pkg3-badge">Měsíční retainer · min. 3–6 měsíců</span>
+        <h3 data-i18n="pkg3-title">Fractional Growth Steering</h3>
+        <div class="package-price">40 000 – 80 000 Kč<span data-i18n="pkg3-unit"> / měsíc</span></div>
+        <div class="package-price-sub" data-i18n="pkg3-price-sub">1 600 – 3 200 € / měsíc · retainer</div>
+        <hr class="package-sep">
+        <ul class="package-bullets">
+          <li data-i18n="pkg3-b1">Týdenní Growth Sprints a vyhodnocování experimentů</li>
+          <li data-i18n="pkg3-b2">Performance Management PPC, SEO a CRM týmů</li>
+          <li data-i18n="pkg3-b3">Dynamická alokace budgetu podle ROI</li>
+          <li data-i18n="pkg3-b4">Continuous Optimization na základě dat</li>
+        </ul>
+        <p class="package-out-label" data-i18n="pkg-out-lbl">Výstup</p>
+        <p class="package-out-value" data-i18n="pkg3-output">Průběžný růst a exekuce strategie</p>
+        <a href="#contact" class="package-cta" data-i18n="pkg-cta">Zjistit více →</a>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="package-card animate-in" style="transition-delay:0.1s">
+        <span class="package-badge" data-i18n="pkg4-badge">Projektová nebo průběžná spolupráce</span>
+        <h3 data-i18n="pkg4-title">AI & Automation Blueprint</h3>
+        <div class="package-price" data-i18n="pkg4-price">od 50 000 Kč</div>
+        <div class="package-price-sub" data-i18n="pkg4-price-sub">2 000 – 4 800 € · fixní nebo průběžná</div>
+        <hr class="package-sep">
+        <ul class="package-bullets">
+          <li data-i18n="pkg4-b1">Marketing Automation a personalizovaný outreach</li>
+          <li data-i18n="pkg4-b2">Custom AI Agenti pro analýzu trhu a tvorbu obsahu</li>
+          <li data-i18n="pkg4-b3">Efficiency Audit — identifikace a nahrazení procesů kódem</li>
+          <li data-i18n="pkg4-b4">Value Tracking systémy (produktivita, ROI agentů)</li>
+        </ul>
+        <p class="package-out-label" data-i18n="pkg-out-lbl">Výstup</p>
+        <p class="package-out-value" data-i18n="pkg4-output">Autonomní systémy a automatizované procesy</p>
+        <a href="#contact" class="package-cta" data-i18n="pkg-cta">Zjistit více →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PRICING TABLE -->
+<section id="pricing">
+  <div class="container">
+    <div class="section-header animate-in">
+      <div class="section-label"><span class="accent">02</span> — <span data-i18n="s2-label">PŘEHLED CEN</span></div>
+      <h2 data-i18n="s2-h2">Transparentní ceny.</h2>
+    </div>
+    <div class="pricing-table-wrap animate-in">
+      <table class="pricing-table">
+        <thead>
+          <tr>
+            <th data-i18n="pt-col1">Balíček</th>
+            <th data-i18n="pt-col2">Cena (CZK)</th>
+            <th data-i18n="pt-col3">Cena (EUR)</th>
+            <th data-i18n="pt-col4">Model</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="td-name" data-i18n="pt-r1-name">Growth Audit & Roadmap</td>
+            <td data-i18n="pt-r1-czk">30 000 – 55 000 Kč</td>
+            <td data-i18n="pt-r1-eur">1 200 – 2 200 €</td>
+            <td><span class="pricing-model-badge" data-i18n="pt-r1-model">Fixní cena</span></td>
+          </tr>
+          <tr>
+            <td class="td-name" data-i18n="pt-r2-name">Data & Growth Infrastructure</td>
+            <td data-i18n="pt-r2-czk">80 000 – 150 000+ Kč</td>
+            <td data-i18n="pt-r2-eur">3 200 – 6 000+ €</td>
+            <td><span class="pricing-model-badge" data-i18n="pt-r2-model">Fixní cena</span></td>
+          </tr>
+          <tr>
+            <td class="td-name" data-i18n="pt-r3-name">Fractional Growth Steering</td>
+            <td data-i18n="pt-r3-czk">40 000 – 80 000 Kč / měsíc</td>
+            <td data-i18n="pt-r3-eur">1 600 – 3 200 € / měsíc</td>
+            <td><span class="pricing-model-badge" data-i18n="pt-r3-model">Měsíční retainer</span></td>
+          </tr>
+          <tr>
+            <td class="td-name" data-i18n="pt-r4-name">AI & Automation Blueprint</td>
+            <td data-i18n="pt-r4-czk">50 000 – 120 000 Kč</td>
+            <td data-i18n="pt-r4-eur">2 000 – 4 800 €</td>
+            <td><span class="pricing-model-badge" data-i18n="pt-r4-model">Fixní nebo průběžná</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="pricing-disclaimer animate-in" data-i18n="pt-disclaimer">Finální cena závisí na rozsahu a komplexnosti projektu. Každá spolupráce začíná úvodním hovorem zdarma.</p>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="section-header animate-in">
+      <div class="section-label"><span class="accent">03</span> — <span data-i18n="s3-label">POJĎME NA TO</span></div>
+      <h2 data-i18n="s3-h2">Úvodní hovor zdarma.</h2>
+    </div>
+    <div class="grid">
+      <div>
+        <p class="contact-desc" data-i18n="ci-desc">30 minut, žádné závazky. Řeknete mi kde jste a já řeknu, jestli a jak mohu pomoci. Pokud ne, odkáži vás dál.</p>
+        <div class="contact-links">
+          <a href="mailto:hello@dominikmaslan.com" class="contact-link">
+            <span class="link-icon">✉</span>
+            hello@dominikmaslan.com
+          </a>
+          <a href="https://linkedin.com/in/dominikmaslan" class="contact-link" target="_blank" rel="noopener">
+            <span class="link-icon">in</span>
+            linkedin.com/in/dominikmaslan
+          </a>
+        </div>
+        <p class="contact-response" data-i18n="ci-response">⏱ Odpovídám do 24–48 hodin</p>
+      </div>
+      <form class="contact-form" onsubmit="handleSubmit(event)">
+        <div class="form-row">
+          <div class="field">
+            <label for="name" data-i18n="lbl-name">Jméno</label>
+            <input type="text" id="name" data-i18n-placeholder="ph-name" placeholder="Vaše jméno" required />
+          </div>
+          <div class="field">
+            <label for="email" data-i18n="lbl-email">Email</label>
+            <input type="email" id="email" placeholder="vy@firma.com" required />
+          </div>
+        </div>
+        <div class="field">
+          <label for="company" data-i18n="lbl-company">Firma</label>
+          <input type="text" id="company" data-i18n-placeholder="ph-company" placeholder="Název firmy nebo startupu" />
+        </div>
+        <div class="field">
+          <label for="topic" data-i18n="lbl-topic">Zájem o</label>
+          <select id="topic">
+            <option value="" data-i18n="opt-0">Vyberte…</option>
+            <option data-i18n="opt-1">Growth Audit & Roadmap</option>
+            <option data-i18n="opt-2">Data & Growth Infrastructure</option>
+            <option data-i18n="opt-3">Fractional Growth Steering</option>
+            <option data-i18n="opt-4">AI & Automation Blueprint</option>
+            <option data-i18n="opt-5">Jiné</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="message" data-i18n="lbl-message">Zpráva</label>
+          <textarea id="message" data-i18n-placeholder="ph-message" placeholder="Řekněte mi o vaší situaci, výzvě nebo cíli…"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary btn-full" data-i18n="btn-send">Odeslat zprávu →</button>
+        <p id="form-status" style="font-size:14px;color:var(--accent);display:none;text-align:center;" data-i18n="form-success">
+          Zpráva odeslána — brzy se ozvu.
+        </p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="inner">
+      <p>© 2026 Dominik Maslan. Growth Architect.</p>
+      <div class="links">
+        <a href="index.html" data-i18n="ft-home">Domů</a>
+        <a href="index.html#pristup" data-i18n="ft-about">Přístup</a>
+        <a href="blog.html" data-i18n="ft-blog">Blog</a>
+        <a href="#contact" data-i18n="ft-contact">Kontakt</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Sticky nav
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // Scroll animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.animate-in').forEach(el => observer.observe(el));
+
+  // Form submit (demo)
+  let currentLocale = 'en';
+  function handleSubmit(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('button[type="submit"]');
+    const status = document.getElementById('form-status');
+    btn.textContent = currentLocale === 'cs' ? 'Odesílám…' : 'Sending…';
+    btn.disabled = true;
+    setTimeout(() => {
+      btn.style.display = 'none';
+      status.style.display = 'block';
+      e.target.reset();
+    }, 900);
+  }
+
+  // i18n
+  const T = {
+    en: {
+      'nav-services':  'Services',
+      'nav-about':     'Approach',
+      'nav-blog':      'Blog',
+      'nav-contact':   'Contact',
+      'hdr-label':     'SERVICES',
+      'hdr-h1':        'Four ways<br>I can help.',
+      'hdr-sub':       'Value-based pricing — you pay for the delivered system and results, not hours worked.',
+      's1-label':      'PACKAGES',
+      's1-h2':         'Choose your engagement model.',
+      'pkg1-badge':    'One-off project · 2–4 weeks',
+      'pkg1-title':    'Growth Audit & Roadmap',
+      'pkg1-price':    'from 30 000 CZK',
+      'pkg1-price-sub':'1 200 – 2 200 € · fixed price',
+      'pkg1-b1':       'Unit Economics Audit (LTV, CAC, Payback period)',
+      'pkg1-b2':       'Funnel Deep-Dive and churn analysis',
+      'pkg1-b3':       'Tech Stack Review and measurement audit',
+      'pkg1-b4':       'Master Plan with ICE priority scoring',
+      'pkg-out-lbl':   'Output',
+      'pkg1-output':   'Audit report + Strategic workshop',
+      'pkg-cta':       'Get in touch →',
+      'pkg2-badge':    'Project engagement · 1–3 months',
+      'pkg2-title':    'Data & Growth Infrastructure',
+      'pkg2-price':    'from 80 000 CZK',
+      'pkg2-price-sub':'3 200 – 6 000+ € · fixed price',
+      'pkg2-b1':       'Custom Data Pipeline (BigQuery, SQL)',
+      'pkg2-b2':       'Looker Studio dashboards tracking profitability',
+      'pkg2-b3':       'GA4 and GTM tracking focused on business events',
+      'pkg2-b4':       'Growth Loops design built into the product',
+      'pkg2-output':   'Fully functional data infrastructure and dashboards',
+      'pkg3-badge':    'Monthly retainer · min. 3–6 months',
+      'pkg3-title':    'Fractional Growth Steering',
+      'pkg3-unit':     ' / month',
+      'pkg3-price-sub':'1 600 – 3 200 € / month · retainer',
+      'pkg3-b1':       'Weekly Growth Sprints and experiment reviews',
+      'pkg3-b2':       'Performance Management for PPC, SEO and CRM teams',
+      'pkg3-b3':       'Dynamic budget allocation by ROI',
+      'pkg3-b4':       'Continuous Optimisation based on data',
+      'pkg3-output':   'Ongoing growth and strategy execution',
+      'pkg4-badge':    'Project or ongoing engagement',
+      'pkg4-title':    'AI & Automation Blueprint',
+      'pkg4-price':    'from 50 000 CZK',
+      'pkg4-price-sub':'2 000 – 4 800 € · fixed or ongoing',
+      'pkg4-b1':       'Marketing Automation and personalised outreach',
+      'pkg4-b2':       'Custom AI Agents for market analysis and content',
+      'pkg4-b3':       'Efficiency Audit — identify and replace processes with code',
+      'pkg4-b4':       'Value Tracking systems (productivity, agent ROI)',
+      'pkg4-output':   'Autonomous systems and automated processes',
+      's2-label':      'PRICING',
+      's2-h2':         'Transparent pricing.',
+      'pt-col1':       'Package',
+      'pt-col2':       'Price (CZK)',
+      'pt-col3':       'Price (EUR)',
+      'pt-col4':       'Model',
+      'pt-r1-name':    'Growth Audit & Roadmap',
+      'pt-r1-czk':     '30 000 – 55 000 CZK',
+      'pt-r1-eur':     '1 200 – 2 200 €',
+      'pt-r1-model':   'Fixed price',
+      'pt-r2-name':    'Data & Growth Infrastructure',
+      'pt-r2-czk':     '80 000 – 150 000+ CZK',
+      'pt-r2-eur':     '3 200 – 6 000+ €',
+      'pt-r2-model':   'Fixed price',
+      'pt-r3-name':    'Fractional Growth Steering',
+      'pt-r3-czk':     '40 000 – 80 000 CZK / month',
+      'pt-r3-eur':     '1 600 – 3 200 € / month',
+      'pt-r3-model':   'Monthly retainer',
+      'pt-r4-name':    'AI & Automation Blueprint',
+      'pt-r4-czk':     '50 000 – 120 000 CZK',
+      'pt-r4-eur':     '2 000 – 4 800 €',
+      'pt-r4-model':   'Fixed or ongoing',
+      'pt-disclaimer': 'Final price depends on scope and complexity. Every engagement starts with a free intro call.',
+      's3-label':      'LET\'S GO',
+      's3-h2':         'Free intro call.',
+      'ci-desc':       '30 minutes, no commitment. Tell me where you are and I\'ll tell you if and how I can help. If not, I\'ll point you in the right direction.',
+      'ci-response':   '⏱ I respond within 24–48 hours',
+      'lbl-name':      'Name',
+      'ph-name':       'Your name',
+      'lbl-email':     'Email',
+      'lbl-company':   'Company',
+      'ph-company':    'Company or startup name',
+      'lbl-topic':     'Interested in',
+      'opt-0':         'Select…',
+      'opt-1':         'Growth Audit & Roadmap',
+      'opt-2':         'Data & Growth Infrastructure',
+      'opt-3':         'Fractional Growth Steering',
+      'opt-4':         'AI & Automation Blueprint',
+      'opt-5':         'Other',
+      'lbl-message':   'Message',
+      'ph-message':    'Tell me about your situation, challenge, or goal…',
+      'btn-send':      'Send message →',
+      'form-success':  'Message sent — I\'ll be in touch soon.',
+      'ft-home':       'Home',
+      'ft-about':      'Approach',
+      'ft-blog':       'Blog',
+      'ft-contact':    'Contact',
+    },
+    cs: {
+      'nav-services':  'Služby',
+      'nav-about':     'Přístup',
+      'nav-blog':      'Blog',
+      'nav-contact':   'Kontakt',
+      'hdr-label':     'SLUŽBY',
+      'hdr-h1':        'Čtyři způsoby,<br>jak mohu pomoci.',
+      'hdr-sub':       'Value-based pricing — platíte za doručený systém a výsledky, ne za odpracované hodiny.',
+      's1-label':      'BALÍČKY',
+      's1-h2':         'Vyberte si způsob spolupráce.',
+      'pkg1-badge':    'Jednorázový projekt · 2–4 týdny',
+      'pkg1-title':    'Growth Audit & Roadmap',
+      'pkg1-price':    'od 30 000 Kč',
+      'pkg1-price-sub':'1 200 – 2 200 € · fixní cena',
+      'pkg1-b1':       'Unit Economics Audit (LTV, CAC, Payback period)',
+      'pkg1-b2':       'Funnel Deep-Dive a analýza churnu',
+      'pkg1-b3':       'Tech Stack Review a revize měření',
+      'pkg1-b4':       'Master Plan s ICE skórováním priorit',
+      'pkg-out-lbl':   'Výstup',
+      'pkg1-output':   'Auditní zpráva + Strategický workshop',
+      'pkg-cta':       'Zjistit více →',
+      'pkg2-badge':    'Projektová realizace · 1–3 měsíce',
+      'pkg2-title':    'Data & Growth Infrastructure',
+      'pkg2-price':    'od 80 000 Kč',
+      'pkg2-price-sub':'3 200 – 6 000+ € · fixní cena',
+      'pkg2-b1':       'Custom Data Pipeline (BigQuery, SQL)',
+      'pkg2-b2':       'Looker Studio dashboardy sledující ziskovost',
+      'pkg2-b3':       'GA4 a GTM tracking zaměřený na byznys eventy',
+      'pkg2-b4':       'Growth Loops design přímo do produktu',
+      'pkg2-output':   'Plně funkční datová infrastruktura a dashboardy',
+      'pkg3-badge':    'Měsíční retainer · min. 3–6 měsíců',
+      'pkg3-title':    'Fractional Growth Steering',
+      'pkg3-unit':     ' / měsíc',
+      'pkg3-price-sub':'1 600 – 3 200 € / měsíc · retainer',
+      'pkg3-b1':       'Týdenní Growth Sprints a vyhodnocování experimentů',
+      'pkg3-b2':       'Performance Management PPC, SEO a CRM týmů',
+      'pkg3-b3':       'Dynamická alokace budgetu podle ROI',
+      'pkg3-b4':       'Continuous Optimization na základě dat',
+      'pkg3-output':   'Průběžný růst a exekuce strategie',
+      'pkg4-badge':    'Projektová nebo průběžná spolupráce',
+      'pkg4-title':    'AI & Automation Blueprint',
+      'pkg4-price':    'od 50 000 Kč',
+      'pkg4-price-sub':'2 000 – 4 800 € · fixní nebo průběžná',
+      'pkg4-b1':       'Marketing Automation a personalizovaný outreach',
+      'pkg4-b2':       'Custom AI Agenti pro analýzu trhu a tvorbu obsahu',
+      'pkg4-b3':       'Efficiency Audit — identifikace a nahrazení procesů kódem',
+      'pkg4-b4':       'Value Tracking systémy (produktivita, ROI agentů)',
+      'pkg4-output':   'Autonomní systémy a automatizované procesy',
+      's2-label':      'PŘEHLED CEN',
+      's2-h2':         'Transparentní ceny.',
+      'pt-col1':       'Balíček',
+      'pt-col2':       'Cena (CZK)',
+      'pt-col3':       'Cena (EUR)',
+      'pt-col4':       'Model',
+      'pt-r1-name':    'Growth Audit & Roadmap',
+      'pt-r1-czk':     '30 000 – 55 000 Kč',
+      'pt-r1-eur':     '1 200 – 2 200 €',
+      'pt-r1-model':   'Fixní cena',
+      'pt-r2-name':    'Data & Growth Infrastructure',
+      'pt-r2-czk':     '80 000 – 150 000+ Kč',
+      'pt-r2-eur':     '3 200 – 6 000+ €',
+      'pt-r2-model':   'Fixní cena',
+      'pt-r3-name':    'Fractional Growth Steering',
+      'pt-r3-czk':     '40 000 – 80 000 Kč / měsíc',
+      'pt-r3-eur':     '1 600 – 3 200 € / měsíc',
+      'pt-r3-model':   'Měsíční retainer',
+      'pt-r4-name':    'AI & Automation Blueprint',
+      'pt-r4-czk':     '50 000 – 120 000 Kč',
+      'pt-r4-eur':     '2 000 – 4 800 €',
+      'pt-r4-model':   'Fixní nebo průběžná',
+      'pt-disclaimer': 'Finální cena závisí na rozsahu a komplexnosti projektu. Každá spolupráce začíná úvodním hovorem zdarma.',
+      's3-label':      'POJĎME NA TO',
+      's3-h2':         'Úvodní hovor zdarma.',
+      'ci-desc':       '30 minut, žádné závazky. Řeknete mi kde jste a já řeknu, jestli a jak mohu pomoci. Pokud ne, odkáži vás dál.',
+      'ci-response':   '⏱ Odpovídám do 24–48 hodin',
+      'lbl-name':      'Jméno',
+      'ph-name':       'Vaše jméno',
+      'lbl-email':     'Email',
+      'lbl-company':   'Firma',
+      'ph-company':    'Název firmy nebo startupu',
+      'lbl-topic':     'Zájem o',
+      'opt-0':         'Vyberte…',
+      'opt-1':         'Growth Audit & Roadmap',
+      'opt-2':         'Data & Growth Infrastructure',
+      'opt-3':         'Fractional Growth Steering',
+      'opt-4':         'AI & Automation Blueprint',
+      'opt-5':         'Jiné',
+      'lbl-message':   'Zpráva',
+      'ph-message':    'Řekněte mi o vaší situaci, výzvě nebo cíli…',
+      'btn-send':      'Odeslat zprávu →',
+      'form-success':  'Zpráva odeslána — brzy se ozvu.',
+      'ft-home':       'Domů',
+      'ft-about':      'Přístup',
+      'ft-blog':       'Blog',
+      'ft-contact':    'Kontakt',
+    }
+  };
+
+  function setLocale(loc) {
+    currentLocale = loc;
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const v = T[loc]?.[el.dataset.i18n];
+      if (v !== undefined) el.innerHTML = v;
+    });
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+      const v = T[loc]?.[el.dataset.i18nPlaceholder];
+      if (v !== undefined) el.placeholder = v;
+    });
+    document.querySelectorAll('.i18n-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.locale === loc);
+    });
+    document.documentElement.lang = loc === 'cs' ? 'cs' : 'en';
+    localStorage.setItem('locale', loc);
+  }
+
+  // Init locale
+  const saved = localStorage.getItem('locale');
+  setLocale(saved === 'cs' ? 'cs' : 'en');
+</script>
+</body>
+</html>

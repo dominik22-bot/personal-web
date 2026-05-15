@@ -4,48 +4,64 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dominik Maslan — Growth Architect</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
-    /* ── Reset & base ── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:        #0d0d0f;
-      --surface:   #141418;
-      --border:    #232329;
-      --accent:    #00d0d0;
-      --accent-2:  #5ee8e8;
-      --text:      #e8e8f0;
-      --muted:     #7b7b8f;
-      --max-w:     1100px;
-      --radius:    14px;
+      --bg-primary:   #08090a;
+      --bg-surface:   #111213;
+      --bg-elevated:  #1a1b1e;
+      --border:       #2a2b2e;
+      --text-primary: #f0f0f0;
+      --text-secondary:#888890;
+      --text-muted:   #555560;
+      --accent:       #00D0D0;
+      --accent-dim:   rgba(0,208,208,0.12);
+      --max-w:        1100px;
     }
 
     html { scroll-behavior: smooth; }
 
     body {
-      background: var(--bg);
-      color: var(--text);
+      background: var(--bg-primary);
+      color: var(--text-secondary);
       font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
       font-size: 16px;
       line-height: 1.7;
+      font-weight: 400;
       -webkit-font-smoothing: antialiased;
     }
 
-    /* ── Utility ── */
     .container { max-width: var(--max-w); margin: 0 auto; padding: 0 24px; }
-    .tag {
-      display: inline-block;
-      background: rgba(0,208,208,.12);
-      color: var(--accent-2);
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      padding: 4px 12px;
-      border-radius: 99px;
-      border: 1px solid rgba(0,208,208,.25);
-      margin-bottom: 20px;
+
+    h1 {
+      font-size: clamp(52px, 7vw, 88px);
+      font-weight: 300;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      color: var(--text-primary);
     }
+    h2 {
+      font-size: clamp(32px, 4vw, 52px);
+      font-weight: 300;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      color: var(--text-primary);
+    }
+    h3 { font-size: 20px; font-weight: 500; color: var(--text-primary); }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+    .section-label .accent { color: var(--accent); }
 
     /* ── Nav ── */
     nav {
@@ -53,12 +69,13 @@
       top: 0; left: 0; right: 0;
       z-index: 100;
       padding: 20px 0;
-      transition: background .3s, backdrop-filter .3s;
+      transition: background 0.3s, backdrop-filter 0.3s, box-shadow 0.3s;
     }
     nav.scrolled {
-      background: rgba(13, 13, 15, 0.85);
+      background: rgba(8,9,10,0.85);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
+      box-shadow: 0 1px 20px rgba(0,0,0,0.4);
     }
     nav .inner {
       display: flex;
@@ -69,28 +86,26 @@
       padding: 0 24px;
     }
     .nav-logo {
-      font-weight: 700;
+      font-weight: 600;
       font-size: 17px;
-      letter-spacing: -.01em;
-      color: var(--text);
+      color: var(--text-primary);
       text-decoration: none;
+      letter-spacing: -0.01em;
     }
-    .nav-logo span { color: var(--accent); }
     .nav-links { display: flex; gap: 36px; list-style: none; }
     .nav-links a {
-      color: var(--muted);
+      color: var(--text-muted);
       text-decoration: none;
       font-size: 14px;
-      font-weight: 500;
-      transition: color .2s;
+      font-weight: 400;
+      transition: color 0.2s;
     }
-    .nav-links a:hover { color: var(--text); }
+    .nav-links a:hover { color: var(--text-primary); }
 
-    /* ── Language toggle ── */
     .i18n-toggle {
       display: flex;
       align-items: center;
-      background: var(--surface);
+      background: var(--bg-surface);
       border: 1px solid var(--border);
       border-radius: 8px;
       overflow: hidden;
@@ -100,17 +115,17 @@
       padding: 6px 12px;
       background: none;
       border: none;
-      color: var(--muted);
+      color: var(--text-muted);
       cursor: pointer;
       font-family: inherit;
       font-size: 12px;
-      font-weight: 700;
-      letter-spacing: .06em;
-      transition: all .15s;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      transition: all 0.15s;
       line-height: 1;
     }
-    .i18n-btn.active { background: var(--accent); color: #0a0a0c; }
-    .i18n-btn:hover:not(.active) { color: var(--text); }
+    .i18n-btn.active { background: var(--accent); color: #08090a; font-weight: 600; }
+    .i18n-btn:hover:not(.active) { color: var(--text-primary); }
 
     /* ── Hero ── */
     #hero {
@@ -124,317 +139,351 @@
     #hero::before {
       content: '';
       position: absolute;
-      top: -200px; left: 50%;
-      transform: translateX(-50%);
-      width: 900px; height: 600px;
-      background: radial-gradient(ellipse at center, rgba(0,208,208,.18) 0%, transparent 70%);
+      top: -100px; left: 25%;
+      width: 700px; height: 600px;
+      background: radial-gradient(ellipse, rgba(0,208,208,0.07) 0%, transparent 70%);
       pointer-events: none;
     }
     .hero-inner {
       display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 60px;
+      grid-template-columns: 3fr 2fr;
+      gap: 80px;
       align-items: center;
     }
-    .hero-eyebrow {
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 22px;
-    }
-    h1 {
-      font-size: clamp(42px, 6vw, 74px);
-      font-weight: 800;
-      line-height: 1.08;
-      letter-spacing: -.03em;
-      margin-bottom: 28px;
-    }
-    h1 .gradient {
-      background: linear-gradient(135deg, #00d0d0 0%, #5ee8e8 50%, #a0f0f0 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    .hero-sub {
-      font-size: 18px;
-      color: var(--muted);
-      max-width: 520px;
-      margin-bottom: 44px;
-      line-height: 1.75;
-    }
-    .btn-group { display: flex; gap: 14px; flex-wrap: wrap; }
-    .btn {
+    .hero-badge {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 13px 26px;
-      border-radius: 10px;
+      background: var(--accent-dim);
+      border: 1px solid var(--accent);
+      border-radius: 999px;
+      padding: 6px 14px;
+      font-size: 12px;
+      color: var(--text-primary);
+      margin-bottom: 32px;
+    }
+    .hero-badge .dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: #22c55e;
+      flex-shrink: 0;
+      animation: blink 2s infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+    .hero-h1-underline {
+      text-decoration: underline;
+      text-decoration-style: dotted;
+      text-decoration-color: var(--accent);
+      text-underline-offset: 8px;
+    }
+    .hero-sub {
+      font-size: 17px;
+      color: var(--text-secondary);
+      max-width: 520px;
+      margin: 24px 0 40px;
+      line-height: 1.75;
+    }
+    .btn-group { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      padding: 12px 24px;
+      border-radius: 8px;
       font-size: 14px;
       font-weight: 600;
       text-decoration: none;
-      transition: all .2s;
+      transition: all 0.2s;
       cursor: pointer;
-    }
-    .btn-primary {
-      background: var(--accent);
-      color: #fff;
-    }
-    .btn-primary:hover { background: #1adede; transform: translateY(-1px); box-shadow: 0 8px 30px rgba(0,208,208,.35); }
-    .btn-ghost {
-      background: transparent;
-      color: var(--muted);
-      border: 1px solid var(--border);
-    }
-    .btn-ghost:hover { color: var(--text); border-color: #3a3a45; transform: translateY(-1px); }
-
-    .hero-stat-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 28px 32px;
-      text-align: center;
-      min-width: 180px;
-    }
-    .hero-stat-card .num {
-      font-size: 48px;
-      font-weight: 800;
-      letter-spacing: -.04em;
-      background: linear-gradient(135deg, #00d0d0, #5ee8e8);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      line-height: 1;
-    }
-    .hero-stat-card .label {
-      font-size: 13px;
-      color: var(--muted);
-      margin-top: 6px;
-      font-weight: 500;
-    }
-
-    /* ── Section shared ── */
-    section { padding: 100px 0; }
-    section + section { border-top: 1px solid var(--border); }
-    .section-header { margin-bottom: 64px; }
-    h2 {
-      font-size: clamp(28px, 4vw, 44px);
-      font-weight: 800;
-      letter-spacing: -.03em;
-      line-height: 1.15;
-      margin-bottom: 16px;
-    }
-    .section-desc {
-      font-size: 17px;
-      color: var(--muted);
-      max-width: 560px;
-      line-height: 1.75;
-    }
-
-    /* ── About ── */
-    #about .grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 60px;
-      align-items: start;
-    }
-    .about-body p {
-      color: var(--muted);
-      margin-bottom: 20px;
-      font-size: 16px;
-      line-height: 1.85;
-    }
-    .about-body p strong { color: var(--text); font-weight: 600; }
-    .philosophy-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 32px;
-      position: relative;
-      overflow: hidden;
-    }
-    .philosophy-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, var(--accent), var(--accent-2));
-    }
-    .philosophy-card h3 {
-      font-size: 18px;
-      font-weight: 700;
-      margin-bottom: 16px;
-      letter-spacing: -.01em;
-    }
-    .philosophy-card p { color: var(--muted); font-size: 15px; line-height: 1.8; }
-    .philosophy-card p + p { margin-top: 14px; }
-    .career-timeline { margin-top: 36px; display: flex; flex-direction: column; gap: 20px; }
-    .timeline-item {
-      display: flex;
-      gap: 16px;
-      align-items: flex-start;
-    }
-    .timeline-dot {
-      width: 10px; height: 10px;
-      border-radius: 50%;
-      background: var(--accent);
-      margin-top: 6px;
-      flex-shrink: 0;
-      box-shadow: 0 0 10px rgba(0,208,208,.5);
-    }
-    .timeline-item .year { font-size: 12px; color: var(--accent); font-weight: 600; margin-bottom: 2px; }
-    .timeline-item .role { font-size: 15px; font-weight: 600; }
-    .timeline-item .desc { font-size: 13px; color: var(--muted); margin-top: 2px; }
-
-    /* ── Expertise ── */
-    #expertise .cards {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-      margin-bottom: 48px;
-    }
-    .exp-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 32px;
-      transition: border-color .2s, transform .2s;
-      position: relative;
-      overflow: hidden;
-    }
-    .exp-card:hover { border-color: rgba(0,208,208,.4); transform: translateY(-3px); }
-    .exp-card .icon {
-      width: 48px; height: 48px;
-      border-radius: 12px;
-      background: rgba(0,208,208,.12);
-      border: 1px solid rgba(0,208,208,.2);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 22px;
-      margin-bottom: 22px;
-    }
-    .exp-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 12px; letter-spacing: -.01em; }
-    .exp-card p { color: var(--muted); font-size: 14px; line-height: 1.8; margin-bottom: 20px; }
-    .skill-list { display: flex; flex-wrap: wrap; gap: 8px; }
-    .skill-pill {
-      font-size: 12px;
-      color: var(--muted);
-      background: rgba(255,255,255,.04);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 4px 10px;
-      font-weight: 500;
-    }
-
-    .data-banner {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 36px 40px;
-      display: flex;
-      gap: 40px;
-      align-items: center;
-      position: relative;
-      overflow: hidden;
-    }
-    .data-banner::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(0,208,208,.06) 0%, transparent 60%);
-      pointer-events: none;
-    }
-    .data-banner .banner-icon {
-      font-size: 40px;
-      flex-shrink: 0;
-    }
-    .data-banner h3 { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
-    .data-banner p { color: var(--muted); font-size: 15px; line-height: 1.75; max-width: 620px; }
-
-    /* ── Contact ── */
-    #contact .inner {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      align-items: start;
-    }
-    .contact-form { display: flex; flex-direction: column; gap: 16px; }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-    .field label {
-      display: block;
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--muted);
-      margin-bottom: 6px;
-      letter-spacing: .03em;
-    }
-    .field input,
-    .field textarea,
-    .field select {
-      width: 100%;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      color: var(--text);
-      font-size: 15px;
-      padding: 12px 16px;
-      outline: none;
-      transition: border-color .2s;
       font-family: inherit;
+      border: none;
     }
-    .field input:focus,
-    .field textarea:focus,
-    .field select:focus { border-color: var(--accent); }
-    .field textarea { resize: vertical; min-height: 120px; }
-    .field select option { background: var(--surface); }
-    .contact-info { display: flex; flex-direction: column; gap: 24px; }
-    .contact-info h3 { font-size: 22px; font-weight: 700; margin-bottom: 8px; }
-    .contact-info p { color: var(--muted); font-size: 15px; line-height: 1.8; }
-    .contact-link {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      color: var(--text);
-      text-decoration: none;
-      font-size: 15px;
-      font-weight: 500;
-      transition: color .2s;
-    }
-    .contact-link:hover { color: var(--accent); }
-    .contact-link .link-icon {
-      width: 40px; height: 40px;
-      border-radius: 10px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 18px;
-      flex-shrink: 0;
-    }
+    .btn-primary { background: var(--accent); color: #08090a; }
+    .btn-primary:hover { filter: brightness(110%); }
+    .btn-secondary { background: transparent; color: var(--text-primary); border: 1px solid var(--border); }
+    .btn-secondary:hover { border-color: var(--accent); }
 
-    /* ── Footer ── */
-    footer {
+    .hero-stats-bar {
+      display: flex;
+      margin-top: 56px;
+      padding-top: 32px;
       border-top: 1px solid var(--border);
-      padding: 40px 0;
     }
-    footer .inner {
+    .hero-stat { flex: 1; }
+    .hero-stat + .hero-stat {
+      padding-left: 32px;
+      border-left: 1px solid var(--border);
+    }
+    .hero-stat .stat-value { font-size: 13px; color: var(--text-secondary); }
+
+    /* Dashboard card */
+    .dashboard-card {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      opacity: 0;
+      transform: translateY(-20px);
+      animation: card-enter 0.8s ease 0.3s forwards;
+    }
+    @keyframes card-enter { to { opacity: 1; transform: translateY(0); } }
+    .dash-header { margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+    .dash-title { font-size: 13px; font-weight: 500; color: var(--text-primary); }
+    .dash-subtitle { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+    .dash-metric {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      padding: 9px 0;
+      border-top: 1px solid rgba(42,43,46,0.6);
     }
-    footer p { font-size: 14px; color: var(--muted); }
+    .dash-metric:first-of-type { border-top: none; }
+    .dash-metric-label { font-size: 12px; color: var(--text-muted); font-weight: 500; }
+    .dash-metric-value { font-size: 13px; color: var(--text-primary); font-weight: 500; display: flex; align-items: center; gap: 6px; }
+    .dash-up { font-size: 11px; color: #22c55e; }
+    .dash-progress-wrap { margin: 16px 0 0; }
+    .dash-progress-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+    .dash-progress-track { height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; }
+    .dash-progress-fill { height: 100%; background: var(--accent); border-radius: 2px; width: 0; transition: width 1.2s ease 0.8s; }
+    .dash-sparkline { margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--border); }
+    .dash-sparkline-label { font-size: 11px; color: var(--text-muted); margin-bottom: 8px; }
+    .sparkline-bars { display: flex; align-items: flex-end; gap: 3px; height: 32px; }
+    .sparkline-bar { flex: 1; background: var(--accent); border-radius: 2px 2px 0 0; opacity: 0.45; transition: height 0.6s ease, opacity 0.3s; }
+    .sparkline-bar:last-child { opacity: 1; }
+
+    /* ── Video ── */
+    #video { padding: 80px 0; }
+    .video-container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+    .video-wrapper {
+      position: relative;
+      width: 100%;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: var(--bg-elevated);
+      cursor: pointer;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .video-wrapper:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .video-ratio { position: relative; padding-bottom: 56.25%; height: 0; }
+    .video-ratio > * { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .video-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 400px;
+      background: radial-gradient(ellipse at center, rgba(0,208,208,0.06) 0%, var(--bg-elevated) 70%);
+    }
+    .video-play-btn {
+      width: 72px; height: 72px;
+      border-radius: 50%;
+      background: var(--accent);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px; flex-shrink: 0;
+    }
+    .video-play-btn svg { width: 28px; height: 28px; fill: #08090a; margin-left: 4px; }
+    .video-placeholder-title { font-size: 18px; font-weight: 400; color: var(--text-primary); text-align: center; }
+    .video-placeholder-sub { font-size: 14px; color: var(--text-muted); margin-top: 8px; text-align: center; }
+    .video-caption { margin-top: 20px; text-align: center; font-size: 13px; color: var(--text-muted); }
+
+    /* ── Sections ── */
+    section { padding: 120px 0; border-top: 1px solid var(--border); }
+    #hero { border-top: none; }
+    .section-header { margin-bottom: 64px; }
+    .section-header h2 { margin-top: 12px; }
+
+    /* ── Who For ── */
+    .who-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 48px; }
+    .who-icon { font-size: 28px; color: var(--accent); display: block; margin-bottom: 16px; }
+    .who-col h3 { font-size: 18px; margin-bottom: 12px; }
+    .who-col p { font-size: 15px; color: var(--text-secondary); line-height: 1.7; }
+    .who-bridge { border-top: 1px solid var(--border); padding-top: 48px; margin-top: 64px; display: grid; grid-template-columns: 3fr 2fr; gap: 48px; align-items: center; }
+    .who-bridge-title { font-size: 22px; font-weight: 400; color: var(--text-primary); line-height: 1.4; margin-bottom: 16px; }
+    .who-bridge-text { font-size: 15px; color: var(--text-secondary); line-height: 1.7; }
+    .who-cta-sub { font-size: 12px; color: var(--text-muted); margin-top: 10px; }
+
+    /* ── Process ── */
+    .process-wrap { background: var(--bg-surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+    .process-timeline { display: grid; grid-template-columns: 1fr 1fr 1fr; }
+    .process-step { padding: 36px 32px; }
+    .process-step + .process-step { border-left: 1px solid var(--border); }
+    .process-step-num { font-size: 11px; font-weight: 500; color: var(--accent); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 16px; }
+    .process-step h3 { margin-bottom: 12px; font-size: 18px; }
+    .process-step p { font-size: 15px; color: var(--text-secondary); line-height: 1.7; }
+
+    /* ── Philosophy / About teaser ── */
+    #pristup .grid {
+      display: grid;
+      grid-template-columns: 3fr 2fr;
+      gap: 80px;
+      align-items: start;
+    }
+    .philosophy-text p { color: var(--text-secondary); margin-bottom: 18px; font-size: 16px; line-height: 1.85; }
+    .philosophy-text p strong { color: var(--text-primary); font-weight: 500; }
+    .philosophy-quote {
+      font-size: 16px;
+      font-weight: 500;
+      font-style: italic;
+      color: var(--text-primary);
+      border-left: 2px solid var(--accent);
+      padding-left: 20px;
+      margin-top: 24px;
+      line-height: 1.6;
+    }
+    .about-cta-link {
+      display: inline-block;
+      margin-top: 20px;
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+    }
+    .about-cta-link:hover { text-decoration: underline; }
+    .about-photo-placeholder {
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      max-width: 320px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      color: var(--text-muted);
+      font-size: 13px;
+      margin-left: auto;
+    }
+    .about-photo-placeholder .ph-icon { font-size: 32px; }
+    .about-photo-placeholder .ph-sub { font-size: 11px; }
+
+    /* ── Results ── */
+    .results-disclaimer { font-size: 13px; color: var(--text-muted); font-style: italic; margin-top: 8px; margin-bottom: 48px; }
+    .case-study-card {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent);
+      border-radius: 12px;
+      padding: 40px;
+    }
+    .case-tag { font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 16px; }
+    .case-challenge { font-size: 15px; color: var(--text-secondary); margin-bottom: 36px; max-width: 600px; line-height: 1.7; }
+    .case-metrics { display: grid; grid-template-columns: repeat(4,1fr); gap: 24px; }
+    .case-metric-value { font-size: 28px; font-weight: 500; color: var(--accent); line-height: 1; margin-bottom: 6px; }
+    .case-metric-label { font-size: 13px; color: var(--text-muted); line-height: 1.4; }
+
+    /* ── Blog ── */
+    .blog-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; margin-bottom: 40px; }
+    .blog-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 32px;
+      text-decoration: none;
+      display: block;
+      transition: border-color 0.2s;
+    }
+    .blog-card:hover { border-color: var(--accent); }
+    .blog-cat {
+      display: inline-block;
+      background: var(--accent-dim);
+      border: 1px solid rgba(0,208,208,0.2);
+      border-radius: 999px;
+      padding: 3px 10px;
+      font-size: 11px;
+      color: var(--accent);
+      font-weight: 500;
+      margin-bottom: 16px;
+    }
+    .blog-card h3 { font-size: 17px; color: var(--text-primary); line-height: 1.4; margin-bottom: 8px; }
+    .blog-meta { font-size: 12px; color: var(--text-muted); margin-bottom: 12px; }
+    .blog-excerpt { font-size: 14px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 20px; }
+    .blog-read-link { font-size: 13px; color: var(--accent); font-weight: 500; }
+    .blog-center { text-align: center; }
+
+    /* ── Testimonials ── */
+    .testimonials-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 20px; }
+    .testimonial-card { background: var(--bg-surface); border: 1px solid var(--border); border-radius: 12px; padding: 40px; }
+    .testimonial-quote-mark { font-size: 64px; color: var(--accent); line-height: 0.5; margin-bottom: 24px; display: block; font-family: Georgia, serif; }
+    .testimonial-text { font-size: 18px; font-weight: 300; color: var(--text-primary); line-height: 1.6; max-width: 440px; margin-bottom: 24px; }
+    .testimonial-author { font-size: 13px; color: var(--text-muted); }
+    .testimonials-note { font-size: 11px; color: var(--text-muted); text-align: center; }
+
+    /* ── Contact ── */
+    #contact .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+    .contact-desc { font-size: 16px; color: var(--text-secondary); line-height: 1.75; max-width: 380px; margin-bottom: 32px; }
+    .contact-links { display: flex; flex-direction: column; gap: 14px; }
+    .contact-link { display: flex; align-items: center; gap: 12px; font-size: 14px; color: var(--text-secondary); text-decoration: none; transition: color 0.2s; }
+    .contact-link:hover { color: var(--accent); }
+    .contact-link .link-icon { width: 36px; height: 36px; border-radius: 8px; background: var(--bg-surface); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+    .contact-response { margin-top: 24px; font-size: 13px; color: var(--text-muted); }
+    .contact-form { display: flex; flex-direction: column; gap: 16px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .field label { display: block; font-size: 12px; font-weight: 500; color: var(--text-muted); margin-bottom: 6px; letter-spacing: 0.03em; }
+    .field input, .field textarea, .field select {
+      width: 100%;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text-primary);
+      font-size: 14px;
+      padding: 10px 14px;
+      outline: none;
+      transition: border-color 0.2s;
+      font-family: inherit;
+      font-weight: 400;
+    }
+    .field input:focus, .field textarea:focus, .field select:focus { border-color: var(--accent); }
+    .field textarea { resize: vertical; min-height: 120px; }
+    .field select option { background: var(--bg-surface); }
+    .btn-full { width: 100%; justify-content: center; }
+
+    /* ── Footer ── */
+    footer { border-top: 1px solid var(--border); padding: 40px 0; }
+    footer .inner { display: flex; justify-content: space-between; align-items: center; }
+    footer p { font-size: 13px; color: var(--text-muted); }
     footer .links { display: flex; gap: 24px; }
-    footer .links a { font-size: 14px; color: var(--muted); text-decoration: none; transition: color .2s; }
-    footer .links a:hover { color: var(--text); }
+    footer .links a { font-size: 13px; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+    footer .links a:hover { color: var(--text-primary); }
+
+    /* ── Animations ── */
+    .animate-in {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .animate-in.visible { opacity: 1; transform: translateY(0); }
 
     /* ── Responsive ── */
     @media (max-width: 768px) {
+      section { padding: 80px 0; }
+      #hero { padding: 100px 0 60px; }
+      .video-container { padding: 0 16px; }
+      .video-play-btn { width: 56px; height: 56px; }
+      .video-play-btn svg { width: 22px; height: 22px; }
+      .video-placeholder-title { font-size: 16px; }
       .hero-inner { grid-template-columns: 1fr; }
-      .hero-stat-card { display: none; }
-      #about .grid { grid-template-columns: 1fr; }
-      #expertise .cards { grid-template-columns: 1fr; }
-      #contact .inner { grid-template-columns: 1fr; gap: 48px; }
+      .dashboard-card { display: none; }
+      .hero-stats-bar { flex-direction: column; gap: 16px; }
+      .hero-stat + .hero-stat { border-left: none; padding-left: 0; border-top: 1px solid var(--border); padding-top: 16px; }
+      .who-grid { grid-template-columns: 1fr; gap: 32px; }
+      .who-bridge { grid-template-columns: 1fr; gap: 32px; }
+      .process-timeline { grid-template-columns: 1fr; }
+      .process-step + .process-step { border-left: none; border-top: 1px solid var(--border); }
+      #pristup .grid { grid-template-columns: 1fr; gap: 48px; }
+      .case-metrics { grid-template-columns: 1fr 1fr; gap: 20px; }
+      .blog-grid { grid-template-columns: 1fr; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      #contact .grid { grid-template-columns: 1fr; gap: 48px; }
       .form-row { grid-template-columns: 1fr; }
-      .data-banner { flex-direction: column; gap: 20px; }
       footer .inner { flex-direction: column; gap: 20px; text-align: center; }
       .nav-links { display: none; }
     }
@@ -442,469 +491,634 @@
 </head>
 <body>
 
-  <!-- NAV -->
-  <nav id="navbar">
-    <div class="inner">
-      <a href="#hero" class="nav-logo">DM<span>.</span></a>
-      <ul class="nav-links">
-        <li><a href="#about" data-i18n="nav-about">About</a></li>
-        <li><a href="#expertise" data-i18n="nav-expertise">Expertise</a></li>
-        <li><a href="blog.html" data-i18n="nav-blog">Blog</a></li>
-        <li><a href="#contact" data-i18n="nav-contact">Contact</a></li>
-      </ul>
-      <div class="i18n-toggle">
-        <button class="i18n-btn" data-locale="en" onclick="setLocale('en')">EN</button>
-        <button class="i18n-btn" data-locale="cs" onclick="setLocale('cs')">CZ</button>
-      </div>
+<!-- NAV -->
+<nav id="navbar">
+  <div class="inner">
+    <a href="#hero" class="nav-logo">DM.</a>
+    <ul class="nav-links">
+      <li><a href="services.html" data-i18n="nav-services">Služby</a></li>
+      <li><a href="about.html" data-i18n="nav-about">O mně</a></li>
+      <li><a href="blog.html" data-i18n="nav-blog">Blog</a></li>
+      <li><a href="#contact" data-i18n="nav-contact">Kontakt</a></li>
+    </ul>
+    <div class="i18n-toggle">
+      <button class="i18n-btn" data-locale="en" onclick="setLocale('en')">EN</button>
+      <button class="i18n-btn" data-locale="cs" onclick="setLocale('cs')">CZ</button>
     </div>
-  </nav>
+  </div>
+</nav>
 
-  <!-- HERO -->
-  <section id="hero">
-    <div class="container">
-      <div class="hero-inner">
-        <div>
-          <p class="hero-eyebrow" data-i18n="hero-eyebrow">Available for advisory &amp; consulting</p>
-          <h1 data-i18n="hero-h1">Growth<br/><span class="gradient">Architect</span><br/>for Startups.</h1>
-          <p class="hero-sub" data-i18n="hero-sub">
-            I help startups scale with clarity — blending performance marketing, brand strategy,
-            and data literacy into growth systems that compound over time.
-          </p>
-          <div class="btn-group">
-            <a href="#contact" class="btn btn-primary" data-i18n="btn-work">Work with me</a>
-            <a href="#about" class="btn btn-ghost" data-i18n="btn-story">My story</a>
-          </div>
+<!-- HERO -->
+<section id="hero">
+  <div class="container">
+    <div class="hero-inner">
+      <div>
+        <div class="hero-badge">
+          <span class="dot"></span>
+          <span data-i18n="hero-badge">Dostupný pro nové projekty</span>
         </div>
-        <div class="hero-stat-card">
-          <div class="num">7+</div>
-          <div class="label" data-i18n="stat-label">Years in<br/>growth marketing</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ABOUT -->
-  <section id="about">
-    <div class="container">
-      <div class="section-header">
-        <div class="tag" data-i18n="about-tag">About</div>
-        <h2 data-i18n="about-h2">Marketer by trade,<br/>architect by ambition.</h2>
-      </div>
-      <div class="grid">
-        <div class="about-body">
-          <p data-i18n="about-p1">
-            Over the past <strong>seven years</strong>, I've worked across the full spectrum of marketing —
-            PPC and RTB campaigns, brand development, and account management — building an instinct for
-            what actually moves the needle versus what just looks good in a report.
-          </p>
-          <p data-i18n="about-p2">
-            Today I serve as <strong>CMO at a startup building software for stock market investors</strong>,
-            where the challenge is communicating complex financial tooling to a sophisticated audience
-            that has zero patience for vague promises. Every message has to earn its place.
-          </p>
-          <p data-i18n="about-p3">
-            My long-term goal is to operate as a <strong>Growth Architect</strong> — a role that sits at
-            the intersection of strategy, execution, and measurement. Not just a marketer,
-            but someone who designs the systems that let companies grow with intention.
-          </p>
-
-          <div class="career-timeline">
-            <div class="timeline-item">
-              <div class="timeline-dot"></div>
-              <div>
-                <div class="year" data-i18n="t1-year">Present</div>
-                <div class="role" data-i18n="t1-role">CMO — Fintech Startup</div>
-                <div class="desc" data-i18n="t1-desc">Marketing software for stock market investors</div>
-              </div>
-            </div>
-            <div class="timeline-item">
-              <div class="timeline-dot"></div>
-              <div>
-                <div class="year" data-i18n="t2-year">7 Years</div>
-                <div class="role" data-i18n="t2-role">Performance &amp; Brand Marketing</div>
-                <div class="desc" data-i18n="t2-desc">PPC / RTB, branding, account management</div>
-              </div>
-            </div>
-            <div class="timeline-item">
-              <div class="timeline-dot"></div>
-              <div>
-                <div class="year" data-i18n="t3-year">Vision</div>
-                <div class="role" data-i18n="t3-role">Growth Architect</div>
-                <div class="desc" data-i18n="t3-desc">Scaling startups through integrated growth systems</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="philosophy-card">
-          <h3 data-i18n="phil-title">Core Philosophy</h3>
-          <p data-i18n="phil-p1">
-            Most marketing teams treat performance and brand as opposing forces — one is science,
-            the other is art. I reject that framing entirely.
-          </p>
-          <p data-i18n="phil-p2">
-            <strong>Performance marketing without brand</strong> rents attention. It works until it
-            doesn't, and you're always at the mercy of auction dynamics and algorithm changes.
-          </p>
-          <p data-i18n="phil-p3">
-            <strong>Brand without performance</strong> is faith-based marketing. Beautiful, perhaps,
-            but impossible to optimize and hard to defend in a boardroom.
-          </p>
-          <p data-i18n="phil-p4">
-            The connective tissue between them is <strong>data literacy</strong> — the ability to ask
-            the right questions, build measurement frameworks that reflect reality, and make decisions
-            that serve both the quarter and the decade.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- EXPERTISE -->
-  <section id="expertise">
-    <div class="container">
-      <div class="section-header">
-        <div class="tag" data-i18n="exp-tag">Expertise</div>
-        <h2 data-i18n="exp-h2">Where I create<br/>the most leverage.</h2>
-        <p class="section-desc" data-i18n="exp-desc">
-          Three disciplines, one integrated system. Each reinforces the others.
+        <h1 data-i18n="hero-h1">I build <span class="hero-h1-underline">systems</span><br>for ambitious<br>startups.</h1>
+        <p class="hero-sub" data-i18n="hero-sub">
+          Pomáhám startupům v rané až střední fázi škálovat se záměrem — propojuji performance marketing, brand strategii a datovou infrastrukturu do growth systémů, které se v čase násobí.
         </p>
-      </div>
-
-      <div class="cards">
-        <div class="exp-card">
-          <div class="icon">⚡</div>
-          <h3 data-i18n="exp1-h3">Performance Marketing</h3>
-          <p data-i18n="exp1-p">
-            Paid acquisition that's built to scale — from initial channel testing to full-funnel
-            optimization. I've run PPC and RTB campaigns where every euro had to justify itself.
-          </p>
-          <div class="skill-list">
-            <span class="skill-pill">PPC / Google Ads</span>
-            <span class="skill-pill">RTB / Programmatic</span>
-            <span class="skill-pill">Paid Social</span>
-            <span class="skill-pill">Funnel Optimization</span>
-            <span class="skill-pill">CAC / LTV Modeling</span>
-          </div>
+        <div class="btn-group">
+          <a href="#contact" class="btn btn-primary" data-i18n="btn-cta1">Sjednat konzultaci →</a>
+          <a href="#proces" class="btn btn-secondary" data-i18n="btn-cta2">Jak spolupráce vypadá ↓</a>
         </div>
-
-        <div class="exp-card">
-          <div class="icon">✦</div>
-          <h3 data-i18n="exp2-h3">Brand Building</h3>
-          <p data-i18n="exp2-p">
-            Positioning and narrative that create preference before a prospect ever clicks an ad.
-            Brand isn't a logo — it's the reason someone chooses you when the specs look identical.
-          </p>
-          <div class="skill-list">
-            <span class="skill-pill">Brand Strategy</span>
-            <span class="skill-pill">Positioning</span>
-            <span class="skill-pill">Messaging Architecture</span>
-            <span class="skill-pill">Content Strategy</span>
-            <span class="skill-pill">Account Management</span>
-          </div>
-        </div>
-
-        <div class="exp-card">
-          <div class="icon">◈</div>
-          <h3 data-i18n="exp3-h3">Data-Driven Growth</h3>
-          <p data-i18n="exp3-p">
-            Growth strategy grounded in measurement. I build frameworks that connect marketing
-            activity to business outcomes — and help teams actually trust their numbers.
-          </p>
-          <div class="skill-list">
-            <span class="skill-pill">Analytics &amp; Attribution</span>
-            <span class="skill-pill">Growth Experimentation</span>
-            <span class="skill-pill">Marketing Strategy</span>
-            <span class="skill-pill">Reporting Systems</span>
-            <span class="skill-pill">CMO Advisory</span>
-          </div>
+        <div class="hero-stats-bar">
+          <div class="hero-stat"><span class="stat-value" data-i18n="stat1">7+ let zkušeností</span></div>
+          <div class="hero-stat"><span class="stat-value" data-i18n="stat2">4 specializace</span></div>
+          <div class="hero-stat"><span class="stat-value" data-i18n="stat3">Dostupný pro nové projekty</span></div>
         </div>
       </div>
-
-      <div class="data-banner">
-        <div class="banner-icon">◎</div>
-        <div>
-          <h3 data-i18n="banner-h3">Data literacy is the difference.</h3>
-          <p data-i18n="banner-p">
-            Any marketer can run ads. Any brand consultant can write a positioning doc. What's rare
-            is someone who can hold both worlds simultaneously — who speaks the language of creative
-            and the language of dashboards, and knows which one the room needs to hear.
-            That's the edge I bring.
-          </p>
+      <div class="dashboard-card">
+        <div class="dash-header">
+          <div class="dash-title">Growth Audit Dashboard</div>
+          <div class="dash-subtitle">Last 30 days</div>
+        </div>
+        <div class="dash-metric">
+          <span class="dash-metric-label">LTV:CAC</span>
+          <span class="dash-metric-value">4.2× <span class="dash-up">↑ +0.8</span></span>
+        </div>
+        <div class="dash-metric">
+          <span class="dash-metric-label">CAC</span>
+          <span class="dash-metric-value">12 400 CZK</span>
+        </div>
+        <div class="dash-metric">
+          <span class="dash-metric-label">Payback</span>
+          <span class="dash-metric-value">8.1 mo</span>
+        </div>
+        <div class="dash-progress-wrap">
+          <div class="dash-progress-label"><span>MRR</span><span>82%</span></div>
+          <div class="dash-progress-track"><div class="dash-progress-fill" id="mrrFill"></div></div>
+        </div>
+        <div class="dash-sparkline">
+          <div class="dash-sparkline-label">MRR trend</div>
+          <div class="sparkline-bars" id="sparkBars"></div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- CONTACT -->
-  <section id="contact">
-    <div class="container">
-      <div class="section-header">
-        <div class="tag" data-i18n="contact-tag">Contact</div>
-        <h2 data-i18n="contact-h2">Let's build something<br/>that compounds.</h2>
-      </div>
-      <div class="inner">
-        <form class="contact-form" onsubmit="handleSubmit(event)">
-          <div class="form-row">
-            <div class="field">
-              <label for="name" data-i18n="lbl-name">Name</label>
-              <input type="text" id="name" data-i18n-placeholder="ph-name" placeholder="Your name" required />
-            </div>
-            <div class="field">
-              <label for="email" data-i18n="lbl-email">Email</label>
-              <input type="email" id="email" placeholder="you@company.com" required />
-            </div>
+<!-- VIDEO -->
+<div id="video">
+  <div class="video-container">
+    <div class="video-wrapper" data-youtube-id="">
+      <div class="video-ratio">
+        <div class="video-placeholder">
+          <div class="video-play-btn">
+            <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
           </div>
-          <div class="field">
-            <label for="company" data-i18n="lbl-company">Company</label>
-            <input type="text" id="company" data-i18n-placeholder="ph-company" placeholder="Company or startup" />
-          </div>
-          <div class="field">
-            <label for="topic" data-i18n="lbl-topic">What are you working on?</label>
-            <select id="topic">
-              <option value="" data-i18n="opt-0">Select a topic…</option>
-              <option data-i18n="opt-1">Growth strategy &amp; advisory</option>
-              <option data-i18n="opt-2">Performance marketing</option>
-              <option data-i18n="opt-3">Brand &amp; positioning</option>
-              <option data-i18n="opt-4">CMO fractional work</option>
-              <option data-i18n="opt-5">Something else</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="message" data-i18n="lbl-message">Message</label>
-            <textarea id="message" data-i18n-placeholder="ph-message" placeholder="Tell me about your stage, challenge, or goal…"></textarea>
-          </div>
-          <button type="submit" class="btn btn-primary" style="align-self: flex-start;" data-i18n="btn-send">
-            Send message →
-          </button>
-          <p id="form-status" style="font-size:14px; color: var(--accent); display:none;" data-i18n="form-success">
-            Message sent — I'll be in touch soon.
-          </p>
-        </form>
-
-        <div class="contact-info">
-          <div>
-            <h3 data-i18n="ci-h3">I work best with</h3>
-            <p data-i18n="ci-p">
-              Early-to-mid stage startups that are past zero but haven't yet cracked scalable growth.
-              Teams that want to build something that lasts, not just hit next month's number.
-            </p>
-          </div>
-          <div style="display: flex; flex-direction: column; gap: 14px;">
-            <a href="mailto:hello@dominikmaslan.com" class="contact-link">
-              <span class="link-icon">✉</span>
-              hello@dominikmaslan.com
-            </a>
-            <a href="https://linkedin.com/in/dominikmaslan" class="contact-link" target="_blank" rel="noopener">
-              <span class="link-icon">in</span>
-              linkedin.com/in/dominikmaslan
-            </a>
-          </div>
-          <div>
-            <p style="font-size:14px; color: var(--muted);" data-i18n="ci-time">
-              Response time: typically within 24–48 hours.
-            </p>
-          </div>
+          <p class="video-placeholder-title" data-i18n="vid-title">Krátký úvod — kdo jsem a jak pracuji.</p>
+          <p class="video-placeholder-sub" data-i18n="vid-soon">Brzy.</p>
         </div>
       </div>
     </div>
-  </section>
+    <p class="video-caption" data-i18n="vid-caption">Průměrná délka spolupráce 3–18 měsíců · Seed až Series A startupy</p>
+  </div>
+</div>
 
-  <!-- FOOTER -->
-  <footer>
-    <div class="container">
-      <div class="inner">
-        <p>© 2026 Dominik Maslan. Growth Architect.</p>
-        <div class="links">
-          <a href="#hero" data-i18n="ft-top">Top</a>
-          <a href="#about" data-i18n="ft-about">About</a>
-          <a href="#expertise" data-i18n="ft-expertise">Expertise</a>
-          <a href="#contact" data-i18n="ft-contact">Contact</a>
+<!-- PRO KOHO -->
+<section id="sluzby">
+  <div class="container">
+    <div class="section-header animate-in">
+      <div class="section-label"><span class="accent">01</span> — <span data-i18n="s1-label">PRO KOHO</span></div>
+      <h2 data-i18n="s1-h2">Rostete, ale nevíte<br>proč to nefunguje rychleji.</h2>
+    </div>
+    <div class="who-grid">
+      <div class="who-col animate-in">
+        <span class="who-icon">◎</span>
+        <h3 data-i18n="who1-h3">Máte data všude, pravdu nikde.</h3>
+        <p data-i18n="who1-text">Čtyři platformy, tři dashboardy, nula shody. Rozhodujete na základě pocitu, ne čísel.</p>
+      </div>
+      <div class="who-col animate-in" style="transition-delay:0.1s">
+        <span class="who-icon">⟳</span>
+        <h3 data-i18n="who2-h3">Škálujete akvizici, churn to sežere.</h3>
+        <p data-i18n="who2-text">Nové zákazníky přivádíte, ale staří odcházejí. LTV:CAC se nezlepšuje. Growth vypadá dobře v reportu, ale na účtu to nepoznáte.</p>
+      </div>
+      <div class="who-col animate-in" style="transition-delay:0.2s">
+        <span class="who-icon">⚡</span>
+        <h3 data-i18n="who3-h3">Potřebujete seniorní pohled, ne dalšího junior markeťáka.</h3>
+        <p data-i18n="who3-text">Agency vám posílá reporty, ale nikdo nemyslí na byznys jako celek. Chybí někdo kdo drží celý obraz.</p>
+      </div>
+    </div>
+    <div class="who-bridge animate-in">
+      <div class="who-bridge-left">
+        <p class="who-bridge-title" data-i18n="who-bridge-title">Tohle jsou přesně situace, ve kterých pracuji nejlépe.</p>
+        <p class="who-bridge-text" data-i18n="who-bridge-text">Nestavím generické marketingové plány. Stavím systémy — datovou infrastrukturu, growth loops a měření které vám ukáží kde jsou peníze a proč to neroste rychleji.</p>
+      </div>
+      <div class="who-bridge-right">
+        <a href="services.html" class="btn btn-primary" data-i18n="who-cta">Prozkoumat služby →</a>
+        <p class="who-cta-sub" data-i18n="who-cta-sub">Úvodní hovor zdarma · Bez závazků</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="proces">
+  <div class="container">
+    <div class="section-header animate-in">
+      <div class="section-label"><span class="accent">02</span> — <span data-i18n="s3-label">PROCES</span></div>
+      <h2 data-i18n="s3-h2">Tři fáze. Jeden systém.</h2>
+    </div>
+    <div class="process-wrap">
+      <div class="process-timeline">
+        <div class="process-step animate-in">
+          <div class="process-step-num" data-i18n="p1-phase">Audit · týden 1–2</div>
+          <h3 data-i18n="p1-title">Zmapujeme kde jste.</h3>
+          <p data-i18n="p1-desc">Hloubková analýza unit economics, funnelu a tech stacku. Výstup je konkrétní — ne obecná zpráva, ale prioritizovaný akční plán.</p>
+        </div>
+        <div class="process-step animate-in" style="transition-delay:0.1s">
+          <div class="process-step-num" data-i18n="p2-phase">Build · měsíc 1–3</div>
+          <h3 data-i18n="p2-title">Postavíme infrastrukturu.</h3>
+          <p data-i18n="p2-desc">Data pipeline, dashboardy, tracking. Vše co potřebujete k tomu, abyste přestali hádat a začali vědět.</p>
+        </div>
+        <div class="process-step animate-in" style="transition-delay:0.2s">
+          <div class="process-step-num" data-i18n="p3-phase">Scale · průběžně</div>
+          <h3 data-i18n="p3-title">Škálujeme co funguje.</h3>
+          <p data-i18n="p3-desc">Pravidelné growth sprinty, přesouvání budgetu tam kde ROI roste, experimentace a optimalizace bez konce.</p>
         </div>
       </div>
     </div>
-  </footer>
+  </div>
+</section>
 
-  <script>
-    // ── Sticky nav ──
-    const navbar = document.getElementById('navbar');
-    window.addEventListener('scroll', () => {
-      navbar.classList.toggle('scrolled', window.scrollY > 40);
+<!-- O MNĚ / ABOUT TEASER -->
+<section id="pristup">
+  <div class="container">
+    <div class="section-header animate-in">
+      <div class="section-label"><span class="accent">03</span> — <span data-i18n="s4-label">O MNĚ</span></div>
+      <h2 data-i18n="s4-h2">Marketer by trade,<br>architect by ambition.</h2>
+    </div>
+    <div class="grid">
+      <div class="philosophy-text animate-in">
+        <p data-i18n="ph-short">Za posledních sedm let jsem pracoval napříč celým spektrem marketingu — PPC, RTB, brand development a account management. Dnes působím jako CMO.</p>
+        <p class="philosophy-quote" data-i18n="ph-quote">„The connective tissue between them is data literacy."</p>
+        <a href="about.html" class="about-cta-link" data-i18n="about-cta">Více o mně a mé filozofii →</a>
+      </div>
+      <div class="animate-in" style="transition-delay:0.1s">
+        <div class="about-photo-placeholder">
+          <span class="ph-icon">◎</span>
+          <span data-i18n="photo-label">Fotografie</span>
+          <span class="ph-sub" data-i18n="photo-sub">Připravuje se</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESULTS -->
+<section id="results">
+  <div class="container">
+    <div class="section-header animate-in">
+      <div class="section-label"><span class="accent">04</span> — <span data-i18n="s5-label">VÝSLEDKY</span></div>
+      <h2 data-i18n="s5-h2">Data mluví za vše.</h2>
+      <p class="results-disclaimer" data-i18n="s5-disc"><em>Čísla jsou ilustrativní — reprezentují typické výsledky práce v oblasti SaaS growth. Konkrétní case studies sdílím osobně po NDA.</em></p>
+    </div>
+    <div class="case-study-card animate-in">
+      <div class="case-tag" data-i18n="cs-tag">Fintech SaaS · B2C · Seed stage</div>
+      <p class="case-challenge" data-i18n="cs-challenge">Výzva: LTV:CAC pod 2×, nejasný attribution model, roztříštěná data ze 4 platforem.</p>
+      <div class="case-metrics">
+        <div class="case-metric">
+          <div class="case-metric-value">4.2×</div>
+          <div class="case-metric-label" data-i18n="cm1">LTV:CAC 1.8× → 4.2× za 4 měsíce</div>
+        </div>
+        <div class="case-metric">
+          <div class="case-metric-value">−34%</div>
+          <div class="case-metric-label" data-i18n="cm2">CAC snížen optimalizací kanálů</div>
+        </div>
+        <div class="case-metric">
+          <div class="case-metric-value">+67%</div>
+          <div class="case-metric-label" data-i18n="cm3">MRR growth za 6 měsíců</div>
+        </div>
+        <div class="case-metric">
+          <div class="case-metric-value">8 mo</div>
+          <div class="case-metric-label" data-i18n="cm4">Payback period 18 → 8 mo konsolidací dat</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BLOG PREVIEW -->
+<section id="blog-preview">
+  <div class="container">
+    <div class="section-header animate-in">
+      <div class="section-label"><span class="accent">05</span> — <span data-i18n="s6-label">MYŠLENKY</span></div>
+      <h2 data-i18n="s6-h2">Z blogu.</h2>
+    </div>
+    <div class="blog-grid">
+      <a href="blog.html" class="blog-card animate-in">
+        <span class="blog-cat" data-i18n="bp1-cat">Growth</span>
+        <h3 data-i18n="bp1-title">Proč LTV:CAC není metrika — je to kompas.</h3>
+        <div class="blog-meta" data-i18n="bp1-meta">15. 5. 2026 · 5 min čtení</div>
+        <p class="blog-excerpt" data-i18n="bp1-excerpt">Většina týmů měří LTV:CAC jako výsledek. Nejlepší týmy ho používají jako navigační systém pro každé rozhodnutí o budgetu.</p>
+        <span class="blog-read-link" data-i18n="blog-read">Číst dál →</span>
+      </a>
+      <a href="blog.html" class="blog-card animate-in" style="transition-delay:0.1s">
+        <span class="blog-cat" data-i18n="bp2-cat">Data</span>
+        <h3 data-i18n="bp2-title">Jak jsem postavil growth infrastrukturu za 3 týdny.</h3>
+        <div class="blog-meta" data-i18n="bp2-meta">1. 5. 2026 · 8 min čtení</div>
+        <p class="blog-excerpt" data-i18n="bp2-excerpt">BigQuery, Looker Studio, GTM — a žádný enterprise budget. Celá pipeline od nuly za méně než měsíc.</p>
+        <span class="blog-read-link" data-i18n="blog-read">Číst dál →</span>
+      </a>
+      <a href="blog/programming-languages.html" class="blog-card animate-in" style="transition-delay:0.2s">
+        <span class="blog-cat" data-i18n="bp3-cat">Strategy</span>
+        <h3 data-i18n="bp3-title">Performance bez brandu je pronájem pozornosti.</h3>
+        <div class="blog-meta" data-i18n="bp3-meta">20. 4. 2026 · 4 min čtení</div>
+        <p class="blog-excerpt" data-i18n="bp3-excerpt">Reklamy fungují dokud platíte. Brand funguje i když spíte. Proč nejlepší growth strategie kombinuje oboje.</p>
+        <span class="blog-read-link" data-i18n="blog-read">Číst dál →</span>
+      </a>
+    </div>
+    <div class="blog-center animate-in">
+      <a href="blog.html" class="btn btn-secondary" data-i18n="blog-all">Všechny články →</a>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="container">
+    <div class="section-header animate-in">
+      <div class="section-label"><span class="accent">06</span> — <span data-i18n="s7-label">REFERENCE</span></div>
+      <h2 data-i18n="s7-h2">Co říkají lidé,<br>se kterými pracuji.</h2>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card animate-in">
+        <span class="testimonial-quote-mark">"</span>
+        <p class="testimonial-text" data-i18n="t1-text">Dominik přinesl strukturu do chaosu. Za tři měsíce jsme poprvé věděli, který kanál nám vydělává a který jen pálí peníze.</p>
+        <div class="testimonial-author" data-i18n="t1-author">— Jan Novák, CEO · SaaS startup</div>
+      </div>
+      <div class="testimonial-card animate-in" style="transition-delay:0.1s">
+        <span class="testimonial-quote-mark">"</span>
+        <p class="testimonial-text" data-i18n="t2-text">Kombinace strategického myšlení a technické exekuce je vzácná. Dominik ji má přirozeně.</p>
+        <div class="testimonial-author" data-i18n="t2-author">— Petra Svobodová, Founder · E-commerce brand</div>
+      </div>
+    </div>
+    <p class="testimonials-note" data-i18n="t-note">Reference jsou ilustrativní. Reálné reference dostupné na vyžádání.</p>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="section-header animate-in">
+      <div class="section-label"><span class="accent">07</span> — <span data-i18n="s8-label">KONTAKT</span></div>
+      <h2 data-i18n="s8-h2">Pojďme začít.</h2>
+    </div>
+    <div class="grid">
+      <div>
+        <p class="contact-desc" data-i18n="ci-desc">Hledám spolupráci s týmy, které jsou past zero — mají produkt, první zákazníky, a chuť škálovat systematicky. Ne hacky, ale systémy.</p>
+        <div class="contact-links">
+          <a href="mailto:hello@dominikmaslan.com" class="contact-link">
+            <span class="link-icon">✉</span>
+            hello@dominikmaslan.com
+          </a>
+          <a href="https://linkedin.com/in/dominikmaslan" class="contact-link" target="_blank" rel="noopener">
+            <span class="link-icon">in</span>
+            linkedin.com/in/dominikmaslan
+          </a>
+        </div>
+        <p class="contact-response" data-i18n="ci-response">⏱ Odpovídám do 24–48 hodin</p>
+      </div>
+      <form class="contact-form" onsubmit="handleSubmit(event)">
+        <div class="form-row">
+          <div class="field">
+            <label for="name" data-i18n="lbl-name">Jméno</label>
+            <input type="text" id="name" data-i18n-placeholder="ph-name" placeholder="Vaše jméno" required />
+          </div>
+          <div class="field">
+            <label for="email" data-i18n="lbl-email">Email</label>
+            <input type="email" id="email" placeholder="vy@firma.com" required />
+          </div>
+        </div>
+        <div class="field">
+          <label for="company" data-i18n="lbl-company">Firma</label>
+          <input type="text" id="company" data-i18n-placeholder="ph-company" placeholder="Název firmy nebo startupu" />
+        </div>
+        <div class="field">
+          <label for="topic" data-i18n="lbl-topic">Zájem o</label>
+          <select id="topic">
+            <option value="" data-i18n="opt-0">Vyberte…</option>
+            <option data-i18n="opt-1">Growth Audit & Roadmap</option>
+            <option data-i18n="opt-2">Data & Growth Infrastructure</option>
+            <option data-i18n="opt-3">Fractional Growth Steering</option>
+            <option data-i18n="opt-4">AI & Automation Blueprint</option>
+            <option data-i18n="opt-5">Jiné</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="message" data-i18n="lbl-message">Zpráva</label>
+          <textarea id="message" data-i18n-placeholder="ph-message" placeholder="Řekněte mi o vaší situaci, výzvě nebo cíli…"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary btn-full" data-i18n="btn-send">Odeslat zprávu →</button>
+        <p id="form-status" style="font-size:14px;color:var(--accent);display:none;text-align:center;" data-i18n="form-success">
+          Zpráva odeslána — brzy se ozvu.
+        </p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="inner">
+      <p>© 2026 Dominik Maslan. Growth Architect.</p>
+      <div class="links">
+        <a href="#hero" data-i18n="ft-top">Nahoru</a>
+        <a href="services.html" data-i18n="ft-services">Služby</a>
+        <a href="about.html" data-i18n="ft-about">O mně</a>
+        <a href="#contact" data-i18n="ft-contact">Kontakt</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Sticky nav
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // Dashboard animations on load
+  window.addEventListener('load', () => {
+    document.getElementById('mrrFill').style.width = '82%';
+    const bars = document.getElementById('sparkBars');
+    const heights = [18, 28, 40, 55, 50, 68, 80, 75, 88, 95, 90, 100];
+    heights.forEach((h, i) => {
+      const bar = document.createElement('div');
+      bar.className = 'sparkline-bar';
+      bar.style.height = '0%';
+      bar.style.transition = `height 0.5s ease ${0.9 + i * 0.05}s`;
+      bars.appendChild(bar);
+      requestAnimationFrame(() => requestAnimationFrame(() => { bar.style.height = h + '%'; }));
     });
+  });
 
-    // ── Form submit (demo) ──
-    function handleSubmit(e) {
-      e.preventDefault();
-      const btn = e.target.querySelector('button[type="submit"]');
-      const status = document.getElementById('form-status');
-      btn.textContent = currentLocale === 'cs' ? 'Odesílám…' : 'Sending…';
-      btn.disabled = true;
-      setTimeout(() => {
-        btn.style.display = 'none';
-        status.style.display = 'block';
-        e.target.reset();
-      }, 900);
+  // Scroll animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.animate-in').forEach(el => observer.observe(el));
+
+  // Form submit (demo)
+  function handleSubmit(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('button[type="submit"]');
+    const status = document.getElementById('form-status');
+    btn.textContent = currentLocale === 'cs' ? 'Odesílám…' : 'Sending…';
+    btn.disabled = true;
+    setTimeout(() => {
+      btn.style.display = 'none';
+      status.style.display = 'block';
+      e.target.reset();
+    }, 900);
+  }
+
+  // Video
+  function initVideo() {
+    const wrapper = document.querySelector('.video-wrapper');
+    const ytId = wrapper?.dataset.youtubeId;
+    if (!ytId) return;
+    const ratio = wrapper.querySelector('.video-ratio');
+    ratio.innerHTML = `<iframe src="https://www.youtube.com/embed/${ytId}?rel=0&modestbranding=1" title="Dominik Maslan — Growth Architect" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+  }
+  document.addEventListener('DOMContentLoaded', initVideo);
+
+  // i18n
+  const T = {
+    en: {
+      'nav-services':  'Services',
+      'nav-about':     'About',
+      'nav-blog':      'Blog',
+      'nav-contact':   'Contact',
+      'hero-badge':    'Available for new projects',
+      'hero-h1':       'I build <span class="hero-h1-underline">systems</span><br>for ambitious<br>startups.',
+      'hero-sub':      'I help early-to-mid stage startups scale with clarity — blending performance marketing, brand strategy, and data infrastructure into growth that compounds over time.',
+      'btn-cta1':      'Book a consultation →',
+      'btn-cta2':      'How it works ↓',
+      'stat1':         '7+ years experience',
+      'stat2':         '4 specialisations',
+      'stat3':         'Available for new projects',
+      'vid-title':     'Short intro — who I am and how I work.',
+      'vid-soon':      'Coming soon.',
+      'vid-caption':   'Average engagement 3–18 months · Seed to Series A startups',
+      's1-label':         'FOR WHOM',
+      's1-h2':            'You\'re growing, but not sure<br>why it\'s not faster.',
+      'who1-h3':          'Data everywhere, truth nowhere.',
+      'who1-text':        'Four platforms, three dashboards, zero alignment. Decisions made on gut feel, not numbers.',
+      'who2-h3':          'Scaling acquisition, churn eats it all.',
+      'who2-text':        'New customers come in, but old ones leave. LTV:CAC isn\'t improving. Growth looks good in the report, but you don\'t feel it in the bank.',
+      'who3-h3':          'You need a senior perspective, not another junior marketer.',
+      'who3-text':        'The agency sends reports, but nobody thinks about the business as a whole. You\'re missing someone who holds the full picture.',
+      'who-bridge-title': 'These are exactly the situations where I do my best work.',
+      'who-bridge-text':  'I don\'t build generic marketing plans. I build systems — data infrastructure, growth loops and measurement that show you where the money is and why it\'s not growing faster.',
+      'who-cta':          'Explore services →',
+      'who-cta-sub':      'Free intro call · No commitment',
+      's3-label':      'PROCESS',
+      's3-h2':         'Three phases. One system.',
+      'p1-phase':      'Audit · week 1–2',
+      'p1-title':      'Map where you are.',
+      'p1-desc':       'Deep analysis of unit economics, funnel, and tech stack. Output is concrete — not a generic report, but a prioritised action plan.',
+      'p2-phase':      'Build · month 1–3',
+      'p2-title':      'Build the infrastructure.',
+      'p2-desc':       'Data pipeline, dashboards, tracking. Everything you need to stop guessing and start knowing.',
+      'p3-phase':      'Scale · ongoing',
+      'p3-title':      'Scale what works.',
+      'p3-desc':       'Regular growth sprints, moving budget where ROI grows, endless experimentation and optimisation.',
+      's4-label':      'ABOUT',
+      's4-h2':         'Marketer by trade,<br>architect by ambition.',
+      'ph-short':      'Over the past seven years I worked across the full spectrum of marketing — PPC, RTB, brand development and account management. Today I serve as CMO.',
+      'ph-quote':      '"The connective tissue between them is data literacy."',
+      'about-cta':     'More about me and my philosophy →',
+      'photo-label':   'Photo',
+      'photo-sub':     'Coming soon',
+      's5-label':      'RESULTS',
+      's5-h2':         'Data speaks for itself.',
+      's5-disc':       '<em>Numbers are illustrative — representing typical results from SaaS growth work. Specific case studies shared personally after NDA.</em>',
+      'cs-tag':        'Fintech SaaS · B2C · Seed stage',
+      'cs-challenge':  'Challenge: LTV:CAC below 2×, unclear attribution model, fragmented data from 4 platforms.',
+      'cm1':           'LTV:CAC 1.8× → 4.2× in 4 months',
+      'cm2':           'CAC reduced by channel optimisation',
+      'cm3':           'MRR growth in 6 months',
+      'cm4':           'Payback period 18 → 8 mo via data consolidation',
+      's6-label':      'THOUGHTS',
+      's6-h2':         'From the blog.',
+      'bp1-cat':       'Growth',
+      'bp1-title':     'Why LTV:CAC isn\'t a metric — it\'s a compass.',
+      'bp1-meta':      '15 May 2026 · 5 min read',
+      'bp1-excerpt':   'Most teams measure LTV:CAC as an output. The best teams use it as a navigation system for every budget decision.',
+      'blog-read':     'Read more →',
+      'bp2-cat':       'Data',
+      'bp2-title':     'How I built a growth infrastructure in 3 weeks.',
+      'bp2-meta':      '1 May 2026 · 8 min read',
+      'bp2-excerpt':   'BigQuery, Looker Studio, GTM — and no enterprise budget. The entire pipeline from zero in under a month.',
+      'bp3-cat':       'Strategy',
+      'bp3-title':     'Performance without brand is renting attention.',
+      'bp3-meta':      '20 Apr 2026 · 4 min read',
+      'bp3-excerpt':   'Ads work while you pay. Brand works while you sleep. Why the best growth strategy combines both.',
+      'blog-all':      'All articles →',
+      's7-label':      'TESTIMONIALS',
+      's7-h2':         'What people I work with say.',
+      't1-text':       'Dominik brought structure to chaos. Within three months we finally knew which channel was making money and which was just burning it.',
+      't1-author':     '— Jan Novák, CEO · SaaS startup',
+      't2-text':       'The combination of strategic thinking and technical execution is rare. Dominik has it naturally.',
+      't2-author':     '— Petra Svobodová, Founder · E-commerce brand',
+      't-note':        'Testimonials are illustrative. Real references available on request.',
+      's8-label':      'CONTACT',
+      's8-h2':         'Let\'s get started.',
+      'ci-desc':       'I\'m looking to work with teams that are past zero — with a product, early customers, and the drive to scale systematically. Systems, not hacks.',
+      'ci-response':   '⏱ I respond within 24–48 hours',
+      'lbl-name':      'Name',
+      'ph-name':       'Your name',
+      'lbl-email':     'Email',
+      'lbl-company':   'Company',
+      'ph-company':    'Company or startup name',
+      'lbl-topic':     'Interested in',
+      'opt-0':         'Select…',
+      'opt-1':         'Growth Audit & Roadmap',
+      'opt-2':         'Data & Growth Infrastructure',
+      'opt-3':         'Fractional Growth Steering',
+      'opt-4':         'AI & Automation Blueprint',
+      'opt-5':         'Other',
+      'lbl-message':   'Message',
+      'ph-message':    'Tell me about your situation, challenge, or goal…',
+      'btn-send':      'Send message →',
+      'form-success':  'Message sent — I\'ll be in touch soon.',
+      'ft-top':        'Top',
+      'ft-services':   'Services',
+      'ft-about':      'About',
+      'ft-contact':    'Contact',
+    },
+    cs: {
+      'nav-services':  'Služby',
+      'nav-about':     'O mně',
+      'nav-blog':      'Blog',
+      'nav-contact':   'Kontakt',
+      'hero-badge':    'Dostupný pro nové projekty',
+      'hero-h1':       'I build <span class="hero-h1-underline">systems</span><br>for ambitious<br>startups.',
+      'hero-sub':      'Pomáhám startupům v rané až střední fázi škálovat se záměrem — propojuji performance marketing, brand strategii a datovou infrastrukturu do growth systémů, které se v čase násobí.',
+      'btn-cta1':      'Sjednat konzultaci →',
+      'btn-cta2':      'Jak spolupráce vypadá ↓',
+      'stat1':         '7+ let zkušeností',
+      'stat2':         '4 specializace',
+      'stat3':         'Dostupný pro nové projekty',
+      'vid-title':     'Krátký úvod — kdo jsem a jak pracuji.',
+      'vid-soon':      'Brzy.',
+      'vid-caption':   'Průměrná délka spolupráce 3–18 měsíců · Seed až Series A startupy',
+      's1-label':         'PRO KOHO',
+      's1-h2':            'Rostete, ale nevíte<br>proč to nefunguje rychleji.',
+      'who1-h3':          'Máte data všude, pravdu nikde.',
+      'who1-text':        'Čtyři platformy, tři dashboardy, nula shody. Rozhodujete na základě pocitu, ne čísel.',
+      'who2-h3':          'Škálujete akvizici, churn to sežere.',
+      'who2-text':        'Nové zákazníky přivádíte, ale staří odcházejí. LTV:CAC se nezlepšuje. Growth vypadá dobře v reportu, ale na účtu to nepoznáte.',
+      'who3-h3':          'Potřebujete seniorní pohled, ne dalšího junior markeťáka.',
+      'who3-text':        'Agency vám posílá reporty, ale nikdo nemyslí na byznys jako celek. Chybí někdo kdo drží celý obraz.',
+      'who-bridge-title': 'Tohle jsou přesně situace, ve kterých pracuji nejlépe.',
+      'who-bridge-text':  'Nestavím generické marketingové plány. Stavím systémy — datovou infrastrukturu, growth loops a měření které vám ukáží kde jsou peníze a proč to neroste rychleji.',
+      'who-cta':          'Prozkoumat služby →',
+      'who-cta-sub':      'Úvodní hovor zdarma · Bez závazků',
+      's3-label':      'PROCES',
+      's3-h2':         'Tři fáze. Jeden systém.',
+      'p1-phase':      'Audit · týden 1–2',
+      'p1-title':      'Zmapujeme kde jste.',
+      'p1-desc':       'Hloubková analýza unit economics, funnelu a tech stacku. Výstup je konkrétní — ne obecná zpráva, ale prioritizovaný akční plán.',
+      'p2-phase':      'Build · měsíc 1–3',
+      'p2-title':      'Postavíme infrastrukturu.',
+      'p2-desc':       'Data pipeline, dashboardy, tracking. Vše co potřebujete k tomu, abyste přestali hádat a začali vědět.',
+      'p3-phase':      'Scale · průběžně',
+      'p3-title':      'Škálujeme co funguje.',
+      'p3-desc':       'Pravidelné growth sprinty, přesouvání budgetu tam kde ROI roste, experimentace a optimalizace bez konce.',
+      's4-label':      'O MNĚ',
+      's4-h2':         'Marketer by trade,<br>architect by ambition.',
+      'ph-short':      'Za posledních sedm let jsem pracoval napříč celým spektrem marketingu — PPC, RTB, brand development a account management. Dnes působím jako CMO.',
+      'ph-quote':      '„The connective tissue between them is data literacy."',
+      'about-cta':     'Více o mně a mé filozofii →',
+      'photo-label':   'Fotografie',
+      'photo-sub':     'Připravuje se',
+      's5-label':      'VÝSLEDKY',
+      's5-h2':         'Data mluví za vše.',
+      's5-disc':       '<em>Čísla jsou ilustrativní — reprezentují typické výsledky práce v oblasti SaaS growth. Konkrétní case studies sdílím osobně po NDA.</em>',
+      'cs-tag':        'Fintech SaaS · B2C · Seed stage',
+      'cs-challenge':  'Výzva: LTV:CAC pod 2×, nejasný attribution model, roztříštěná data ze 4 platforem.',
+      'cm1':           'LTV:CAC 1.8× → 4.2× za 4 měsíce',
+      'cm2':           'CAC snížen optimalizací kanálů',
+      'cm3':           'MRR growth za 6 měsíců',
+      'cm4':           'Payback period 18 → 8 mo konsolidací dat',
+      's6-label':      'MYŠLENKY',
+      's6-h2':         'Z blogu.',
+      'bp1-cat':       'Growth',
+      'bp1-title':     'Proč LTV:CAC není metrika — je to kompas.',
+      'bp1-meta':      '15. 5. 2026 · 5 min čtení',
+      'bp1-excerpt':   'Většina týmů měří LTV:CAC jako výsledek. Nejlepší týmy ho používají jako navigační systém pro každé rozhodnutí o budgetu.',
+      'blog-read':     'Číst dál →',
+      'bp2-cat':       'Data',
+      'bp2-title':     'Jak jsem postavil growth infrastrukturu za 3 týdny.',
+      'bp2-meta':      '1. 5. 2026 · 8 min čtení',
+      'bp2-excerpt':   'BigQuery, Looker Studio, GTM — a žádný enterprise budget. Celá pipeline od nuly za méně než měsíc.',
+      'bp3-cat':       'Strategy',
+      'bp3-title':     'Performance bez brandu je pronájem pozornosti.',
+      'bp3-meta':      '20. 4. 2026 · 4 min čtení',
+      'bp3-excerpt':   'Reklamy fungují dokud platíte. Brand funguje i když spíte. Proč nejlepší growth strategie kombinuje oboje.',
+      'blog-all':      'Všechny články →',
+      's7-label':      'REFERENCE',
+      's7-h2':         'Co říkají lidé,<br>se kterými pracuji.',
+      't1-text':       'Dominik přinesl strukturu do chaosu. Za tři měsíce jsme poprvé věděli, který kanál nám vydělává a který jen pálí peníze.',
+      't1-author':     '— Jan Novák, CEO · SaaS startup',
+      't2-text':       'Kombinace strategického myšlení a technické exekuce je vzácná. Dominik ji má přirozeně.',
+      't2-author':     '— Petra Svobodová, Founder · E-commerce brand',
+      't-note':        'Reference jsou ilustrativní. Reálné reference dostupné na vyžádání.',
+      's8-label':      'KONTAKT',
+      's8-h2':         'Pojďme začít.',
+      'ci-desc':       'Hledám spolupráci s týmy, které jsou past zero — mají produkt, první zákazníky, a chuť škálovat systematicky. Ne hacky, ale systémy.',
+      'ci-response':   '⏱ Odpovídám do 24–48 hodin',
+      'lbl-name':      'Jméno',
+      'ph-name':       'Vaše jméno',
+      'lbl-email':     'Email',
+      'lbl-company':   'Firma',
+      'ph-company':    'Název firmy nebo startupu',
+      'lbl-topic':     'Zájem o',
+      'opt-0':         'Vyberte…',
+      'opt-1':         'Growth Audit & Roadmap',
+      'opt-2':         'Data & Growth Infrastructure',
+      'opt-3':         'Fractional Growth Steering',
+      'opt-4':         'AI & Automation Blueprint',
+      'opt-5':         'Jiné',
+      'lbl-message':   'Zpráva',
+      'ph-message':    'Řekněte mi o vaší situaci, výzvě nebo cíli…',
+      'btn-send':      'Odeslat zprávu →',
+      'form-success':  'Zpráva odeslána — brzy se ozvu.',
+      'ft-top':        'Nahoru',
+      'ft-services':   'Služby',
+      'ft-about':      'O mně',
+      'ft-contact':    'Kontakt',
     }
+  };
 
-    // ── i18n ──
-    const T = {
-      en: {
-        'nav-about':    'About',
-        'nav-expertise':'Expertise',
-        'nav-blog':     'Blog',
-        'nav-contact':  'Contact',
-        'hero-eyebrow': 'Available for advisory &amp; consulting',
-        'hero-h1':      'Growth<br/><span class="gradient">Architect</span><br/>for Startups.',
-        'hero-sub':     'I help startups scale with clarity — blending performance marketing, brand strategy, and data literacy into growth systems that compound over time.',
-        'btn-work':     'Work with me',
-        'btn-story':    'My story',
-        'stat-label':   'Years in<br/>growth marketing',
-        'about-tag':    'About',
-        'about-h2':     'Marketer by trade,<br/>architect by ambition.',
-        'about-p1':     'Over the past <strong>seven years</strong>, I\'ve worked across the full spectrum of marketing — PPC and RTB campaigns, brand development, and account management — building an instinct for what actually moves the needle versus what just looks good in a report.',
-        'about-p2':     'Today I serve as <strong>CMO at a startup building software for stock market investors</strong>, where the challenge is communicating complex financial tooling to a sophisticated audience that has zero patience for vague promises. Every message has to earn its place.',
-        'about-p3':     'My long-term goal is to operate as a <strong>Growth Architect</strong> — a role that sits at the intersection of strategy, execution, and measurement. Not just a marketer, but someone who designs the systems that let companies grow with intention.',
-        't1-year':      'Present',
-        't1-role':      'CMO — Fintech Startup',
-        't1-desc':      'Marketing software for stock market investors',
-        't2-year':      '7 Years',
-        't2-role':      'Performance &amp; Brand Marketing',
-        't2-desc':      'PPC / RTB, branding, account management',
-        't3-year':      'Vision',
-        't3-role':      'Growth Architect',
-        't3-desc':      'Scaling startups through integrated growth systems',
-        'phil-title':   'Core Philosophy',
-        'phil-p1':      'Most marketing teams treat performance and brand as opposing forces — one is science, the other is art. I reject that framing entirely.',
-        'phil-p2':      '<strong>Performance marketing without brand</strong> rents attention. It works until it doesn\'t, and you\'re always at the mercy of auction dynamics and algorithm changes.',
-        'phil-p3':      '<strong>Brand without performance</strong> is faith-based marketing. Beautiful, perhaps, but impossible to optimize and hard to defend in a boardroom.',
-        'phil-p4':      'The connective tissue between them is <strong>data literacy</strong> — the ability to ask the right questions, build measurement frameworks that reflect reality, and make decisions that serve both the quarter and the decade.',
-        'exp-tag':      'Expertise',
-        'exp-h2':       'Where I create<br/>the most leverage.',
-        'exp-desc':     'Three disciplines, one integrated system. Each reinforces the others.',
-        'exp1-h3':      'Performance Marketing',
-        'exp1-p':       'Paid acquisition that\'s built to scale — from initial channel testing to full-funnel optimization. I\'ve run PPC and RTB campaigns where every euro had to justify itself.',
-        'exp2-h3':      'Brand Building',
-        'exp2-p':       'Positioning and narrative that create preference before a prospect ever clicks an ad. Brand isn\'t a logo — it\'s the reason someone chooses you when the specs look identical.',
-        'exp3-h3':      'Data-Driven Growth',
-        'exp3-p':       'Growth strategy grounded in measurement. I build frameworks that connect marketing activity to business outcomes — and help teams actually trust their numbers.',
-        'banner-h3':    'Data literacy is the difference.',
-        'banner-p':     'Any marketer can run ads. Any brand consultant can write a positioning doc. What\'s rare is someone who can hold both worlds simultaneously — who speaks the language of creative and the language of dashboards, and knows which one the room needs to hear. That\'s the edge I bring.',
-        'contact-tag':  'Contact',
-        'contact-h2':   'Let\'s build something<br/>that compounds.',
-        'lbl-name':     'Name',
-        'ph-name':      'Your name',
-        'lbl-email':    'Email',
-        'lbl-company':  'Company',
-        'ph-company':   'Company or startup',
-        'lbl-topic':    'What are you working on?',
-        'opt-0':        'Select a topic…',
-        'opt-1':        'Growth strategy &amp; advisory',
-        'opt-2':        'Performance marketing',
-        'opt-3':        'Brand &amp; positioning',
-        'opt-4':        'CMO fractional work',
-        'opt-5':        'Something else',
-        'lbl-message':  'Message',
-        'ph-message':   'Tell me about your stage, challenge, or goal…',
-        'btn-send':     'Send message →',
-        'form-success': 'Message sent — I\'ll be in touch soon.',
-        'ci-h3':        'I work best with',
-        'ci-p':         'Early-to-mid stage startups that are past zero but haven\'t yet cracked scalable growth. Teams that want to build something that lasts, not just hit next month\'s number.',
-        'ci-time':      'Response time: typically within 24–48 hours.',
-        'ft-top':       'Top',
-        'ft-about':     'About',
-        'ft-expertise': 'Expertise',
-        'ft-contact':   'Contact',
-      },
-      cs: {
-        'nav-about':    'O mně',
-        'nav-expertise':'Odbornost',
-        'nav-blog':     'Blog',
-        'nav-contact':  'Kontakt',
-        'hero-eyebrow': 'K dispozici pro poradenství &amp; konzultace',
-        'hero-h1':      'Growth<br/><span class="gradient">Architect</span><br/>pro startupy.',
-        'hero-sub':     'Pomáhám startupům růst se záměrem — propojuji performance marketing, brand strategii a data literacy do growth systémů, které se v čase násobí.',
-        'btn-work':     'Spolupracujme',
-        'btn-story':    'Můj příběh',
-        'stat-label':   'let ve<br/>growth marketingu',
-        'about-tag':    'O mně',
-        'about-h2':     'Marketér z profese,<br/>architekt z ambice.',
-        'about-p1':     'Za posledních <strong>sedm let</strong> jsem pracoval napříč celým spektrem marketingu — PPC a RTB kampaně, brand development a account management — a vybudoval si instinkt pro to, co skutečně posouvá výsledky, ne jen to, co dobře vypadá v reportu.',
-        'about-p2':     'Dnes působím jako <strong>CMO ve startupu vyvíjejícím software pro investory na akciovém trhu</strong>, kde je výzvou komunikovat komplexní finanční nástroje sofistikovanému publiku, které nemá trpělivost na vágní sliby. Každá zpráva si musí svůj prostor zasloužit.',
-        'about-p3':     'Mým dlouhodobým cílem je působit jako <strong>Growth Architect</strong> — role na průsečíku strategie, exekuce a měření. Ne jen marketér, ale někdo, kdo navrhuje systémy umožňující firmám záměrně růst.',
-        't1-year':      'Nyní',
-        't1-role':      'CMO — Fintech Startup',
-        't1-desc':      'Marketing software pro investory na akciovém trhu',
-        't2-year':      '7 let',
-        't2-role':      'Performance &amp; Brand Marketing',
-        't2-desc':      'PPC / RTB, branding, account management',
-        't3-year':      'Vize',
-        't3-role':      'Growth Architect',
-        't3-desc':      'Škálování startupů pomocí integrovaných growth systémů',
-        'phil-title':   'Základní filosofie',
-        'phil-p1':      'Většina marketingových týmů vnímá performance a brand jako protichůdné síly — jedna je věda, druhá umění. Tento pohled zcela odmítám.',
-        'phil-p2':      '<strong>Performance marketing bez brandu</strong> pronajímá pozornost. Funguje, dokud nefunguje — a vždy jste vydáni na milost aukcím a změnám algoritmů.',
-        'phil-p3':      '<strong>Brand bez performance</strong> je marketing na víru. Možná krásný, ale neoptimalizovatelný a těžko obhajitelný v boardroomu.',
-        'phil-p4':      'Pojidlem mezi nimi je <strong>data literacy</strong> — schopnost klást správné otázky, budovat measurement frameworky odrážející realitu a dělat rozhodnutí sloužící jak kvartálu, tak dekádě.',
-        'exp-tag':      'Odbornost',
-        'exp-h2':       'Kde vytvářím<br/>největší páku.',
-        'exp-desc':     'Tři disciplíny, jeden integrovaný systém. Každá posiluje ty ostatní.',
-        'exp1-h3':      'Performance Marketing',
-        'exp1-p':       'Placená akvizice postavená na škálování — od počátečního testování kanálů po full-funnel optimalizaci. Vedl jsem PPC a RTB kampaně, kde každé euro muselo obhájit svou existenci.',
-        'exp2-h3':      'Brand Building',
-        'exp2-p':       'Positioning a příběh, které vytvářejí preferenci ještě předtím, než potenciální zákazník vůbec klikne na reklamu. Brand není logo — je to důvod, proč si někdo vybere vás, když specifikace vypadají totožně.',
-        'exp3-h3':      'Data-Driven Growth',
-        'exp3-p':       'Growth strategie ukotvená v měření. Stavím frameworky propojující marketingové aktivity s obchodními výsledky — a pomáhám týmům skutečně věřit jejich číslům.',
-        'banner-h3':    'Data literacy je ten rozdíl.',
-        'banner-p':     'Každý marketér umí spustit reklamy. Každý brand konzultant umí napsat positioning dokument. Co je vzácné, je někdo, kdo dokáže držet oba světy současně — kdo mluví jazykem kreativy i jazykem dashboardů a ví, který z nich místnost potřebuje slyšet. To je výhoda, kterou přináším.',
-        'contact-tag':  'Kontakt',
-        'contact-h2':   'Pojďme postavit něco,<br/>co se násobí.',
-        'lbl-name':     'Jméno',
-        'ph-name':      'Vaše jméno',
-        'lbl-email':    'E-mail',
-        'lbl-company':  'Společnost',
-        'ph-company':   'Společnost nebo startup',
-        'lbl-topic':    'Na čem pracujete?',
-        'opt-0':        'Vyberte téma…',
-        'opt-1':        'Growth strategie &amp; poradenství',
-        'opt-2':        'Performance marketing',
-        'opt-3':        'Brand &amp; positioning',
-        'opt-4':        'CMO fractional work',
-        'opt-5':        'Něco jiného',
-        'lbl-message':  'Zpráva',
-        'ph-message':   'Řekněte mi o své fázi, výzvě nebo cíli…',
-        'btn-send':     'Odeslat zprávu →',
-        'form-success': 'Zpráva odeslána — brzy se ozvu.',
-        'ci-h3':        'Nejlépe pracuji s',
-        'ci-p':         'Startupy v rané až střední fázi, které překonaly nulu, ale ještě nenašly cestu ke škálovatelnému růstu. Týmy, které chtějí budovat něco trvalého, ne jen dosáhnout příštího měsíčního čísla.',
-        'ci-time':      'Doba odezvy: obvykle do 24–48 hodin.',
-        'ft-top':       'Nahoru',
-        'ft-about':     'O mně',
-        'ft-expertise': 'Odbornost',
-        'ft-contact':   'Kontakt',
-      }
-    };
+  let currentLocale = 'en';
 
-    let currentLocale = 'en';
+  function setLocale(loc) {
+    currentLocale = loc;
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const v = T[loc]?.[el.dataset.i18n];
+      if (v !== undefined) el.innerHTML = v;
+    });
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+      const v = T[loc]?.[el.dataset.i18nPlaceholder];
+      if (v !== undefined) el.placeholder = v;
+    });
+    document.querySelectorAll('.i18n-btn').forEach(b => {
+      b.classList.toggle('active', b.dataset.locale === loc);
+    });
+    localStorage.setItem('locale', loc);
+    document.documentElement.lang = loc;
+  }
 
-    function setLocale(loc) {
-      currentLocale = loc;
-      document.querySelectorAll('[data-i18n]').forEach(el => {
-        const v = T[loc]?.[el.dataset.i18n];
-        if (v !== undefined) el.innerHTML = v;
-      });
-      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
-        const v = T[loc]?.[el.dataset.i18nPlaceholder];
-        if (v !== undefined) el.placeholder = v;
-      });
-      document.querySelectorAll('.i18n-btn').forEach(b => {
-        b.classList.toggle('active', b.dataset.locale === loc);
-      });
-      localStorage.setItem('locale', loc);
-      document.documentElement.lang = loc;
-    }
-
-    // Init from stored preference
-    setLocale(localStorage.getItem('locale') || 'en');
-  </script>
+  setLocale(localStorage.getItem('locale') || 'en');
+</script>
 </body>
 </html>
