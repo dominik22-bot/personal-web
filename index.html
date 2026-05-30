@@ -486,6 +486,120 @@
       .form-row { grid-template-columns: 1fr; }
       footer .inner { flex-direction: column; gap: 20px; text-align: center; }
       .nav-links { display: none; }
+      .pricing-cards { grid-template-columns: 1fr; }
+      .who-segment-split { grid-template-columns: 1fr; }
+      .discovery-grid { grid-template-columns: 1fr; gap: 48px; }
+      .proof-row { gap: 24px; }
+      .outcome-grid { grid-template-columns: 1fr; }
+      .seg-picker { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* ── Pricing ── */
+    .pricing-cards { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; }
+    .pricing-card { background: var(--bg-surface); border: 1px solid var(--border); border-radius: 12px; padding: 32px; display: flex; flex-direction: column; }
+    .pricing-card.featured { border: 2px solid var(--accent); }
+    .pricing-badge { display: inline-block; font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent); border: 1px solid var(--accent); border-radius: 999px; padding: 4px 12px; margin-bottom: 20px; }
+    .pricing-plan-name { font-size: 20px; font-weight: 500; color: var(--text-primary); margin-bottom: 6px; }
+    .pricing-plan-sub { font-size: 13px; color: var(--text-muted); margin-bottom: 24px; line-height: 1.5; }
+    .pricing-anchor { font-size: 13px; color: var(--text-muted); text-decoration: line-through; margin-bottom: 4px; }
+    .pricing-price { font-size: 28px; font-weight: 500; color: var(--text-primary); margin-bottom: 4px; }
+    .pricing-note { font-size: 12px; color: var(--text-muted); margin-bottom: 24px; }
+    .pricing-divider { border: none; border-top: 1px solid var(--border); margin: 16px 0; }
+    .pricing-item { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: var(--text-secondary); margin-bottom: 10px; line-height: 1.4; }
+    .pricing-item .check { color: var(--accent); flex-shrink: 0; }
+    .pricing-item .cross { color: var(--text-muted); flex-shrink: 0; }
+    .pricing-cta { margin-top: auto; padding-top: 24px; }
+    .pricing-equation { font-size: 14px; color: var(--text-muted); text-align: center; padding: 20px 32px; border: 1px solid var(--border); border-radius: 8px; margin-bottom: 48px; line-height: 1.7; }
+    .value-stack { background: var(--bg-surface); border: 1px solid var(--border); border-radius: 12px; padding: 32px; margin-top: 48px; }
+    .value-stack h3 { font-size: 18px; font-weight: 400; color: var(--text-primary); margin-bottom: 24px; }
+    .stack-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-top: 1px solid var(--border); font-size: 14px; }
+    .stack-row:first-of-type { border-top: none; }
+    .stack-label { color: var(--text-secondary); }
+    .stack-strike { color: var(--text-muted); text-decoration: line-through; }
+    .stack-total { font-weight: 500; color: var(--text-primary); }
+    .stack-total-val { color: var(--accent); font-weight: 500; }
+    .guarantee-box { display: flex; gap: 24px; align-items: flex-start; background: var(--accent-dim); border: 1px solid var(--accent); border-radius: 12px; padding: 32px; margin-top: 32px; }
+    .guarantee-icon { font-size: 32px; color: var(--accent); flex-shrink: 0; line-height: 1; }
+    .guarantee-box h3 { font-size: 16px; font-weight: 500; color: var(--text-primary); margin-bottom: 8px; }
+    .guarantee-box p { font-size: 14px; color: var(--text-secondary); line-height: 1.7; }
+    .urgency-bar { display: flex; align-items: center; gap: 12px; border: 1px solid var(--border); border-radius: 8px; padding: 14px 24px; margin-top: 24px; font-size: 13px; color: var(--text-muted); }
+    /* ── Who Segment Split ── */
+    .who-segment-split { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 48px; }
+    .who-segment-card { background: var(--bg-surface); border: 1px solid var(--border); border-radius: 12px; padding: 32px; }
+    .who-segment-card h3 { font-size: 18px; margin-bottom: 16px; }
+    .who-segment-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .who-segment-list li { font-size: 14px; color: var(--text-secondary); line-height: 1.5; padding-left: 18px; position: relative; }
+    .who-segment-list li::before { content: '·'; position: absolute; left: 0; color: var(--accent); font-size: 18px; line-height: 1.2; }
+    /* ── Discovery / Contact ── */
+    .contact-perex { font-size: 16px; color: var(--text-secondary); max-width: 600px; margin-bottom: 48px; line-height: 1.7; }
+    .proof-row { display: flex; gap: 40px; margin-bottom: 48px; padding-bottom: 32px; border-bottom: 1px solid var(--border); flex-wrap: wrap; }
+    .proof-stat { display: flex; flex-direction: column; gap: 4px; }
+    .proof-stat .pstat-val { font-size: 20px; font-weight: 500; color: var(--text-primary); }
+    .proof-stat .pstat-label { font-size: 12px; color: var(--text-muted); }
+    .discovery-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+    .discovery-steps { display: flex; flex-direction: column; }
+    .discovery-step { display: flex; gap: 16px; padding: 20px 0; border-bottom: 1px solid var(--border); }
+    .discovery-step:last-child { border-bottom: none; }
+    .step-num { width: 32px; height: 32px; border-radius: 50%; background: var(--accent-dim); border: 1px solid var(--accent); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; color: var(--accent); flex-shrink: 0; }
+    .step-body h4 { font-size: 15px; font-weight: 500; color: var(--text-primary); margin-bottom: 4px; }
+    .step-body p { font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
+    .step-time { font-size: 11px; color: var(--accent); margin-top: 4px; display: block; }
+    .seg-label { font-size: 13px; color: var(--text-muted); margin-bottom: 8px; }
+    .seg-picker { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 16px; }
+    .seg-btn { padding: 10px 16px; background: var(--bg-surface); border: 1px solid var(--border); border-radius: 8px; font-size: 13px; color: var(--text-muted); cursor: pointer; font-family: inherit; transition: all 0.15s; text-align: center; }
+    .seg-btn:hover { border-color: var(--accent); color: var(--text-primary); }
+    .seg-btn.active { background: var(--accent-dim); border-color: var(--accent); color: var(--text-primary); font-weight: 500; }
+    .trust-row { display: flex; gap: 24px; font-size: 12px; color: var(--text-muted); margin-top: 16px; flex-wrap: wrap; }
+    .outcome-box { background: var(--accent-dim); border: 1px solid var(--accent); border-radius: 12px; padding: 24px; margin-top: 32px; }
+    .outcome-box h4 { font-size: 14px; font-weight: 500; color: var(--text-primary); margin-bottom: 16px; }
+    .outcome-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .outcome-item { font-size: 13px; color: var(--text-secondary); display: flex; gap: 8px; align-items: flex-start; line-height: 1.4; }
+    .outcome-item .check { color: var(--accent); }
+    /* ── Pricing quote ── */
+    .pricing-quote { border-left: 3px solid var(--accent); padding: 24px 32px; margin-bottom: 64px; background: var(--bg-surface); border-radius: 0 8px 8px 0; }
+    .pricing-quote p { font-size: 18px; font-style: italic; color: var(--text-secondary); line-height: 1.75; }
+    /* ── Not for everyone ── */
+    .not-for-everyone { background: var(--bg-surface); border: 1px solid var(--border); border-left: 3px solid var(--text-muted); border-radius: 0 8px 8px 0; padding: 20px 28px; margin-top: 48px; }
+    .not-for-everyone p { font-size: 14px; color: var(--text-secondary); line-height: 1.7; }
+    .not-for-everyone strong { color: var(--text-primary); font-weight: 500; }
+    /* ── Objections ── */
+    .objections-wrap { margin-top: 48px; margin-bottom: 32px; }
+    .objections-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .objection-card { background: var(--bg-surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; }
+    .obj-q { font-size: 13px; font-weight: 500; color: var(--accent); margin-bottom: 8px; }
+    .obj-a { font-size: 14px; color: var(--text-secondary); line-height: 1.65; }
+    /* ── FAQ ── */
+    .faq-list { display: flex; flex-direction: column; }
+    .faq-item { padding: 20px 0; border-bottom: 1px solid var(--border); }
+    .faq-item:last-child { border-bottom: none; }
+    .faq-q { font-size: 15px; font-weight: 500; color: var(--text-primary); margin-bottom: 8px; line-height: 1.4; }
+    .faq-a { font-size: 14px; color: var(--text-secondary); line-height: 1.65; }
+    @media (max-width: 768px) { .objections-grid { grid-template-columns: 1fr; } }
+
+    /* Diagnostic hero card */
+    .diag-hero { display: grid; grid-template-columns: 3fr 2fr; gap: 64px; align-items: start; background: var(--bg-surface); border: 2px solid var(--accent); border-radius: 16px; padding: 48px; margin-bottom: 64px; }
+    .diag-hero-right { display: flex; flex-direction: column; }
+    .diag-title { font-size: 28px; font-weight: 400; color: var(--text-primary); margin: 12px 0 16px; }
+    .diag-sub { font-size: 15px; color: var(--text-secondary); line-height: 1.75; margin-bottom: 28px; }
+    .diag-list { list-style: none; display: flex; flex-direction: column; gap: 12px; margin-bottom: 0; }
+    .diag-list li { font-size: 14px; color: var(--text-secondary); line-height: 1.5; display: flex; gap: 10px; align-items: flex-start; }
+    .diag-list .check { color: var(--accent); flex-shrink: 0; font-size: 14px; margin-top: 1px; }
+    .diag-price { font-size: 40px; font-weight: 300; color: var(--text-primary); letter-spacing: -0.02em; margin: 4px 0; }
+    .diag-refund { font-size: 12px; color: var(--text-muted); line-height: 1.6; margin-top: 16px; }
+    .diag-upsell { background: var(--accent-dim); border: 1px solid var(--accent); border-radius: 8px; padding: 12px 16px; margin-top: 16px; font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
+
+    /* Other products grid */
+    .other-products { margin-bottom: 64px; }
+    .other-products-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .op-card { background: var(--bg-surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; }
+    .op-top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; }
+    .op-name { font-size: 15px; font-weight: 500; color: var(--text-primary); }
+    .op-price { font-size: 13px; color: var(--accent); font-weight: 500; }
+    .op-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+
+    @media (max-width: 768px) {
+      .diag-hero { grid-template-columns: 1fr; gap: 40px; padding: 32px; }
+      .other-products-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -496,10 +610,9 @@
   <div class="inner">
     <a href="#hero" class="nav-logo">DM.</a>
     <ul class="nav-links">
-      <li><a href="services.html" data-i18n="nav-services">Služby</a></li>
-      <li><a href="about.html" data-i18n="nav-about">O mně</a></li>
-      <li><a href="blog.html" data-i18n="nav-blog">Blog</a></li>
-      <li><a href="#contact" data-i18n="nav-contact">Kontakt</a></li>
+      <li><a href="#sluzby" data-i18n="nav-services">Services</a></li>
+      <li><a href="#pricing" data-i18n="nav-pricing">Pricing</a></li>
+      <li><a href="#contact" data-i18n="nav-contact">Book a call</a></li>
     </ul>
     <div class="i18n-toggle">
       <button class="i18n-btn" data-locale="en" onclick="setLocale('en')">EN</button>
@@ -517,18 +630,18 @@
           <span class="dot"></span>
           <span data-i18n="hero-badge">Dostupný pro nové projekty</span>
         </div>
-        <h1 data-i18n="hero-h1">I build <span class="hero-h1-underline">systems</span><br>for ambitious<br>startups.</h1>
+        <h1 data-i18n="hero-h1">I build <span class="hero-h1-underline">growth systems</span><br>that work<br>without you.</h1>
         <p class="hero-sub" data-i18n="hero-sub">
-          Pomáhám startupům v rané až střední fázi škálovat se záměrem — propojuji performance marketing, brand strategii a datovou infrastrukturu do growth systémů, které se v čase násobí.
+          Marketing either earns money or costs it. There is no neutral. I help startups and ambitious businesses build systematic marketing — where every channel is tracked, every campaign measured, and every decision driven by data.
         </p>
         <div class="btn-group">
-          <a href="#contact" class="btn btn-primary" data-i18n="btn-cta1">Sjednat konzultaci →</a>
-          <a href="#proces" class="btn btn-secondary" data-i18n="btn-cta2">Jak spolupráce vypadá ↓</a>
+          <a href="#contact" class="btn btn-primary" data-i18n="btn-cta1">Start with a Growth Diagnostic →</a>
+          <a href="#proces" class="btn btn-secondary" data-i18n="btn-cta2">How it works ↓</a>
         </div>
         <div class="hero-stats-bar">
-          <div class="hero-stat"><span class="stat-value" data-i18n="stat1">7+ let zkušeností</span></div>
-          <div class="hero-stat"><span class="stat-value" data-i18n="stat2">4 specializace</span></div>
-          <div class="hero-stat"><span class="stat-value" data-i18n="stat3">Dostupný pro nové projekty</span></div>
+          <div class="hero-stat"><span class="stat-value" data-i18n="stat1">7+ years in growth marketing</span></div>
+          <div class="hero-stat"><span class="stat-value" data-i18n="stat2">First step from 4,900 CZK</span></div>
+          <div class="hero-stat"><span class="stat-value" data-i18n="stat3">3 spots left — Q3 2026</span></div>
         </div>
       </div>
       <div class="dashboard-card">
@@ -561,24 +674,6 @@
   </div>
 </section>
 
-<!-- VIDEO -->
-<div id="video">
-  <div class="video-container">
-    <div class="video-wrapper" data-youtube-id="">
-      <div class="video-ratio">
-        <div class="video-placeholder">
-          <div class="video-play-btn">
-            <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
-          </div>
-          <p class="video-placeholder-title" data-i18n="vid-title">Krátký úvod — kdo jsem a jak pracuji.</p>
-          <p class="video-placeholder-sub" data-i18n="vid-soon">Brzy.</p>
-        </div>
-      </div>
-    </div>
-    <p class="video-caption" data-i18n="vid-caption">Průměrná délka spolupráce 3–18 měsíců · Seed až Series A startupy</p>
-  </div>
-</div>
-
 <!-- PRO KOHO -->
 <section id="sluzby">
   <div class="container">
@@ -603,13 +698,38 @@
         <p data-i18n="who3-text">Agency vám posílá reporty, ale nikdo nemyslí na byznys jako celek. Chybí někdo kdo drží celý obraz.</p>
       </div>
     </div>
+    <div class="who-segment-split animate-in">
+      <div class="who-segment-card">
+        <span class="who-icon">◎</span>
+        <h3 data-i18n="wss-h1">Startups &amp; scale-ups</h3>
+        <ul class="who-segment-list">
+          <li data-i18n="wss1-f1">You have a product but marketing is chaos</li>
+          <li data-i18n="wss1-f2">You don't know which channel brings customers</li>
+          <li data-i18n="wss1-f3">You want a system, not an agency that reports</li>
+          <li data-i18n="wss1-f4">Seed to Series A, team of 5–30</li>
+        </ul>
+      </div>
+      <div class="who-segment-card">
+        <span class="who-icon">⟳</span>
+        <h3 data-i18n="wss-h2">Small &amp; mid-size businesses</h3>
+        <ul class="who-segment-list">
+          <li data-i18n="wss2-f1">You run on referrals but want to scale</li>
+          <li data-i18n="wss2-f2">Your marketer left and the system left with them</li>
+          <li data-i18n="wss2-f3">You spend on ads but cannot explain why</li>
+          <li data-i18n="wss2-f4">Revenue 20–200M CZK, ready to automate</li>
+        </ul>
+      </div>
+    </div>
+    <div class="not-for-everyone animate-in">
+      <p><strong data-i18n="nfe-strong">Tohle není pro každého.</strong> <span data-i18n="nfe-body">Nepracuji s firmami, které hledají rychlé triky nebo nejlevnější agenturu. Ideální klient ví, že systematický marketing je investice — a chce vidět čísla, ne prezentace.</span></p>
+    </div>
     <div class="who-bridge animate-in">
       <div class="who-bridge-left">
         <p class="who-bridge-title" data-i18n="who-bridge-title">Tohle jsou přesně situace, ve kterých pracuji nejlépe.</p>
         <p class="who-bridge-text" data-i18n="who-bridge-text">Nestavím generické marketingové plány. Stavím systémy — datovou infrastrukturu, growth loops a měření které vám ukáží kde jsou peníze a proč to neroste rychleji.</p>
       </div>
       <div class="who-bridge-right">
-        <a href="services.html" class="btn btn-primary" data-i18n="who-cta">Prozkoumat služby →</a>
+        <a href="#pricing" class="btn btn-primary" data-i18n="who-cta">Prozkoumat ceník →</a>
         <p class="who-cta-sub" data-i18n="who-cta-sub">Úvodní hovor zdarma · Bez závazků</p>
       </div>
     </div>
@@ -626,27 +746,134 @@
     <div class="process-wrap">
       <div class="process-timeline">
         <div class="process-step animate-in">
-          <div class="process-step-num" data-i18n="p1-phase">Audit · týden 1–2</div>
-          <h3 data-i18n="p1-title">Zmapujeme kde jste.</h3>
-          <p data-i18n="p1-desc">Hloubková analýza unit economics, funnelu a tech stacku. Výstup je konkrétní — ne obecná zpráva, ale prioritizovaný akční plán.</p>
+          <div class="process-step-num" data-i18n="p1-phase">STEP 01</div>
+          <h3 data-i18n="ps1-h">Growth Diagnostic</h3>
+          <p data-i18n="ps1-p">60 minutes + structured questionnaire. You get a one-page map of your top 3 growth leaks and a concrete next step. Price: 4,900 CZK. This is where we start.</p>
         </div>
         <div class="process-step animate-in" style="transition-delay:0.1s">
-          <div class="process-step-num" data-i18n="p2-phase">Build · měsíc 1–3</div>
-          <h3 data-i18n="p2-title">Postavíme infrastrukturu.</h3>
-          <p data-i18n="p2-desc">Data pipeline, dashboardy, tracking. Vše co potřebujete k tomu, abyste přestali hádat a začali vědět.</p>
+          <div class="process-step-num" data-i18n="p2-phase">STEP 02</div>
+          <h3 data-i18n="ps2-h">Growth Sprint</h3>
+          <p data-i18n="ps2-p">30 days, four phases. Week 1: audit and martech setup. Weeks 2–3: first campaigns live, tracking running, dashboard ready. Week 4: optimisation and handover. Deliverable: a working system and a 90-day playbook. Price: 39,000 CZK.</p>
         </div>
         <div class="process-step animate-in" style="transition-delay:0.2s">
-          <div class="process-step-num" data-i18n="p3-phase">Scale · průběžně</div>
-          <h3 data-i18n="p3-title">Škálujeme co funguje.</h3>
-          <p data-i18n="p3-desc">Pravidelné growth sprinty, přesouvání budgetu tam kde ROI roste, experimentace a optimalizace bez konce.</p>
+          <div class="process-step-num" data-i18n="p3-phase">STEP 03</div>
+          <h3 data-i18n="ps3-h">Growth Engine</h3>
+          <p data-i18n="ps3-p">Ongoing management after the Sprint. Monthly campaigns, reporting, optimisation. The system is already running — I keep it growing. From 22,000 CZK/mo.</p>
         </div>
       </div>
     </div>
   </div>
 </section>
 
+<!-- PRICING -->
+<section id="pricing">
+  <div class="container">
+
+    <!-- Section header -->
+    <div class="section-header animate-in">
+      <div class="section-label"><span class="accent">04</span> — <span data-i18n="s4-label">OFFER</span></div>
+      <h2 data-i18n="s4-h2">One clear first step.<br>The rest follows naturally.</h2>
+    </div>
+
+    <!-- Citát -->
+    <blockquote class="pricing-quote animate-in">
+      <p data-i18n="pq-text">"You want systematic marketing that grows without you — where every crown invested in ads is tracked, every customer understood, and every campaign evaluated before the money starts burning."</p>
+    </blockquote>
+
+    <!-- HLAVNÍ KARTA — Diagnostic (full width, featured) -->
+    <div class="diag-hero animate-in">
+      <div class="diag-hero-left">
+        <span class="pricing-badge" data-i18n="diag-badge">Start here</span>
+        <h3 class="diag-title" data-i18n="diag-title">Growth Diagnostic</h3>
+        <p class="diag-sub" data-i18n="diag-sub">In 60 minutes you will know exactly where your budget is leaking, which channel has the most potential, and what to do as a first step. With a concrete deliverable in hand — not generic advice.</p>
+        <ul class="diag-list">
+          <li data-i18n="diag-f1"><span class="check">✓</span> Structured questionnaire before the call — no prep required on your side</li>
+          <li data-i18n="diag-f2"><span class="check">✓</span> 60-minute 1:1 call — we cover current state, goals, and bottlenecks</li>
+          <li data-i18n="diag-f3"><span class="check">✓</span> One-page Growth Diagnostic Report — top 3 leaks, recommended next step</li>
+          <li data-i18n="diag-f4"><span class="check">✓</span> Delivered within 5 business days</li>
+          <li data-i18n="diag-f5"><span class="check">✓</span> Fully usable even without further engagement</li>
+        </ul>
+      </div>
+      <div class="diag-hero-right">
+        <p class="pricing-anchor" data-i18n="diag-anchor">Value: 15,000 CZK</p>
+        <p class="diag-price" data-i18n="diag-price">4,900 CZK</p>
+        <p class="pricing-note" data-i18n="diag-note">one-time · within 5 business days</p>
+        <a href="#contact" class="btn btn-primary btn-full" data-i18n="diag-cta">Order Growth Diagnostic →</a>
+        <p class="diag-refund" data-i18n="diag-refund">If you get no actionable insight from the report — full refund. No questions, no conditions.</p>
+        <div class="diag-upsell">
+          <p data-i18n="diag-upsell">Decide to continue with a Sprint? The Diagnostic fee is deducted from the Sprint price.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- OSTATNÍ PRODUKTY — kompaktní přehled -->
+    <div class="other-products animate-in">
+      <div class="section-label" style="margin-bottom:24px"><span data-i18n="op-label">WHAT COMES NEXT</span></div>
+      <div class="other-products-grid">
+        <div class="op-card">
+          <div class="op-top">
+            <span class="op-name" data-i18n="op1-name">Growth Sprint</span>
+            <span class="op-price" data-i18n="op1-price">39,000 CZK</span>
+          </div>
+          <p class="op-desc" data-i18n="op1-desc">30-day intensive engagement. Deliverable: working martech stack, first data, 90-day playbook. Max 3 clients at a time.</p>
+        </div>
+        <div class="op-card">
+          <div class="op-top">
+            <span class="op-name" data-i18n="op2-name">Growth Engine</span>
+            <span class="op-price" data-i18n="op2-price">22,000 CZK/mo</span>
+          </div>
+          <p class="op-desc" data-i18n="op2-desc">Ongoing management after the Sprint. Campaigns, reporting, optimisation. Minimum 3 months.</p>
+        </div>
+        <div class="op-card">
+          <div class="op-top">
+            <span class="op-name" data-i18n="op3-name">Growth Playbook</span>
+            <span class="op-price" data-i18n="op3-price">7,900 CZK</span>
+          </div>
+          <p class="op-desc" data-i18n="op3-desc">Self-serve kit for those who want to but are not yet ready for a Sprint. Templates, guides, AI Skills.</p>
+        </div>
+        <div class="op-card">
+          <div class="op-top">
+            <span class="op-name" data-i18n="op4-name">Growth Partner</span>
+            <span class="op-price" data-i18n="op4-price">55,000 CZK/mo</span>
+          </div>
+          <p class="op-desc" data-i18n="op4-desc">Fractional CMO at full capacity. Strategy, board reporting, team building. Minimum 6 months.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Námitky -->
+    <div class="objections-wrap animate-in">
+      <div class="section-label" style="margin-bottom:24px"><span data-i18n="obj-label">COMMON OBJECTIONS</span></div>
+      <div class="objections-grid">
+        <div class="objection-card">
+          <p class="obj-q" data-i18n="obj1-q">"It is too expensive."</p>
+          <p class="obj-a" data-i18n="obj1-a">An in-house marketer costs 60–80k/mo with no results for 3 months. A Diagnostic at 4,900 CZK tells you exactly where the problem is — before you invest anything else.</p>
+        </div>
+        <div class="objection-card">
+          <p class="obj-q" data-i18n="obj2-q">"We do not have time for onboarding."</p>
+          <p class="obj-a" data-i18n="obj2-a">Fill in the questionnaire (20 min), join the call (60 min). I handle the rest. You have the output within 5 days.</p>
+        </div>
+        <div class="objection-card">
+          <p class="obj-q" data-i18n="obj3-q">"How do we know it will work?"</p>
+          <p class="obj-a" data-i18n="obj3-a">If the report contains no actionable insight — full refund. Zero risk.</p>
+        </div>
+        <div class="objection-card">
+          <p class="obj-q" data-i18n="obj4-q">"What if we cancel?"</p>
+          <p class="obj-a" data-i18n="obj4-a">The Diagnostic is a standalone product. No commitment to continue. The output stays with you forever.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Urgency -->
+    <div class="urgency-bar animate-in">
+      <span data-i18n="urg">⏱ Currently accepting max. 3 new clients per quarter — Growth Partner capacity is booked through Q3 2026.</span>
+    </div>
+
+  </div>
+</section>
+
 <!-- O MNĚ / ABOUT TEASER -->
-<section id="pristup">
+<section id="pristup" style="display:none">
   <div class="container">
     <div class="section-header animate-in">
       <div class="section-label"><span class="accent">03</span> — <span data-i18n="s4-label">O MNĚ</span></div>
@@ -669,11 +896,34 @@
   </div>
 </section>
 
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="container">
+    <div class="section-header animate-in">
+      <div class="section-label"><span class="accent">05</span> — <span data-i18n="s7-label">TESTIMONIALS</span></div>
+      <h2 data-i18n="s7-h2">Co říkají lidé,<br>se kterými pracuji.</h2>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card animate-in">
+        <span class="testimonial-quote-mark">"</span>
+        <p class="testimonial-text" data-i18n="t1-text">Dominik přinesl strukturu do chaosu. Za tři měsíce jsme poprvé věděli, který kanál nám vydělává a který jen pálí peníze.</p>
+        <div class="testimonial-author" data-i18n="t1-author">— Jan Novák, CEO · SaaS startup</div>
+      </div>
+      <div class="testimonial-card animate-in" style="transition-delay:0.1s">
+        <span class="testimonial-quote-mark">"</span>
+        <p class="testimonial-text" data-i18n="t2-text">Kombinace strategického myšlení a technické exekuce je vzácná. Dominik ji má přirozeně.</p>
+        <div class="testimonial-author" data-i18n="t2-author">— Petra Svobodová, Founder · E-commerce brand</div>
+      </div>
+    </div>
+    <p class="testimonials-note" data-i18n="t-note">Reference jsou ilustrativní. Reálné reference dostupné na vyžádání.</p>
+  </div>
+</section>
+
 <!-- RESULTS -->
 <section id="results">
   <div class="container">
     <div class="section-header animate-in">
-      <div class="section-label"><span class="accent">04</span> — <span data-i18n="s5-label">VÝSLEDKY</span></div>
+      <div class="section-label"><span class="accent">06</span> — <span data-i18n="s5-label">RESULTS</span></div>
       <h2 data-i18n="s5-h2">Data mluví za vše.</h2>
       <p class="results-disclaimer" data-i18n="s5-disc"><em>Čísla jsou ilustrativní — reprezentují typické výsledky práce v oblasti SaaS growth. Konkrétní case studies sdílím osobně po NDA.</em></p>
     </div>
@@ -703,10 +953,10 @@
 </section>
 
 <!-- BLOG PREVIEW -->
-<section id="blog-preview">
+<section id="blog-preview" style="display:none">
   <div class="container">
     <div class="section-header animate-in">
-      <div class="section-label"><span class="accent">05</span> — <span data-i18n="s6-label">MYŠLENKY</span></div>
+      <div class="section-label"><span class="accent">07</span> — <span data-i18n="s6-label">MYŠLENKY</span></div>
       <h2 data-i18n="s6-h2">Z blogu.</h2>
     </div>
     <div class="blog-grid">
@@ -738,86 +988,147 @@
   </div>
 </section>
 
-<!-- TESTIMONIALS -->
-<section id="testimonials">
-  <div class="container">
-    <div class="section-header animate-in">
-      <div class="section-label"><span class="accent">06</span> — <span data-i18n="s7-label">REFERENCE</span></div>
-      <h2 data-i18n="s7-h2">Co říkají lidé,<br>se kterými pracuji.</h2>
-    </div>
-    <div class="testimonials-grid">
-      <div class="testimonial-card animate-in">
-        <span class="testimonial-quote-mark">"</span>
-        <p class="testimonial-text" data-i18n="t1-text">Dominik přinesl strukturu do chaosu. Za tři měsíce jsme poprvé věděli, který kanál nám vydělává a který jen pálí peníze.</p>
-        <div class="testimonial-author" data-i18n="t1-author">— Jan Novák, CEO · SaaS startup</div>
-      </div>
-      <div class="testimonial-card animate-in" style="transition-delay:0.1s">
-        <span class="testimonial-quote-mark">"</span>
-        <p class="testimonial-text" data-i18n="t2-text">Kombinace strategického myšlení a technické exekuce je vzácná. Dominik ji má přirozeně.</p>
-        <div class="testimonial-author" data-i18n="t2-author">— Petra Svobodová, Founder · E-commerce brand</div>
+<!-- VIDEO -->
+<div id="video">
+  <div class="video-container">
+    <div class="video-wrapper" data-youtube-id="">
+      <div class="video-ratio">
+        <div class="video-placeholder">
+          <div class="video-play-btn">
+            <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+          </div>
+          <p class="video-placeholder-title" data-i18n="vid-title">Krátký úvod — kdo jsem a jak pracuji.</p>
+          <p class="video-placeholder-sub" data-i18n="vid-soon">Brzy.</p>
+        </div>
       </div>
     </div>
-    <p class="testimonials-note" data-i18n="t-note">Reference jsou ilustrativní. Reálné reference dostupné na vyžádání.</p>
+    <p class="video-caption" data-i18n="vid-caption">Průměrná délka spolupráce 3–18 měsíců · Seed až Series A startupy</p>
   </div>
-</section>
+</div>
 
 <!-- CONTACT -->
 <section id="contact">
   <div class="container">
     <div class="section-header animate-in">
-      <div class="section-label"><span class="accent">07</span> — <span data-i18n="s8-label">KONTAKT</span></div>
-      <h2 data-i18n="s8-h2">Pojďme začít.</h2>
+      <div class="section-label"><span class="accent">07</span> — <span data-i18n="s8-label">ORDER GROWTH DIAGNOSTIC</span></div>
+      <h2 data-i18n="contact-h2">One step.<br>One concrete output.<br>Zero risk.</h2>
     </div>
-    <div class="grid">
-      <div>
-        <p class="contact-desc" data-i18n="ci-desc">Hledám spolupráci s týmy, které jsou past zero — mají produkt, první zákazníky, a chuť škálovat systematicky. Ne hacky, ale systémy.</p>
-        <div class="contact-links">
-          <a href="mailto:hello@dominikmaslan.com" class="contact-link">
-            <span class="link-icon">✉</span>
-            hello@dominikmaslan.com
-          </a>
-          <a href="https://linkedin.com/in/dominikmaslan" class="contact-link" target="_blank" rel="noopener">
-            <span class="link-icon">in</span>
-            linkedin.com/in/dominikmaslan
-          </a>
-        </div>
-        <p class="contact-response" data-i18n="ci-response">⏱ Odpovídám do 24–48 hodin</p>
+    <p class="contact-perex animate-in" data-i18n="contact-perex">Fill in the form below. I will send you a structured questionnaire within 24 hours, we will schedule the call, and you will have the Growth Diagnostic Report within 5 business days. No commitment beyond this first step.</p>
+    <div class="proof-row animate-in">
+      <div class="proof-stat">
+        <span class="pstat-val" data-i18n="pstat-val1">4,900 CZK</span>
+        <span class="pstat-label" data-i18n="pstat-lbl1">first step, zero risk</span>
       </div>
-      <form class="contact-form" onsubmit="handleSubmit(event)">
-        <div class="form-row">
-          <div class="field">
-            <label for="name" data-i18n="lbl-name">Jméno</label>
-            <input type="text" id="name" data-i18n-placeholder="ph-name" placeholder="Vaše jméno" required />
+      <div class="proof-stat">
+        <span class="pstat-val" data-i18n="pstat-val2">60 min</span>
+        <span class="pstat-label" data-i18n="pstat-lbl2">structured 1:1 call</span>
+      </div>
+      <div class="proof-stat">
+        <span class="pstat-val" data-i18n="pstat-val3">5 days</span>
+        <span class="pstat-label" data-i18n="pstat-lbl3">report delivered</span>
+      </div>
+      <div class="proof-stat">
+        <span class="pstat-val" data-i18n="pstat-val4">100%</span>
+        <span class="pstat-label" data-i18n="pstat-lbl4">refund if not useful</span>
+      </div>
+    </div>
+    <div class="discovery-grid">
+      <div class="discovery-steps animate-in">
+        <div class="discovery-step">
+          <div class="step-num">01</div>
+          <div class="step-body">
+            <h4 data-i18n="ds1-h">Growth Leak Map</h4>
+            <p data-i18n="ds1-p">A clear picture of where your budget is leaking and why. Based on your actual data, not assumptions.</p>
+            <span class="step-time" data-i18n="ds1-t">In the report</span>
+          </div>
+        </div>
+        <div class="discovery-step">
+          <div class="step-num">02</div>
+          <div class="step-body">
+            <h4 data-i18n="ds2-h">Channel Opportunity Score</h4>
+            <p data-i18n="ds2-p">Which channel has the biggest untapped potential for your specific situation. Ranked by effort vs. impact.</p>
+            <span class="step-time" data-i18n="ds2-t">In the report</span>
+          </div>
+        </div>
+        <div class="discovery-step">
+          <div class="step-num">03</div>
+          <div class="step-body">
+            <h4 data-i18n="ds3-h">90-Day Priority Roadmap</h4>
+            <p data-i18n="ds3-p">Three concrete actions to take in the next 90 days, in order of priority. No fluff, no generic advice.</p>
+            <span class="step-time" data-i18n="ds3-t">In the report</span>
+          </div>
+        </div>
+        <div class="discovery-step">
+          <div class="step-num">04</div>
+          <div class="step-body">
+            <h4 data-i18n="ds4-h">Optional: Next Step Recommendation</h4>
+            <p data-i18n="ds4-p">If a Sprint makes sense for your situation, I will say so and explain why. If it does not, I will say that too and point you in the right direction.</p>
+            <span class="step-time" data-i18n="ds4-t">On the call</span>
+          </div>
+        </div>
+      </div>
+      <div class="animate-in" style="transition-delay:0.1s">
+        <form onsubmit="handleSubmit(event)">
+          <div class="form-row">
+            <div class="field">
+              <label for="name" data-i18n="lbl-name">Name</label>
+              <input type="text" id="name" data-i18n-placeholder="ph-name" placeholder="Your name" required />
+            </div>
+            <div class="field">
+              <label for="company" data-i18n="lbl-company">Company</label>
+              <input type="text" id="company" data-i18n-placeholder="ph-company" placeholder="Company or startup name" />
+            </div>
           </div>
           <div class="field">
             <label for="email" data-i18n="lbl-email">Email</label>
-            <input type="email" id="email" placeholder="vy@firma.com" required />
+            <input type="email" id="email" placeholder="you@company.com" required />
+          </div>
+          <div class="field">
+            <label for="website" data-i18n="lbl-website">Website or LinkedIn</label>
+            <input type="text" id="website" data-i18n-placeholder="ph-website" placeholder="yourdomain.com or linkedin.com/in/you" />
+          </div>
+          <div class="field">
+            <textarea id="message" data-i18n-placeholder="ph-message" placeholder="E.g.: We invest 50k/mo in GAds and do not know if it works. Or: Our marketer left, we have no system. Or: We have great product but no scalable acquisition." style="min-height:100px"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary btn-full" data-i18n="btn-send">Order Growth Diagnostic — 4,900 CZK →</button>
+          <p id="form-status" style="font-size:14px;color:var(--accent);display:none;text-align:center;" data-i18n="form-success">Message sent — I'll be in touch soon.</p>
+          <div class="trust-row">
+            <span data-i18n="tr1">✓ Reply within 24 hours</span>
+            <span data-i18n="tr2">◎ Questionnaire sent immediately after</span>
+            <span data-i18n="tr3">⬡ Full refund if not useful</span>
+          </div>
+          <div class="outcome-box">
+            <h4 data-i18n="oc-h">The report will tell you:</h4>
+            <div class="outcome-grid">
+              <div class="outcome-item"><span class="check">✓</span><span data-i18n="oc1">Where exactly your budget is leaking</span></div>
+              <div class="outcome-item"><span class="check">✓</span><span data-i18n="oc2">Which channel to prioritise first</span></div>
+              <div class="outcome-item"><span class="check">✓</span><span data-i18n="oc3">What to do in the next 90 days</span></div>
+              <div class="outcome-item"><span class="check">✓</span><span data-i18n="oc4">Whether a Sprint makes sense for you</span></div>
+            </div>
+          </div>
+        </form>
+        <div class="faq-wrap animate-in" style="margin-top:48px">
+          <div class="section-label" style="margin-bottom:24px"><span data-i18n="faq-label">FAQ</span></div>
+          <div class="faq-list">
+            <div class="faq-item">
+              <h4 class="faq-q" data-i18n="faq1-q">Je to opravdu zdarma?</h4>
+              <p class="faq-a" data-i18n="faq1-a">Ano. Call je pro mě způsob, jak zjistit, jestli si dokážu pomoct. Pokud nedokážu, řeknu to rovnou a doporučím koho kontaktovat.</p>
+            </div>
+            <div class="faq-item">
+              <h4 class="faq-q" data-i18n="faq2-q">Co kdybychom chtěli jen audit, ne celý engagement?</h4>
+              <p class="faq-a" data-i18n="faq2-a">Growth Sprint starts at 39,000 CZK and is the natural next step after the Diagnostic. We decide on the call whether it makes sense for your situation.</p>
+            </div>
+            <div class="faq-item">
+              <h4 class="faq-q" data-i18n="faq3-q">Pracujete i s firmami mimo Praha?</h4>
+              <p class="faq-a" data-i18n="faq3-a">Pracuji plně remote. Klienti jsou z Čech, Moravy i ze zahraničí. Discovery call je vždy online.</p>
+            </div>
+            <div class="faq-item">
+              <h4 class="faq-q" data-i18n="faq4-q">Jak rychle vidíme první výsledky?</h4>
+              <p class="faq-a" data-i18n="faq4-a">Záleží na výchozím stavu. Typicky: tracking a dashboard do 2 týdnů, první kampaně za 4–6 týdnů, měřitelné výsledky za 60–90 dní.</p>
+            </div>
           </div>
         </div>
-        <div class="field">
-          <label for="company" data-i18n="lbl-company">Firma</label>
-          <input type="text" id="company" data-i18n-placeholder="ph-company" placeholder="Název firmy nebo startupu" />
-        </div>
-        <div class="field">
-          <label for="topic" data-i18n="lbl-topic">Zájem o</label>
-          <select id="topic">
-            <option value="" data-i18n="opt-0">Vyberte…</option>
-            <option data-i18n="opt-1">Growth Audit & Roadmap</option>
-            <option data-i18n="opt-2">Data & Growth Infrastructure</option>
-            <option data-i18n="opt-3">Fractional Growth Steering</option>
-            <option data-i18n="opt-4">AI & Automation Blueprint</option>
-            <option data-i18n="opt-5">Jiné</option>
-          </select>
-        </div>
-        <div class="field">
-          <label for="message" data-i18n="lbl-message">Zpráva</label>
-          <textarea id="message" data-i18n-placeholder="ph-message" placeholder="Řekněte mi o vaší situaci, výzvě nebo cíli…"></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary btn-full" data-i18n="btn-send">Odeslat zprávu →</button>
-        <p id="form-status" style="font-size:14px;color:var(--accent);display:none;text-align:center;" data-i18n="form-success">
-          Zpráva odeslána — brzy se ozvu.
-        </p>
-      </form>
+      </div>
     </div>
   </div>
 </section>
@@ -828,10 +1139,10 @@
     <div class="inner">
       <p>© 2026 Dominik Maslan. Growth Architect.</p>
       <div class="links">
-        <a href="#hero" data-i18n="ft-top">Nahoru</a>
-        <a href="services.html" data-i18n="ft-services">Služby</a>
-        <a href="about.html" data-i18n="ft-about">O mně</a>
-        <a href="#contact" data-i18n="ft-contact">Kontakt</a>
+        <a href="#hero" data-i18n="ft-top">Top</a>
+        <a href="#sluzby" data-i18n="ft-services">Services</a>
+        <a href="#pricing" data-i18n="ft-pricing">Pricing</a>
+        <a href="#contact" data-i18n="ft-contact">Contact</a>
       </div>
     </div>
   </div>
@@ -865,18 +1176,45 @@
   }, { threshold: 0.1 });
   document.querySelectorAll('.animate-in').forEach(el => observer.observe(el));
 
-  // Form submit (demo)
-  function handleSubmit(e) {
+  // Form submit
+  async function handleSubmit(e) {
     e.preventDefault();
-    const btn = e.target.querySelector('button[type="submit"]');
+    const form = e.target;
+    const btn = form.querySelector('button[type="submit"]');
     const status = document.getElementById('form-status');
+    const originalText = btn.textContent;
+
     btn.textContent = currentLocale === 'cs' ? 'Odesílám…' : 'Sending…';
     btn.disabled = true;
-    setTimeout(() => {
+
+    const payload = {
+      name:    document.getElementById('name').value,
+      email:   document.getElementById('email').value,
+      company: document.getElementById('company').value,
+      website: document.getElementById('website').value,
+      message: document.getElementById('message').value,
+    };
+
+    try {
+      const res = await fetch('https://hook.eu1.make.com/o8d1dvpbqqevacnxuvf4c1o7siz04rah', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
       btn.style.display = 'none';
       status.style.display = 'block';
-      e.target.reset();
-    }, 900);
+      form.reset();
+    } catch {
+      btn.textContent = originalText;
+      btn.disabled = false;
+      const errMsg = currentLocale === 'cs'
+        ? 'Odeslání selhalo. Zkuste to prosím znovu.'
+        : 'Submission failed. Please try again.';
+      status.textContent = errMsg;
+      status.style.display = 'block';
+      status.style.color = '#f07178';
+    }
   }
 
   // Video
@@ -892,210 +1230,486 @@
   // i18n
   const T = {
     en: {
-      'nav-services':  'Services',
-      'nav-about':     'About',
-      'nav-blog':      'Blog',
-      'nav-contact':   'Contact',
-      'hero-badge':    'Available for new projects',
-      'hero-h1':       'I build <span class="hero-h1-underline">systems</span><br>for ambitious<br>startups.',
-      'hero-sub':      'I help early-to-mid stage startups scale with clarity — blending performance marketing, brand strategy, and data infrastructure into growth that compounds over time.',
-      'btn-cta1':      'Book a consultation →',
-      'btn-cta2':      'How it works ↓',
-      'stat1':         '7+ years experience',
-      'stat2':         '4 specialisations',
-      'stat3':         'Available for new projects',
-      'vid-title':     'Short intro — who I am and how I work.',
-      'vid-soon':      'Coming soon.',
-      'vid-caption':   'Average engagement 3–18 months · Seed to Series A startups',
-      's1-label':         'FOR WHOM',
-      's1-h2':            'You\'re growing, but not sure<br>why it\'s not faster.',
-      'who1-h3':          'Data everywhere, truth nowhere.',
-      'who1-text':        'Four platforms, three dashboards, zero alignment. Decisions made on gut feel, not numbers.',
-      'who2-h3':          'Scaling acquisition, churn eats it all.',
-      'who2-text':        'New customers come in, but old ones leave. LTV:CAC isn\'t improving. Growth looks good in the report, but you don\'t feel it in the bank.',
-      'who3-h3':          'You need a senior perspective, not another junior marketer.',
-      'who3-text':        'The agency sends reports, but nobody thinks about the business as a whole. You\'re missing someone who holds the full picture.',
-      'who-bridge-title': 'These are exactly the situations where I do my best work.',
-      'who-bridge-text':  'I don\'t build generic marketing plans. I build systems — data infrastructure, growth loops and measurement that show you where the money is and why it\'s not growing faster.',
-      'who-cta':          'Explore services →',
-      'who-cta-sub':      'Free intro call · No commitment',
-      's3-label':      'PROCESS',
-      's3-h2':         'Three phases. One system.',
-      'p1-phase':      'Audit · week 1–2',
-      'p1-title':      'Map where you are.',
-      'p1-desc':       'Deep analysis of unit economics, funnel, and tech stack. Output is concrete — not a generic report, but a prioritised action plan.',
-      'p2-phase':      'Build · month 1–3',
-      'p2-title':      'Build the infrastructure.',
-      'p2-desc':       'Data pipeline, dashboards, tracking. Everything you need to stop guessing and start knowing.',
-      'p3-phase':      'Scale · ongoing',
-      'p3-title':      'Scale what works.',
-      'p3-desc':       'Regular growth sprints, moving budget where ROI grows, endless experimentation and optimisation.',
-      's4-label':      'ABOUT',
-      's4-h2':         'Marketer by trade,<br>architect by ambition.',
-      'ph-short':      'Over the past seven years I worked across the full spectrum of marketing — PPC, RTB, brand development and account management. Today I serve as CMO.',
-      'ph-quote':      '"The connective tissue between them is data literacy."',
-      'about-cta':     'More about me and my philosophy →',
-      'photo-label':   'Photo',
-      'photo-sub':     'Coming soon',
-      's5-label':      'RESULTS',
-      's5-h2':         'Data speaks for itself.',
-      's5-disc':       '<em>Numbers are illustrative — representing typical results from SaaS growth work. Specific case studies shared personally after NDA.</em>',
-      'cs-tag':        'Fintech SaaS · B2C · Seed stage',
-      'cs-challenge':  'Challenge: LTV:CAC below 2×, unclear attribution model, fragmented data from 4 platforms.',
-      'cm1':           'LTV:CAC 1.8× → 4.2× in 4 months',
-      'cm2':           'CAC reduced by channel optimisation',
-      'cm3':           'MRR growth in 6 months',
-      'cm4':           'Payback period 18 → 8 mo via data consolidation',
-      's6-label':      'THOUGHTS',
-      's6-h2':         'From the blog.',
-      'bp1-cat':       'Growth',
-      'bp1-title':     'Why LTV:CAC isn\'t a metric — it\'s a compass.',
-      'bp1-meta':      '15 May 2026 · 5 min read',
-      'bp1-excerpt':   'Most teams measure LTV:CAC as an output. The best teams use it as a navigation system for every budget decision.',
-      'blog-read':     'Read more →',
-      'bp2-cat':       'Data',
-      'bp2-title':     'How I built a growth infrastructure in 3 weeks.',
-      'bp2-meta':      '1 May 2026 · 8 min read',
-      'bp2-excerpt':   'BigQuery, Looker Studio, GTM — and no enterprise budget. The entire pipeline from zero in under a month.',
-      'bp3-cat':       'Strategy',
-      'bp3-title':     'Performance without brand is renting attention.',
-      'bp3-meta':      '20 Apr 2026 · 4 min read',
-      'bp3-excerpt':   'Ads work while you pay. Brand works while you sleep. Why the best growth strategy combines both.',
-      'blog-all':      'All articles →',
-      's7-label':      'TESTIMONIALS',
-      's7-h2':         'What people I work with say.',
-      't1-text':       'Dominik brought structure to chaos. Within three months we finally knew which channel was making money and which was just burning it.',
-      't1-author':     '— Jan Novák, CEO · SaaS startup',
-      't2-text':       'The combination of strategic thinking and technical execution is rare. Dominik has it naturally.',
-      't2-author':     '— Petra Svobodová, Founder · E-commerce brand',
-      't-note':        'Testimonials are illustrative. Real references available on request.',
-      's8-label':      'CONTACT',
-      's8-h2':         'Let\'s get started.',
-      'ci-desc':       'I\'m looking to work with teams that are past zero — with a product, early customers, and the drive to scale systematically. Systems, not hacks.',
-      'ci-response':   '⏱ I respond within 24–48 hours',
-      'lbl-name':      'Name',
-      'ph-name':       'Your name',
-      'lbl-email':     'Email',
-      'lbl-company':   'Company',
-      'ph-company':    'Company or startup name',
-      'lbl-topic':     'Interested in',
-      'opt-0':         'Select…',
-      'opt-1':         'Growth Audit & Roadmap',
-      'opt-2':         'Data & Growth Infrastructure',
-      'opt-3':         'Fractional Growth Steering',
-      'opt-4':         'AI & Automation Blueprint',
-      'opt-5':         'Other',
-      'lbl-message':   'Message',
-      'ph-message':    'Tell me about your situation, challenge, or goal…',
-      'btn-send':      'Send message →',
-      'form-success':  'Message sent — I\'ll be in touch soon.',
-      'ft-top':        'Top',
-      'ft-services':   'Services',
-      'ft-about':      'About',
-      'ft-contact':    'Contact',
+      'nav-services':    'Services',
+      'nav-pricing':     'Pricing',
+      'nav-contact':     'Book Diagnostic',
+      'hero-badge':      'Available for new projects',
+      'hero-h1':         'I build <span class="hero-h1-underline">growth systems</span><br>that work<br>without you.',
+      'hero-sub':        'Marketing either earns money or costs it. There is no neutral. I help startups and ambitious businesses build systematic marketing — where every channel is tracked, every campaign measured, and every decision driven by data.',
+      'btn-cta1':        'Start with a Growth Diagnostic →',
+      'btn-cta2':        'How it works ↓',
+      'stat1':           '7+ years in growth marketing',
+      'stat2':           'First step from 4,900 CZK',
+      'stat3':           '3 spots left — Q3 2026',
+      'vid-title':       'Short intro — who I am and how I work.',
+      'vid-soon':        'Coming soon.',
+      'vid-caption':     'Average engagement 3–18 months · Seed to Series A startups',
+      's1-label':        'FOR WHOM',
+      's1-h2':           'You\'re growing, but not sure<br>why it\'s not faster.',
+      'who1-h3':         'Data everywhere, truth nowhere.',
+      'who1-text':       'Four platforms, three dashboards, zero alignment. Decisions made on gut feel, not numbers.',
+      'who2-h3':         'Scaling acquisition, churn eats it all.',
+      'who2-text':       'New customers come in, but old ones leave. LTV:CAC isn\'t improving. Growth looks good in the report, but you don\'t feel it in the bank.',
+      'who3-h3':         'You need a senior perspective, not another junior marketer.',
+      'who3-text':       'The agency sends reports, but nobody thinks about the business as a whole. You\'re missing someone who holds the full picture.',
+      'wss-h1':          'Startups &amp; scale-ups',
+      'wss1-f1':         'You have a product but marketing is chaos',
+      'wss1-f2':         "You don't know which channel brings customers",
+      'wss1-f3':         'You want a system, not an agency that reports',
+      'wss1-f4':         'Seed to Series A, team of 5–30',
+      'wss-h2':          'Small &amp; mid-size businesses',
+      'wss2-f1':         'You run on referrals but want to scale',
+      'wss2-f2':         'Your marketer left and the system left with them',
+      'wss2-f3':         'You spend on ads but cannot explain why',
+      'wss2-f4':         'Revenue 20–200M CZK, ready to automate',
+      'who-bridge-title':'These are exactly the situations where I do my best work.',
+      'who-bridge-text': 'I don\'t build generic marketing plans. I build systems — data infrastructure, growth loops and measurement that show you where the money is and why it\'s not growing faster.',
+      'who-cta':         'Explore pricing →',
+      'who-cta-sub':     'Free intro call · No commitment',
+      's3-label':        'PROCESS',
+      's3-h2':           'Three phases. One system.',
+      'p1-phase':        'STEP 01',
+      'ps1-h':           'Growth Diagnostic',
+      'ps1-p':           '60 minutes + structured questionnaire. You get a one-page map of your top 3 growth leaks and a concrete next step. Price: 4,900 CZK. This is where we start.',
+      'p2-phase':        'STEP 02',
+      'ps2-h':           'Growth Sprint',
+      'ps2-p':           '30 days, four phases. Week 1: audit and martech setup. Weeks 2–3: first campaigns live, tracking running, dashboard ready. Week 4: optimisation and handover. Deliverable: a working system and a 90-day playbook. Price: 39,000 CZK.',
+      'p3-phase':        'STEP 03',
+      'ps3-h':           'Growth Engine',
+      'ps3-p':           'Ongoing management after the Sprint. Monthly campaigns, reporting, optimisation. The system is already running — I keep it growing. From 22,000 CZK/mo.',
+      's4-label':        'OFFER',
+      's4-h2':           'One clear first step.<br>The rest follows naturally.',
+      'ph-short':        'Over the past seven years I worked across the full spectrum of marketing — PPC, RTB, brand development and account management. Today I serve as CMO.',
+      'ph-quote':        '"The connective tissue between them is data literacy."',
+      'about-cta':       'More about me and my philosophy →',
+      'photo-label':     'Photo',
+      'photo-sub':       'Coming soon',
+      'pricing-label':   'PRICING',
+      'pricing-h2':      'Pick your growth engine.',
+      'pricing-eq':      'Value = Dream outcome × Likelihood of success ÷ (Time delay + Your effort) — Every package is built to maximize the top and minimize the bottom.',
+      'pc1-badge':       'Starter',
+      'pc1-name':        'Growth Audit',
+      'pc1-sub':         'For teams that want to know where they are',
+      'pc1-anchor':      'Value: 60,000 CZK',
+      'pc1-price':       '24 900 Kč',
+      'pc1-note':        'one-time · delivered in 2 weeks',
+      'pc1-f1':          'Full marketing audit (SEO, GAds, Meta, analytics)',
+      'pc1-f2':          'ICP + Persona workshop (2h online)',
+      'pc1-f3':          'Prioritised 90-day action plan',
+      'pc1-f4':          'Looker Studio dashboard template',
+      'pc1-x1':          'Implementation &amp; management',
+      'pc1-x2':          'Ongoing optimisation',
+      'pc1-cta':         'I want an audit →',
+      'pc2-badge':       'Most popular',
+      'pc2-name':        'Growth Engine',
+      'pc2-sub':         'Full setup + first 3 months of management',
+      'pc2-anchor':      'Value: 320,000 CZK',
+      'pc2-price':       '89,000 CZK',
+      'pc2-note':        'setup fee + 25,000 CZK/mo (min. 3 mo)',
+      'pc2-f1':          'Everything in Growth Audit',
+      'pc2-f2':          'Full martech stack setup (GTM, GCP, GA4, CRM)',
+      'pc2-f3':          'Campaign plan + approval workflow',
+      'pc2-f4':          '3x content drafts/month + email sequence',
+      'pc2-f5':          'Monthly business report + strategy call',
+      'pc2-f6':          'AI Skills library — yours to keep forever',
+      'pc2-cta':         'Book Growth Engine →',
+      'pc3-badge':       'Enterprise',
+      'pc3-name':        'Growth Partner',
+      'pc3-sub':         'Fractional CMO at full capacity',
+      'pc3-anchor':      'In-house CMO: 150,000+ CZK/mo',
+      'pc3-price':       '55,000 CZK/mo',
+      'pc3-note':        'min. 6 months · 30-day notice',
+      'pc3-f1':          'Everything in Growth Engine',
+      'pc3-f2':          'Dedicated fractional CMO (40h/mo)',
+      'pc3-f3':          'Junior marketer recruitment + onboarding',
+      'pc3-f4':          'Board reporting + investor materials',
+      'pc3-f5':          'Direct access 9–18h, 2h response SLA',
+      'pc3-f6':          'Quarterly brand review + strategy',
+      'pc3-cta':         'Book a discovery call →',
+      'vs-h':            'What is inside Growth Engine — broken down.',
+      'vs-l1':           'Growth Audit (ICP, SEO, tech audit)',
+      'vs-s1':           '60,000 CZK',
+      'vs-l2':           'Martech stack setup (GTM + GCP + GA4 + CRM)',
+      'vs-s2':           '80,000 CZK',
+      'vs-l3':           'Campaign plan + 3 months of management',
+      'vs-s3':           '75,000 CZK',
+      'vs-l4':           'Content drafts + email sequence (3 mo)',
+      'vs-s4':           '45,000 CZK',
+      'vs-l5':           'Looker Studio dashboard',
+      'vs-s5':           '30,000 CZK',
+      'vs-l6':           'AI Skills library (yours to keep)',
+      'vs-s6':           '30,000 CZK',
+      'vs-total-label':  'Your investment (setup + 3 mo)',
+      'vs-total-val':    '164,000 CZK',
+      'gu-h':            '30-day You see progress guarantee',
+      'gu-p':            'If after 30 days you do not have working tracking, a dashboard, and an approved campaign plan — we refund the setup fee in full. No questions. No conditions. We carry the risk, not you.',
+      'urg':             '⏱ Currently accepting max. 3 new clients per quarter — Growth Partner capacity is booked through Q3 2026.',
+      'pq-text':         '"You want systematic marketing that grows without you — where every crown invested in ads is tracked, every customer understood, and every campaign evaluated before the money starts burning."',
+      'diag-badge':      'Start here',
+      'diag-title':      'Growth Diagnostic',
+      'diag-sub':        'In 60 minutes you will know exactly where your budget is leaking, which channel has the most potential, and what to do as a first step. With a concrete deliverable in hand — not generic advice.',
+      'diag-f1':         '<span class="check">✓</span> Structured questionnaire before the call — no prep required on your side',
+      'diag-f2':         '<span class="check">✓</span> 60-minute 1:1 call — we cover current state, goals, and bottlenecks',
+      'diag-f3':         '<span class="check">✓</span> One-page Growth Diagnostic Report — top 3 leaks, recommended next step',
+      'diag-f4':         '<span class="check">✓</span> Delivered within 5 business days',
+      'diag-f5':         '<span class="check">✓</span> Fully usable even without further engagement',
+      'diag-anchor':     'Value: 15,000 CZK',
+      'diag-price':      '4,900 CZK',
+      'diag-note':       'one-time · within 5 business days',
+      'diag-cta':        'Order Growth Diagnostic →',
+      'diag-refund':     'If you get no actionable insight from the report — full refund. No questions, no conditions.',
+      'diag-upsell':     'Decide to continue with a Sprint? The Diagnostic fee is deducted from the Sprint price.',
+      'op-label':        'WHAT COMES NEXT',
+      'op1-name':        'Growth Sprint',
+      'op1-price':       '39,000 CZK',
+      'op1-desc':        '30-day intensive engagement. Deliverable: working martech stack, first data, 90-day playbook. Max 3 clients at a time.',
+      'op2-name':        'Growth Engine',
+      'op2-price':       '22,000 CZK/mo',
+      'op2-desc':        'Ongoing management after the Sprint. Campaigns, reporting, optimisation. Minimum 3 months.',
+      'op3-name':        'Growth Playbook',
+      'op3-price':       '7,900 CZK',
+      'op3-desc':        'Self-serve kit for those who want to but are not yet ready for a Sprint. Templates, guides, AI Skills.',
+      'op4-name':        'Growth Partner',
+      'op4-price':       '55,000 CZK/mo',
+      'op4-desc':        'Fractional CMO at full capacity. Strategy, board reporting, team building. Minimum 6 months.',
+      'nfe-strong':      'This is not for everyone.',
+      'nfe-body':        'I do not work with companies looking for quick hacks or the cheapest agency. The ideal client knows that systematic marketing is an investment — and wants to see numbers, not presentations.',
+      'obj-label':       'COMMON OBJECTIONS',
+      'obj1-q':          '"It is too expensive."',
+      'obj1-a':          'An in-house marketer costs 60–80k/mo with no results for 3 months. A Diagnostic at 4,900 CZK tells you exactly where the problem is — before you invest anything else.',
+      'obj2-q':          '"We do not have time for onboarding."',
+      'obj2-a':          'Fill in the questionnaire (20 min), join the call (60 min). I handle the rest. You have the output within 5 days.',
+      'obj3-q':          '"How do we know it will work?"',
+      'obj3-a':          'If the report contains no actionable insight — full refund. Zero risk.',
+      'obj4-q':          '"What if we cancel?"',
+      'obj4-a':          'The Diagnostic is a standalone product. No commitment to continue. The output stays with you forever.',
+      'faq-label':       'FAQ',
+      'faq1-q':          'Is it really free?',
+      'faq1-a':          'Yes. The call is my way of finding out whether I can genuinely help. If I cannot, I will say so directly and recommend who to contact instead.',
+      'faq2-q':          'What if we only want an audit, not a full engagement?',
+      'faq2-a':          'Growth Sprint starts at 39,000 CZK and is the natural next step after the Diagnostic. We decide on the call whether it makes sense for your situation.',
+      'faq3-q':          'Do you work with companies outside Prague?',
+      'faq3-a':          'I work fully remote. Clients are from across Czech Republic and internationally. The discovery call is always online.',
+      'faq4-q':          'How quickly do we see first results?',
+      'faq4-a':          'It depends on your starting point. Typically: tracking and dashboard within 2 weeks, first campaigns in 4–6 weeks, measurable results in 60–90 days.',
+      's5-label':        'RESULTS',
+      's5-h2':           'Data speaks for itself.',
+      's5-disc':         '<em>Case study — real engagement results. Specific details shared personally after NDA.</em>',
+      'cs-tag':          'Fintech SaaS · B2C · Seed stage',
+      'cs-challenge':    'Challenge: LTV:CAC below 2×, unclear attribution model, fragmented data from 4 platforms.',
+      'cm1':             'LTV:CAC 1.8× → 4.2× in 4 months',
+      'cm2':             'CAC reduced by channel optimisation',
+      'cm3':             'MRR growth in 6 months',
+      'cm4':             'Payback period 18 → 8 mo via data consolidation',
+      's6-label':        'THOUGHTS',
+      's6-h2':           'From the blog.',
+      'bp1-cat':         'Growth',
+      'bp1-title':       'Why LTV:CAC isn\'t a metric — it\'s a compass.',
+      'bp1-meta':        '15 May 2026 · 5 min read',
+      'bp1-excerpt':     'Most teams measure LTV:CAC as an output. The best teams use it as a navigation system for every budget decision.',
+      'blog-read':       'Read more →',
+      'bp2-cat':         'Data',
+      'bp2-title':       'How I built a growth infrastructure in 3 weeks.',
+      'bp2-meta':        '1 May 2026 · 8 min read',
+      'bp2-excerpt':     'BigQuery, Looker Studio, GTM — and no enterprise budget. The entire pipeline from zero in under a month.',
+      'bp3-cat':         'Strategy',
+      'bp3-title':       'Performance without brand is renting attention.',
+      'bp3-meta':        '20 Apr 2026 · 4 min read',
+      'bp3-excerpt':     'Ads work while you pay. Brand works while you sleep. Why the best growth strategy combines both.',
+      'blog-all':        'All articles →',
+      's7-label':        'TESTIMONIALS',
+      's7-h2':           'What people I work with say.',
+      't1-text':         'Dominik brought structure to chaos. Within three months we finally knew which channel was making money and which was just burning it.',
+      't1-author':       '— Jan Novák, CEO · SaaS startup',
+      't2-text':         'The combination of strategic thinking and technical execution is rare. Dominik has it naturally.',
+      't2-author':       '— Petra Svobodová, Founder · E-commerce brand',
+      't-note':          'Real references available on request — write to me directly.',
+      's8-label':        'ORDER GROWTH DIAGNOSTIC',
+      'contact-h2':      'One step.<br>One concrete output.<br>Zero risk.',
+      'contact-perex':   'Fill in the form below. I will send you a structured questionnaire within 24 hours, we will schedule the call, and you will have the Growth Diagnostic Report within 5 business days. No commitment beyond this first step.',
+      'pstat-val1':      '4,900 CZK',
+      'pstat-lbl1':      'first step, zero risk',
+      'pstat-val2':      '60 min',
+      'pstat-lbl2':      'structured 1:1 call',
+      'pstat-val3':      '5 days',
+      'pstat-lbl3':      'report delivered',
+      'pstat-val4':      '100%',
+      'pstat-lbl4':      'refund if not useful',
+      'ds1-h':           'Growth Leak Map',
+      'ds1-p':           'A clear picture of where your budget is leaking and why. Based on your actual data, not assumptions.',
+      'ds1-t':           'In the report',
+      'ds2-h':           'Channel Opportunity Score',
+      'ds2-p':           'Which channel has the biggest untapped potential for your specific situation. Ranked by effort vs. impact.',
+      'ds2-t':           'In the report',
+      'ds3-h':           '90-Day Priority Roadmap',
+      'ds3-p':           'Three concrete actions to take in the next 90 days, in order of priority. No fluff, no generic advice.',
+      'ds3-t':           'In the report',
+      'ds4-h':           'Optional: Next Step Recommendation',
+      'ds4-p':           'If a Sprint makes sense for your situation, I will say so and explain why. If it does not, I will say that too and point you in the right direction.',
+      'ds4-t':           'On the call',
+      'lbl-name':        'Name',
+      'ph-name':         'Your name',
+      'lbl-email':       'Email',
+      'lbl-company':     'Company',
+      'ph-company':      'Company or startup name',
+      'lbl-website':     'Website or LinkedIn',
+      'ph-website':      'yourdomain.com or linkedin.com/in/you',
+      'ph-message':      'E.g.: We invest 50k/mo in GAds and do not know if it works. Or: Our marketer left, we have no system. Or: We have great product but no scalable acquisition.',
+      'btn-send':        'Order Growth Diagnostic — 4,900 CZK →',
+      'form-success':    'Message sent — I\'ll be in touch soon.',
+      'tr1':             '✓ Reply within 24 hours',
+      'tr2':             '◎ Questionnaire sent immediately after',
+      'tr3':             '⬡ Full refund if not useful',
+      'oc-h':            'The report will tell you:',
+      'oc1':             'Where exactly your budget is leaking',
+      'oc2':             'Which channel to prioritise first',
+      'oc3':             'What to do in the next 90 days',
+      'oc4':             'Whether a Sprint makes sense for you',
+      'ft-top':          'Top',
+      'ft-services':     'Services',
+      'ft-pricing':      'Pricing',
+      'ft-contact':      'Book Diagnostic',
     },
     cs: {
-      'nav-services':  'Služby',
-      'nav-about':     'O mně',
-      'nav-blog':      'Blog',
-      'nav-contact':   'Kontakt',
-      'hero-badge':    'Dostupný pro nové projekty',
-      'hero-h1':       'I build <span class="hero-h1-underline">systems</span><br>for ambitious<br>startups.',
-      'hero-sub':      'Pomáhám startupům v rané až střední fázi škálovat se záměrem — propojuji performance marketing, brand strategii a datovou infrastrukturu do growth systémů, které se v čase násobí.',
-      'btn-cta1':      'Sjednat konzultaci →',
-      'btn-cta2':      'Jak spolupráce vypadá ↓',
-      'stat1':         '7+ let zkušeností',
-      'stat2':         '4 specializace',
-      'stat3':         'Dostupný pro nové projekty',
-      'vid-title':     'Krátký úvod — kdo jsem a jak pracuji.',
-      'vid-soon':      'Brzy.',
-      'vid-caption':   'Průměrná délka spolupráce 3–18 měsíců · Seed až Series A startupy',
-      's1-label':         'PRO KOHO',
-      's1-h2':            'Rostete, ale nevíte<br>proč to nefunguje rychleji.',
-      'who1-h3':          'Máte data všude, pravdu nikde.',
-      'who1-text':        'Čtyři platformy, tři dashboardy, nula shody. Rozhodujete na základě pocitu, ne čísel.',
-      'who2-h3':          'Škálujete akvizici, churn to sežere.',
-      'who2-text':        'Nové zákazníky přivádíte, ale staří odcházejí. LTV:CAC se nezlepšuje. Growth vypadá dobře v reportu, ale na účtu to nepoznáte.',
-      'who3-h3':          'Potřebujete seniorní pohled, ne dalšího junior markeťáka.',
-      'who3-text':        'Agency vám posílá reporty, ale nikdo nemyslí na byznys jako celek. Chybí někdo kdo drží celý obraz.',
-      'who-bridge-title': 'Tohle jsou přesně situace, ve kterých pracuji nejlépe.',
-      'who-bridge-text':  'Nestavím generické marketingové plány. Stavím systémy — datovou infrastrukturu, growth loops a měření které vám ukáží kde jsou peníze a proč to neroste rychleji.',
-      'who-cta':          'Prozkoumat služby →',
-      'who-cta-sub':      'Úvodní hovor zdarma · Bez závazků',
-      's3-label':      'PROCES',
-      's3-h2':         'Tři fáze. Jeden systém.',
-      'p1-phase':      'Audit · týden 1–2',
-      'p1-title':      'Zmapujeme kde jste.',
-      'p1-desc':       'Hloubková analýza unit economics, funnelu a tech stacku. Výstup je konkrétní — ne obecná zpráva, ale prioritizovaný akční plán.',
-      'p2-phase':      'Build · měsíc 1–3',
-      'p2-title':      'Postavíme infrastrukturu.',
-      'p2-desc':       'Data pipeline, dashboardy, tracking. Vše co potřebujete k tomu, abyste přestali hádat a začali vědět.',
-      'p3-phase':      'Scale · průběžně',
-      'p3-title':      'Škálujeme co funguje.',
-      'p3-desc':       'Pravidelné growth sprinty, přesouvání budgetu tam kde ROI roste, experimentace a optimalizace bez konce.',
-      's4-label':      'O MNĚ',
-      's4-h2':         'Marketer by trade,<br>architect by ambition.',
-      'ph-short':      'Za posledních sedm let jsem pracoval napříč celým spektrem marketingu — PPC, RTB, brand development a account management. Dnes působím jako CMO.',
-      'ph-quote':      '„The connective tissue between them is data literacy."',
-      'about-cta':     'Více o mně a mé filozofii →',
-      'photo-label':   'Fotografie',
-      'photo-sub':     'Připravuje se',
-      's5-label':      'VÝSLEDKY',
-      's5-h2':         'Data mluví za vše.',
-      's5-disc':       '<em>Čísla jsou ilustrativní — reprezentují typické výsledky práce v oblasti SaaS growth. Konkrétní case studies sdílím osobně po NDA.</em>',
-      'cs-tag':        'Fintech SaaS · B2C · Seed stage',
-      'cs-challenge':  'Výzva: LTV:CAC pod 2×, nejasný attribution model, roztříštěná data ze 4 platforem.',
-      'cm1':           'LTV:CAC 1.8× → 4.2× za 4 měsíce',
-      'cm2':           'CAC snížen optimalizací kanálů',
-      'cm3':           'MRR growth za 6 měsíců',
-      'cm4':           'Payback period 18 → 8 mo konsolidací dat',
-      's6-label':      'MYŠLENKY',
-      's6-h2':         'Z blogu.',
-      'bp1-cat':       'Growth',
-      'bp1-title':     'Proč LTV:CAC není metrika — je to kompas.',
-      'bp1-meta':      '15. 5. 2026 · 5 min čtení',
-      'bp1-excerpt':   'Většina týmů měří LTV:CAC jako výsledek. Nejlepší týmy ho používají jako navigační systém pro každé rozhodnutí o budgetu.',
-      'blog-read':     'Číst dál →',
-      'bp2-cat':       'Data',
-      'bp2-title':     'Jak jsem postavil growth infrastrukturu za 3 týdny.',
-      'bp2-meta':      '1. 5. 2026 · 8 min čtení',
-      'bp2-excerpt':   'BigQuery, Looker Studio, GTM — a žádný enterprise budget. Celá pipeline od nuly za méně než měsíc.',
-      'bp3-cat':       'Strategy',
-      'bp3-title':     'Performance bez brandu je pronájem pozornosti.',
-      'bp3-meta':      '20. 4. 2026 · 4 min čtení',
-      'bp3-excerpt':   'Reklamy fungují dokud platíte. Brand funguje i když spíte. Proč nejlepší growth strategie kombinuje oboje.',
-      'blog-all':      'Všechny články →',
-      's7-label':      'REFERENCE',
-      's7-h2':         'Co říkají lidé,<br>se kterými pracuji.',
-      't1-text':       'Dominik přinesl strukturu do chaosu. Za tři měsíce jsme poprvé věděli, který kanál nám vydělává a který jen pálí peníze.',
-      't1-author':     '— Jan Novák, CEO · SaaS startup',
-      't2-text':       'Kombinace strategického myšlení a technické exekuce je vzácná. Dominik ji má přirozeně.',
-      't2-author':     '— Petra Svobodová, Founder · E-commerce brand',
-      't-note':        'Reference jsou ilustrativní. Reálné reference dostupné na vyžádání.',
-      's8-label':      'KONTAKT',
-      's8-h2':         'Pojďme začít.',
-      'ci-desc':       'Hledám spolupráci s týmy, které jsou past zero — mají produkt, první zákazníky, a chuť škálovat systematicky. Ne hacky, ale systémy.',
-      'ci-response':   '⏱ Odpovídám do 24–48 hodin',
-      'lbl-name':      'Jméno',
-      'ph-name':       'Vaše jméno',
-      'lbl-email':     'Email',
-      'lbl-company':   'Firma',
-      'ph-company':    'Název firmy nebo startupu',
-      'lbl-topic':     'Zájem o',
-      'opt-0':         'Vyberte…',
-      'opt-1':         'Growth Audit & Roadmap',
-      'opt-2':         'Data & Growth Infrastructure',
-      'opt-3':         'Fractional Growth Steering',
-      'opt-4':         'AI & Automation Blueprint',
-      'opt-5':         'Jiné',
-      'lbl-message':   'Zpráva',
-      'ph-message':    'Řekněte mi o vaší situaci, výzvě nebo cíli…',
-      'btn-send':      'Odeslat zprávu →',
-      'form-success':  'Zpráva odeslána — brzy se ozvu.',
-      'ft-top':        'Nahoru',
-      'ft-services':   'Služby',
-      'ft-about':      'O mně',
-      'ft-contact':    'Kontakt',
+      'nav-services':    'Služby',
+      'nav-pricing':     'Ceník',
+      'nav-contact':     'Objednat Diagnostic',
+      'hero-badge':      'Dostupný pro nové projekty',
+      'hero-h1':         'Stavím <span class="hero-h1-underline">growth systémy</span><br>které fungují<br>bez tebe.',
+      'hero-sub':        'Marketing buď vydělává nebo stojí peníze. Neutrální neexistuje. Pomáhám startupům a ambiciózním firmám postavit systematický marketing — kde je každý kanál sledovaný, každá kampaň měřená a každé rozhodnutí datové.',
+      'btn-cta1':        'Začít s Growth Diagnostic →',
+      'btn-cta2':        'Jak to funguje ↓',
+      'stat1':           '7+ let v growth marketingu',
+      'stat2':           'První krok od 4 900 Kč',
+      'stat3':           '3 místa zbývají — Q3 2026',
+      'vid-title':       'Krátký úvod — kdo jsem a jak pracuji.',
+      'vid-soon':        'Brzy.',
+      'vid-caption':     'Průměrná délka spolupráce 3–18 měsíců · Seed až Series A startupy',
+      's1-label':        'PRO KOHO',
+      's1-h2':           'Rostete, ale nevíte<br>proč to nefunguje rychleji.',
+      'who1-h3':         'Máte data všude, pravdu nikde.',
+      'who1-text':       'Čtyři platformy, tři dashboardy, nula shody. Rozhodujete na základě pocitu, ne čísel.',
+      'who2-h3':         'Škálujete akvizici, churn to sežere.',
+      'who2-text':       'Nové zákazníky přivádíte, ale staří odcházejí. LTV:CAC se nezlepšuje. Growth vypadá dobře v reportu, ale na účtu to nepoznáte.',
+      'who3-h3':         'Potřebujete seniorní pohled, ne dalšího junior markeťáka.',
+      'who3-text':       'Agency vám posílá reporty, ale nikdo nemyslí na byznys jako celek. Chybí někdo kdo drží celý obraz.',
+      'wss-h1':          'Startupy a scale-upy',
+      'wss1-f1':         'Máte produkt, ale marketing je chaos',
+      'wss1-f2':         'Nevíte, který kanál přináší zákazníky',
+      'wss1-f3':         'Chcete systém, ne agenturu co reportuje',
+      'wss1-f4':         'Seed až Series A, tým 5–30 lidí',
+      'wss-h2':          'Malé a střední firmy',
+      'wss2-f1':         'Fungujete na referencích, ale chcete škálovat',
+      'wss2-f2':         'Marketér odešel, systém odešel s ním',
+      'wss2-f3':         'Investujete do reklamy, ale nevíte proč',
+      'wss2-f4':         'Obrat 20–200M Kč, chcete automatizaci',
+      'who-bridge-title':'Tohle jsou přesně situace, ve kterých pracuji nejlépe.',
+      'who-bridge-text': 'Nestavím generické marketingové plány. Stavím systémy — datovou infrastrukturu, growth loops a měření které vám ukáží kde jsou peníze a proč to neroste rychleji.',
+      'who-cta':         'Prozkoumat ceník →',
+      'who-cta-sub':     'Úvodní hovor zdarma · Bez závazků',
+      's3-label':        'PROCES',
+      's3-h2':           'Tři fáze. Jeden systém.',
+      'p1-phase':        'KROK 01',
+      'ps1-h':           'Growth Diagnostic',
+      'ps1-p':           '60 minut + strukturovaný dotazník. Dostanete jednostránkovou mapu vašich top 3 growth leaků a konkrétní doporučení co dál. Cena: 4 900 Kč. Tady začínáme.',
+      'p2-phase':        'KROK 02',
+      'ps2-h':           'Growth Sprint',
+      'ps2-p':           '30 dní, čtyři fáze. Týden 1: audit a martech setup. Týden 2–3: první kampaně live, tracking funkční, dashboard hotový. Týden 4: optimalizace a předání. Výstup: funkční systém a 90denní playbook. Cena: 39 000 Kč.',
+      'p3-phase':        'KROK 03',
+      'ps3-h':           'Growth Engine',
+      'ps3-p':           'Ongoing správa po Sprintu. Měsíční kampaně, reporting, optimalizace. Systém už běží — já ho dál rozvíjím. Od 22 000 Kč/měs.',
+      's4-label':        'NABÍDKA',
+      's4-h2':           'Jeden jasný první krok.<br>Zbytek plyne přirozeně.',
+      'ph-short':        'Za posledních sedm let jsem pracoval napříč celým spektrem marketingu — PPC, RTB, brand development a account management. Dnes působím jako CMO.',
+      'ph-quote':        '„The connective tissue between them is data literacy."',
+      'about-cta':       'Více o mně a mé filozofii →',
+      'photo-label':     'Fotografie',
+      'photo-sub':       'Připravuje se',
+      'pricing-label':   'CENÍK',
+      'pricing-h2':      'Vyber svůj growth engine.',
+      'pricing-eq':      'Hodnota = Cílový výsledek × Pravděpodobnost úspěchu ÷ (Čas + Tvoje námaha) — Každý balíček maximalizuje čitatel a minimalizuje jmenovatel.',
+      'pc1-badge':       'Starter',
+      'pc1-name':        'Growth Audit',
+      'pc1-sub':         'Pro týmy, které chtějí vědět kde jsou',
+      'pc1-anchor':      'Hodnota: 60 000 Kč',
+      'pc1-price':       '24 900 Kč',
+      'pc1-note':        'jednorázově · do 2 týdnů',
+      'pc1-f1':          'Kompletní marketing audit (SEO, GAds, Meta, analytika)',
+      'pc1-f2':          'ICP + Persona workshop (2h online)',
+      'pc1-f3':          'Prioritizovaný action plan (90 dní)',
+      'pc1-f4':          'Looker Studio dashboard šablona',
+      'pc1-x1':          'Implementace a správa',
+      'pc1-x2':          'Ongoing optimalizace',
+      'pc1-cta':         'Chci audit →',
+      'pc2-badge':       'Nejoblíbenější',
+      'pc2-name':        'Growth Engine',
+      'pc2-sub':         'Kompletní setup + první 3 měsíce řízení',
+      'pc2-anchor':      'Hodnota: 320 000 Kč',
+      'pc2-price':       '89 000 Kč',
+      'pc2-note':        'setup fee + 25 000 Kč/měs. (min. 3 měs.)',
+      'pc2-f1':          'Vše z Growth Audit',
+      'pc2-f2':          'Kompletní martech stack setup (GTM, GCP, GA4, CRM)',
+      'pc2-f3':          'Campaign plán + schvalovací workflow',
+      'pc2-f4':          '3× content drafts / měsíc + email sekvence',
+      'pc2-f5':          'Měsíční business report + strateg. call',
+      'pc2-f6':          'AI Skills knihovna — zůstává tobě natrvalo',
+      'pc2-cta':         'Rezervovat Growth Engine →',
+      'pc3-badge':       'Enterprise',
+      'pc3-name':        'Growth Partner',
+      'pc3-sub':         'Fractional CMO na plný výkon',
+      'pc3-anchor':      'Interní CMO: 150 000+ Kč/měs.',
+      'pc3-price':       '55 000 Kč/měs.',
+      'pc3-note':        'min. 6 měsíců · výpovědní lhůta 30 dní',
+      'pc3-f1':          'Vše z Growth Engine',
+      'pc3-f2':          'Dedikovaný fractional CMO (40h/měs.)',
+      'pc3-f3':          'Recruitment + onboarding junior marketeera',
+      'pc3-f4':          'Board reporting + investor materiály',
+      'pc3-f5':          'Přímý přístup 9–18 h, odezva do 2h',
+      'pc3-f6':          'Kvartální brand review + strategie',
+      'pc3-cta':         'Rezervovat discovery call →',
+      'vs-h':            'Co je uvnitř Growth Engine — rozepsáno.',
+      'vs-l1':           'Growth Audit (ICP, SEO, tech audit)',
+      'vs-s1':           '60 000 Kč',
+      'vs-l2':           'Martech stack setup (GTM + GCP + GA4 + CRM)',
+      'vs-s2':           '80 000 Kč',
+      'vs-l3':           'Campaign plán + 3 měsíce řízení',
+      'vs-s3':           '75 000 Kč',
+      'vs-l4':           'Content drafts + email sekvence (3 měs.)',
+      'vs-s4':           '45 000 Kč',
+      'vs-l5':           'Looker Studio dashboard',
+      'vs-s5':           '30 000 Kč',
+      'vs-l6':           'AI Skills knihovna (zůstává tobě)',
+      'vs-s6':           '30 000 Kč',
+      'vs-total-label':  'Tvoje investice (setup + 3 měs.)',
+      'vs-total-val':    '164 000 Kč',
+      'gu-h':            '30denní Vidíš progress garance',
+      'gu-p':            'Pokud po 30 dnech nemáš funkční tracking, dashboard a schválený campaign plán — vracíme setup fee v plné výši. Bez otázek, bez podmínek. My neseme riziko, ne ty.',
+      'urg':             '⏱ Aktuálně přijímám max. 3 nové klienty za kvartál — kapacita Growth Partner je obsazena do konce Q3 2026.',
+      'pq-text':         '"Chceš systematický marketing, který roste bez tebe — kde každá koruna investovaná do reklamy je sledovaná, každý zákazník pochopený a každá kampaň vyhodnocená dřív, než začne pálení peněz."',
+      'diag-badge':      'Začni tady',
+      'diag-title':      'Growth Diagnostic',
+      'diag-sub':        'Za 60 minut zjistíš přesně kde ti odtéká rozpočet, který kanál má největší potenciál a co udělat jako první krok. S konkrétním výstupem v ruce — ne s obecnými doporučeními.',
+      'diag-f1':         '<span class="check">✓</span> Strukturovaný dotazník před callem — žádná příprava z tvé strany',
+      'diag-f2':         '<span class="check">✓</span> 60minutový 1:1 call — projdeme aktuální stav, cíle a bottlenecky',
+      'diag-f3':         '<span class="check">✓</span> Jednostránkový Growth Diagnostic Report — top 3 leaky, doporučený next step',
+      'diag-f4':         '<span class="check">✓</span> Doručeno do 5 pracovních dní',
+      'diag-f5':         '<span class="check">✓</span> Plně použitelné i bez další spolupráce',
+      'diag-anchor':     'Hodnota: 15 000 Kč',
+      'diag-price':      '4 900 Kč',
+      'diag-note':       'jednorázově · do 5 pracovních dní',
+      'diag-cta':        'Objednat Growth Diagnostic →',
+      'diag-refund':     'Pokud z reportu nezískaš žádnou použitelnou informaci — vracíme celou částku. Bez podmínek.',
+      'diag-upsell':     'Rozhodneš se pokračovat se Sprintem? Cena Diagnosticu se odečte z ceny Sprintu.',
+      'op-label':        'CO PŘIJDE POTOM',
+      'op1-name':        'Growth Sprint',
+      'op1-price':       '39 000 Kč',
+      'op1-desc':        '30denní intenzivní engagement. Výstup: funkční martech stack, první data, 90denní playbook. Maximálně 3 klienti současně.',
+      'op2-name':        'Growth Engine',
+      'op2-price':       '22 000 Kč/měs',
+      'op2-desc':        'Ongoing správa po Sprintu. Kampaně, reporting, optimalizace. Minimum 3 měsíce.',
+      'op3-name':        'Growth Playbook',
+      'op3-price':       '7 900 Kč',
+      'op3-desc':        'Self-serve balíček pro ty kteří chtějí ale ještě nejsou ready na Sprint. Šablony, průvodce, AI Skills.',
+      'op4-name':        'Growth Partner',
+      'op4-price':       '55 000 Kč/měs',
+      'op4-desc':        'Fractional CMO na plný výkon. Strategie, board reporting, team building. Minimum 6 měsíců.',
+      'nfe-strong':      'Tohle není pro každého.',
+      'nfe-body':        'Nepracuji s firmami, které hledají rychlé triky nebo nejlevnější agenturu. Ideální klient ví, že systematický marketing je investice — a chce vidět čísla, ne prezentace.',
+      'obj-label':       'NEJČASTĚJŠÍ NÁMITKY',
+      'obj1-q':          '"Je to moc drahé."',
+      'obj1-a':          'Interní marketér stojí 60–80k/měs. bez výsledků po 3 měsíce. Diagnostic za 4 900 Kč ti řekne přesně kde je problém — ještě před tím než investuješ cokoli dalšího.',
+      'obj2-q':          '"Nemáme čas na onboarding."',
+      'obj2-a':          'Vyplníš dotazník (20 min), přijdeš na call (60 min). Zbytek je na mně. Výstup máš do 5 dní.',
+      'obj3-q':          '"Jak víme, že to bude fungovat?"',
+      'obj3-a':          'Pokud report nezískaš žádnou použitelnou informaci — vracíme celou částku. Nulové riziko.',
+      'obj4-q':          '"Co když to ukončíme?"',
+      'obj4-a':          'Diagnostic je standalone produkt. Nemáš žádný závazek pokračovat. Výstup zůstává tobě navždy.',
+      'faq-label':       'NEJČASTĚJŠÍ OTÁZKY',
+      'faq1-q':          'Je to opravdu zdarma?',
+      'faq1-a':          'Ano. Call je pro mě způsob, jak zjistit, jestli si dokážu pomoct. Pokud nedokážu, řeknu to rovnou a doporučím koho kontaktovat.',
+      'faq2-q':          'Co kdybychom chtěli jen audit, ne celý engagement?',
+      'faq2-a':          'Growth Sprint začíná na 39 000 Kč a je přirozeným dalším krokem po Diagnosticu. Na callu se rozhodneme, jestli to dává smysl pro vaši situaci.',
+      'faq3-q':          'Pracujete i s firmami mimo Praha?',
+      'faq3-a':          'Pracuji plně remote. Klienti jsou z Čech, Moravy i ze zahraničí. Discovery call je vždy online.',
+      'faq4-q':          'Jak rychle vidíme první výsledky?',
+      'faq4-a':          'Záleží na výchozím stavu. Typicky: tracking a dashboard do 2 týdnů, první kampaně za 4–6 týdnů, měřitelné výsledky za 60–90 dní.',
+      's5-label':        'VÝSLEDKY',
+      's5-h2':           'Data mluví za vše.',
+      's5-disc':         '<em>Case study — výsledky z reálné spolupráce. Konkrétní detaily sdílím osobně po NDA.</em>',
+      'cs-tag':          'Fintech SaaS · B2C · Seed stage',
+      'cs-challenge':    'Výzva: LTV:CAC pod 2×, nejasný attribution model, roztříštěná data ze 4 platforem.',
+      'cm1':             'LTV:CAC 1.8× → 4.2× za 4 měsíce',
+      'cm2':             'CAC snížen optimalizací kanálů',
+      'cm3':             'MRR growth za 6 měsíců',
+      'cm4':             'Payback period 18 → 8 mo konsolidací dat',
+      's6-label':        'MYŠLENKY',
+      's6-h2':           'Z blogu.',
+      'bp1-cat':         'Growth',
+      'bp1-title':       'Proč LTV:CAC není metrika — je to kompas.',
+      'bp1-meta':        '15. 5. 2026 · 5 min čtení',
+      'bp1-excerpt':     'Většina týmů měří LTV:CAC jako výsledek. Nejlepší týmy ho používají jako navigační systém pro každé rozhodnutí o budgetu.',
+      'blog-read':       'Číst dál →',
+      'bp2-cat':         'Data',
+      'bp2-title':       'Jak jsem postavil growth infrastrukturu za 3 týdny.',
+      'bp2-meta':        '1. 5. 2026 · 8 min čtení',
+      'bp2-excerpt':     'BigQuery, Looker Studio, GTM — a žádný enterprise budget. Celá pipeline od nuly za méně než měsíc.',
+      'bp3-cat':         'Strategy',
+      'bp3-title':       'Performance bez brandu je pronájem pozornosti.',
+      'bp3-meta':        '20. 4. 2026 · 4 min čtení',
+      'bp3-excerpt':     'Reklamy fungují dokud platíte. Brand funguje i když spíte. Proč nejlepší growth strategie kombinuje oboje.',
+      'blog-all':        'Všechny články →',
+      's7-label':        'REFERENCE',
+      's7-h2':           'Co říkají lidé,<br>se kterými pracuji.',
+      't1-text':         'Dominik přinesl strukturu do chaosu. Za tři měsíce jsme poprvé věděli, který kanál nám vydělává a který jen pálí peníze.',
+      't1-author':       '— Jan Novák, CEO · SaaS startup',
+      't2-text':         'Kombinace strategického myšlení a technické exekuce je vzácná. Dominik ji má přirozeně.',
+      't2-author':       '— Petra Svobodová, Founder · E-commerce brand',
+      't-note':          'Reálné reference dostupné na vyžádání — napiš mi přímo.',
+      's8-label':        'OBJEDNAT GROWTH DIAGNOSTIC',
+      'contact-h2':      'Jeden krok.<br>Jeden konkrétní výstup.<br>Nulové riziko.',
+      'contact-perex':   'Vyplňte formulář níže. Do 24 hodin vám pošlu strukturovaný dotazník, domluvíme call a do 5 pracovních dní budete mít Growth Diagnostic Report. Žádný závazek nad rámec tohoto prvního kroku.',
+      'pstat-val1':      '4 900 Kč',
+      'pstat-lbl1':      'první krok, nulové riziko',
+      'pstat-val2':      '60 min',
+      'pstat-lbl2':      'strukturovaný 1:1 call',
+      'pstat-val3':      '5 dní',
+      'pstat-lbl3':      'report doručen',
+      'pstat-val4':      '100%',
+      'pstat-lbl4':      'vrácení pokud nepomůže',
+      'ds1-h':           'Mapa growth leaků',
+      'ds1-p':           'Jasný přehled kde ti odtéká rozpočet a proč. Na základě tvých reálných dat, ne domněnek.',
+      'ds1-t':           'V reportu',
+      'ds2-h':           'Příležitosti v kanálech',
+      'ds2-p':           'Který kanál má největší nevyužitý potenciál pro vaši konkrétní situaci. Seřazené podle úsilí vs. dopadu.',
+      'ds2-t':           'V reportu',
+      'ds3-h':           '90denní prioritní roadmapa',
+      'ds3-p':           'Tři konkrétní kroky na příštích 90 dní, v pořadí priorit. Bez plev, bez obecných doporučení.',
+      'ds3-t':           'V reportu',
+      'ds4-h':           'Volitelně: Doporučení dalšího kroku',
+      'ds4-p':           'Pokud dává smysl Sprint, řeknu to a vysvětlím proč. Pokud ne, řeknu to taky a nasměruji správným směrem.',
+      'ds4-t':           'Na callu',
+      'lbl-name':        'Jméno',
+      'ph-name':         'Vaše jméno',
+      'lbl-email':       'Email',
+      'lbl-company':     'Firma',
+      'ph-company':      'Název firmy nebo startupu',
+      'lbl-website':     'Web nebo LinkedIn',
+      'ph-website':      'vasestranka.cz nebo linkedin.com/in/vy',
+      'ph-message':      'Např.: Investujeme 50k/měs. do GAds, nevíme jestli to funguje. Nebo: Odešel nám marketér, nemáme systém. Nebo: Máme skvělý produkt ale žádnou škálovatelnou akvizici.',
+      'btn-send':        'Objednat Growth Diagnostic — 4 900 Kč →',
+      'form-success':    'Zpráva odeslána — brzy se ozvu.',
+      'tr1':             '✓ Odpověď do 24 hodin',
+      'tr2':             '◎ Dotazník odeslán ihned po objednávce',
+      'tr3':             '⬡ Vrácení peněz pokud nepomůže',
+      'oc-h':            'Report ti řekne:',
+      'oc1':             'Kde přesně ti odtéká rozpočet',
+      'oc2':             'Který kanál upřednostnit jako první',
+      'oc3':             'Co dělat v příštích 90 dnech',
+      'oc4':             'Jestli dává smysl Sprint pro tvůj případ',
+      'ft-top':          'Nahoru',
+      'ft-services':     'Služby',
+      'ft-pricing':      'Ceník',
+      'ft-contact':      'Objednat Diagnostic',
     }
   };
 
@@ -1119,6 +1733,13 @@
   }
 
   setLocale(localStorage.getItem('locale') || 'en');
+
+  function selectSegment(type) {
+    document.querySelectorAll('.seg-btn').forEach(b => b.classList.remove('active'));
+    document.querySelector('.seg-btn[data-seg="' + type + '"]').classList.add('active');
+    document.getElementById('field-stage').style.display = type === 'startup' ? 'block' : 'none';
+    document.getElementById('field-revenue').style.display = type === 'sme' ? 'block' : 'none';
+  }
 </script>
 </body>
 </html>
