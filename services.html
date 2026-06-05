@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="cs">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -162,141 +162,203 @@
     section { padding: 100px 0; border-top: 1px solid var(--border); }
     .section-header { margin-bottom: 56px; }
     .section-header h2 { margin-top: 12px; }
+    .grid { display: grid; grid-template-columns: 3fr 2fr; gap: 64px; align-items: start; }
 
-    /* ── Package Cards ── */
-    .packages-grid {
+    /* ── Flow timeline ── */
+    .flow-step {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px;
+      grid-template-columns: 80px 1fr 200px;
+      gap: 32px;
+      align-items: center;
+      padding: 32px 0;
+      border-bottom: 1px solid var(--border);
     }
-    .package-card {
-      background: var(--bg-surface);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 36px;
-      display: flex;
-      flex-direction: column;
-      transition: border-color 0.2s, transform 0.2s;
-    }
-    .package-card:hover { border-color: rgba(0,208,208,0.4); transform: translateY(-3px); }
-    .package-badge {
-      display: inline-block;
-      background: var(--accent-dim);
-      border: 1px solid rgba(0,208,208,0.25);
-      border-radius: 999px;
-      padding: 4px 12px;
-      font-size: 11px;
-      font-weight: 500;
+    .flow-step:first-child { border-top: 1px solid var(--border); }
+    .flow-num {
+      font-size: 48px;
+      font-weight: 300;
       color: var(--accent);
-      letter-spacing: 0.04em;
-      margin-bottom: 20px;
+      line-height: 1;
+      letter-spacing: -0.03em;
     }
-    .package-card h3 { font-size: 22px; margin-bottom: 16px; }
-    .package-price { font-size: 28px; font-weight: 300; color: var(--text-primary); line-height: 1.1; }
-    .package-price-sub { font-size: 13px; color: var(--text-muted); margin-top: 4px; margin-bottom: 20px; }
-    .package-sep { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
-    .package-bullets {
+    .flow-name {
+      font-size: 20px;
+      font-weight: 500;
+      color: var(--text-primary);
+      margin-bottom: 6px;
+    }
+    .flow-desc { font-size: 14px; color: var(--text-secondary); }
+    .flow-right { text-align: right; }
+    .flow-price {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+    .flow-cta {
+      font-size: 13px;
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid var(--accent);
+    }
+
+    /* ── Price card ── */
+    .price-card {
+      background: var(--bg-surface);
+      border: 2px solid var(--accent);
+      border-radius: 12px;
+      padding: 32px;
+      position: sticky;
+      top: 100px;
+    }
+    .price-card-badge {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+      display: block;
+    }
+    .price-card-price {
+      font-size: 36px;
+      font-weight: 300;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+      margin: 8px 0 4px;
+    }
+    .price-card-note {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+    .price-card-items {
       list-style: none;
       display: flex;
       flex-direction: column;
       gap: 10px;
-      flex: 1;
+      margin-bottom: 24px;
     }
-    .package-bullets li {
+    .price-card-items li {
       font-size: 14px;
       color: var(--text-secondary);
-      padding-left: 18px;
-      position: relative;
       line-height: 1.5;
     }
-    .package-bullets li::before {
-      content: '–';
-      position: absolute;
-      left: 0;
-      color: var(--accent);
-    }
-    .package-out-label {
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
+    .price-card-guarantee {
+      font-size: 13px;
       color: var(--text-muted);
-      margin-top: 24px;
-      margin-bottom: 4px;
+      line-height: 1.6;
+      border-top: 1px solid var(--border);
+      padding-top: 16px;
+      margin-bottom: 24px;
     }
-    .package-out-value {
-      font-size: 14px;
-      color: var(--text-primary);
-      font-weight: 500;
+    .price-card-addons {
+      background: var(--bg-elevated);
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 24px;
     }
-    .package-cta {
-      display: inline-flex;
-      align-items: center;
-      margin-top: 24px;
-      padding: 10px 20px;
-      background: transparent;
+    .price-card-addons-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 10px;
+    }
+    .price-card-addons p {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+    .price-card-condition {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    /* ── Sprint phases ── */
+    .sprint-phases {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 20px 0 28px;
+    }
+    .sprint-phase {
+      background: var(--bg-elevated);
       border: 1px solid var(--border);
       border-radius: 8px;
+      padding: 16px;
+    }
+    .sprint-phase-title {
       font-size: 13px;
       font-weight: 500;
-      color: var(--text-primary);
-      text-decoration: none;
-      transition: border-color 0.2s, color 0.2s;
-      align-self: flex-start;
-    }
-    .package-cta:hover { border-color: var(--accent); color: var(--accent); }
-
-    /* ── Pricing Table ── */
-    .pricing-table-wrap { overflow-x: auto; }
-    .pricing-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 14px;
-    }
-    .pricing-table th {
-      text-align: left;
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      padding: 12px 16px;
-      border-bottom: 1px solid var(--border);
-    }
-    .pricing-table td {
-      padding: 14px 16px;
-      color: var(--text-secondary);
-      border-bottom: 1px solid rgba(42,43,46,0.5);
-    }
-    .pricing-table .td-name { color: var(--text-primary); font-weight: 500; }
-    .pricing-table tbody tr:nth-child(even) { background: var(--bg-surface); }
-    .pricing-table tbody tr:hover { background: var(--accent-dim); }
-    .pricing-model-badge {
-      display: inline-block;
-      background: var(--accent-dim);
-      border: 1px solid rgba(0,208,208,0.25);
-      border-radius: 999px;
-      padding: 3px 10px;
-      font-size: 11px;
       color: var(--accent);
-      font-weight: 500;
+      margin-bottom: 6px;
     }
-    .pricing-disclaimer {
+    .sprint-phase-text {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    /* ── Diagnostic items ── */
+    .diag-item {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      margin-bottom: 12px;
+    }
+    .diag-item .check { color: var(--accent); flex-shrink: 0; }
+    .diag-note {
       font-size: 13px;
       color: var(--text-muted);
+      line-height: 1.6;
+      border-top: 1px solid var(--border);
+      padding-top: 20px;
       margin-top: 20px;
-      font-style: italic;
     }
+
+    /* ── Section perex ── */
+    .section-perex {
+      font-size: 16px;
+      color: var(--text-secondary);
+      line-height: 1.75;
+      max-width: 540px;
+      margin-bottom: 36px;
+    }
+
+    /* ── Output list ── */
+    .output-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 8px;
+    }
+    .output-list li {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      padding-left: 18px;
+      position: relative;
+    }
+    .output-list li::before { content: '–'; position: absolute; left: 0; color: var(--accent); }
 
     /* ── Contact ── */
-    #contact .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
-    .contact-desc { font-size: 16px; color: var(--text-secondary); line-height: 1.75; max-width: 380px; margin-bottom: 32px; }
-    .contact-links { display: flex; flex-direction: column; gap: 14px; }
-    .contact-link { display: flex; align-items: center; gap: 12px; font-size: 14px; color: var(--text-secondary); text-decoration: none; transition: color 0.2s; }
-    .contact-link:hover { color: var(--accent); }
-    .contact-link .link-icon { width: 36px; height: 36px; border-radius: 8px; background: var(--bg-surface); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
-    .contact-response { margin-top: 24px; font-size: 13px; color: var(--text-muted); }
-    .contact-form { display: flex; flex-direction: column; gap: 16px; }
+    .contact-perex {
+      font-size: 16px;
+      color: var(--text-secondary);
+      line-height: 1.75;
+      max-width: 600px;
+      margin: 0 auto 40px;
+      text-align: center;
+    }
+    .contact-form-wrap { max-width: 720px; margin: 0 auto; }
     .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
     .field label { display: block; font-size: 12px; font-weight: 500; color: var(--text-muted); margin-bottom: 6px; letter-spacing: 0.03em; }
     .field input, .field textarea, .field select {
@@ -330,7 +392,49 @@
     }
     .btn-primary { background: var(--accent); color: #08090a; }
     .btn-primary:hover { filter: brightness(110%); }
+    .btn-secondary { background: transparent; color: var(--text-primary); border: 1px solid var(--border); }
+    .btn-secondary:hover { border-color: var(--accent); }
     .btn-full { width: 100%; justify-content: center; }
+
+    /* ── Blog ── */
+    .blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 40px; }
+    .blog-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 32px;
+      text-decoration: none;
+      display: block;
+      transition: border-color 0.2s;
+    }
+    .blog-card:hover { border-color: var(--accent); }
+    .blog-cat {
+      display: inline-block;
+      background: var(--accent-dim);
+      border: 1px solid rgba(0,208,208,0.2);
+      border-radius: 999px;
+      padding: 3px 10px;
+      font-size: 11px;
+      color: var(--accent);
+      font-weight: 500;
+      margin-bottom: 16px;
+    }
+    .blog-card h3 { font-size: 17px; color: var(--text-primary); line-height: 1.4; margin-bottom: 8px; }
+    .blog-meta { font-size: 12px; color: var(--text-muted); margin-bottom: 12px; }
+    .blog-excerpt { font-size: 14px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 20px; }
+    .blog-read-link { font-size: 13px; color: var(--accent); font-weight: 500; }
+    .blog-center { text-align: center; }
+    @media (max-width: 768px) { .blog-grid { grid-template-columns: 1fr; } }
+
+    /* ── Trust row ── */
+    .trust-row {
+      display: flex;
+      gap: 24px;
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
 
     /* ── Footer ── */
     footer { border-top: 1px solid var(--border); padding: 40px 0; }
@@ -352,8 +456,11 @@
     @media (max-width: 768px) {
       #page-header { padding: 120px 0 64px; }
       section { padding: 72px 0; }
-      .packages-grid { grid-template-columns: 1fr; }
-      #contact .grid { grid-template-columns: 1fr; gap: 48px; }
+      .flow-step { grid-template-columns: 48px 1fr; }
+      .flow-right { grid-column: 2; margin-top: 8px; text-align: left; }
+      .sprint-phases { grid-template-columns: 1fr; }
+      .price-card { position: static; }
+      section .grid { grid-template-columns: 1fr !important; gap: 48px; }
       .form-row { grid-template-columns: 1fr; }
       footer .inner { flex-direction: column; gap: 20px; text-align: center; }
       .nav-links { display: none; }
@@ -368,7 +475,7 @@
     <a href="index.html" class="nav-logo">DM.</a>
     <ul class="nav-links">
       <li><a href="services.html" class="active" data-i18n="nav-services">Služby</a></li>
-      <li><a href="index.html#pristup" data-i18n="nav-about">Přístup</a></li>
+      <li><a href="index.html#o-mne" data-i18n="nav-about">O mně</a></li>
       <li><a href="blog.html" data-i18n="nav-blog">Blog</a></li>
       <li><a href="#contact" data-i18n="nav-contact">Kontakt</a></li>
     </ul>
@@ -383,168 +490,244 @@
 <div id="page-header">
   <div class="container">
     <p class="page-header-label animate-in" data-i18n="hdr-label">SLUŽBY</p>
-    <h1 class="animate-in" style="transition-delay:0.08s" data-i18n="hdr-h1">Čtyři způsoby,<br>jak mohu pomoci.</h1>
-    <p class="page-header-sub animate-in" style="transition-delay:0.16s" data-i18n="hdr-sub">Value-based pricing — platíte za doručený systém a výsledky, ne za odpracované hodiny.</p>
+    <h1 class="animate-in" style="transition-delay:0.08s" data-i18n="hdr-h1">Čtyři kroky<br>k systému který roste.</h1>
+    <p class="page-header-sub animate-in" style="transition-delay:0.16s" data-i18n="hdr-sub">Každá spolupráce začíná konzultací zdarma. Pak postupujeme podle toho, co váš byznys skutečně potřebuje.</p>
   </div>
 </div>
 
-<!-- PACKAGES -->
-<section id="packages">
+<!-- FLOW -->
+<section id="flow">
   <div class="container">
     <div class="section-header animate-in">
-      <div class="section-label"><span class="accent">01</span> — <span data-i18n="s1-label">BALÍČKY</span></div>
-      <h2 data-i18n="s1-h2">Vyberte si způsob spolupráce.</h2>
+      <div class="section-label"><span data-i18n="s-flow-label">POSTUP SPOLUPRÁCE</span></div>
+      <h2 data-i18n="s-flow-h2">Od prvního callu<br>k fungujícímu systému.</h2>
     </div>
-    <div class="packages-grid">
-
-      <!-- Card 1 -->
-      <div class="package-card animate-in">
-        <span class="package-badge" data-i18n="pkg1-badge">Jednorázový projekt · 2–4 týdny</span>
-        <h3 data-i18n="pkg1-title">Growth Audit & Roadmap</h3>
-        <div class="package-price" data-i18n="pkg1-price">od 30 000 Kč</div>
-        <div class="package-price-sub" data-i18n="pkg1-price-sub">1 200 – 2 200 € · fixní cena</div>
-        <hr class="package-sep">
-        <ul class="package-bullets">
-          <li data-i18n="pkg1-b1">Unit Economics Audit (LTV, CAC, Payback period)</li>
-          <li data-i18n="pkg1-b2">Funnel Deep-Dive a analýza churnu</li>
-          <li data-i18n="pkg1-b3">Tech Stack Review a revize měření</li>
-          <li data-i18n="pkg1-b4">Master Plan s ICE skórováním priorit</li>
-        </ul>
-        <p class="package-out-label" data-i18n="pkg-out-lbl">Výstup</p>
-        <p class="package-out-value" data-i18n="pkg1-output">Auditní zpráva + Strategický workshop</p>
-        <a href="#contact" class="package-cta" data-i18n="pkg-cta">Zjistit více →</a>
+    <div class="animate-in">
+      <div class="flow-step">
+        <div class="flow-num">00</div>
+        <div>
+          <div class="flow-name" data-i18n="f0-name">Konzultace zdarma</div>
+          <div class="flow-desc" data-i18n="f0-desc">30 minut. Zjistíme jestli si dokážeme pomoct.</div>
+        </div>
+        <div class="flow-right">
+          <div class="flow-price" data-i18n="f0-price">Zdarma</div>
+          <a href="#contact" class="flow-cta" data-i18n="f0-cta">Domluvit call →</a>
+        </div>
       </div>
-
-      <!-- Card 2 -->
-      <div class="package-card animate-in" style="transition-delay:0.1s">
-        <span class="package-badge" data-i18n="pkg2-badge">Projektová realizace · 1–3 měsíce</span>
-        <h3 data-i18n="pkg2-title">Data & Growth Infrastructure</h3>
-        <div class="package-price" data-i18n="pkg2-price">od 80 000 Kč</div>
-        <div class="package-price-sub" data-i18n="pkg2-price-sub">3 200 – 6 000+ € · fixní cena</div>
-        <hr class="package-sep">
-        <ul class="package-bullets">
-          <li data-i18n="pkg2-b1">Custom Data Pipeline (BigQuery, SQL)</li>
-          <li data-i18n="pkg2-b2">Looker Studio dashboardy sledující ziskovost</li>
-          <li data-i18n="pkg2-b3">GA4 a GTM tracking zaměřený na byznys eventy</li>
-          <li data-i18n="pkg2-b4">Growth Loops design přímo do produktu</li>
-        </ul>
-        <p class="package-out-label" data-i18n="pkg-out-lbl">Výstup</p>
-        <p class="package-out-value" data-i18n="pkg2-output">Plně funkční datová infrastruktura a dashboardy</p>
-        <a href="#contact" class="package-cta" data-i18n="pkg-cta">Zjistit více →</a>
+      <div class="flow-step">
+        <div class="flow-num">01</div>
+        <div>
+          <div class="flow-name" data-i18n="f1-name">Growth Diagnostic</div>
+          <div class="flow-desc" data-i18n="f1-desc">Audit všech kanálů, PDF výstup, next steps.</div>
+        </div>
+        <div class="flow-right">
+          <div class="flow-price" data-i18n="f1-price">od 4 900 Kč</div>
+          <a href="#diagnostic" class="flow-cta" data-i18n="flow-more">Více →</a>
+        </div>
       </div>
-
-      <!-- Card 3 -->
-      <div class="package-card animate-in">
-        <span class="package-badge" data-i18n="pkg3-badge">Měsíční retainer · min. 3–6 měsíců</span>
-        <h3 data-i18n="pkg3-title">Fractional Growth Steering</h3>
-        <div class="package-price">40 000 – 80 000 Kč<span data-i18n="pkg3-unit"> / měsíc</span></div>
-        <div class="package-price-sub" data-i18n="pkg3-price-sub">1 600 – 3 200 € / měsíc · retainer</div>
-        <hr class="package-sep">
-        <ul class="package-bullets">
-          <li data-i18n="pkg3-b1">Týdenní Growth Sprints a vyhodnocování experimentů</li>
-          <li data-i18n="pkg3-b2">Performance Management PPC, SEO a CRM týmů</li>
-          <li data-i18n="pkg3-b3">Dynamická alokace budgetu podle ROI</li>
-          <li data-i18n="pkg3-b4">Continuous Optimization na základě dat</li>
-        </ul>
-        <p class="package-out-label" data-i18n="pkg-out-lbl">Výstup</p>
-        <p class="package-out-value" data-i18n="pkg3-output">Průběžný růst a exekuce strategie</p>
-        <a href="#contact" class="package-cta" data-i18n="pkg-cta">Zjistit více →</a>
+      <div class="flow-step">
+        <div class="flow-num">02</div>
+        <div>
+          <div class="flow-name" data-i18n="f2-name">Growth Sprint</div>
+          <div class="flow-desc" data-i18n="f2-desc">30 dní. Data, dashboard, strategie, 90denní plán.</div>
+        </div>
+        <div class="flow-right">
+          <div class="flow-price" data-i18n="f2-price">od 39 900 Kč</div>
+          <a href="#sprint" class="flow-cta" data-i18n="flow-more">Více →</a>
+        </div>
       </div>
-
-      <!-- Card 4 -->
-      <div class="package-card animate-in" style="transition-delay:0.1s">
-        <span class="package-badge" data-i18n="pkg4-badge">Projektová nebo průběžná spolupráce</span>
-        <h3 data-i18n="pkg4-title">AI & Automation Blueprint</h3>
-        <div class="package-price" data-i18n="pkg4-price">od 50 000 Kč</div>
-        <div class="package-price-sub" data-i18n="pkg4-price-sub">2 000 – 4 800 € · fixní nebo průběžná</div>
-        <hr class="package-sep">
-        <ul class="package-bullets">
-          <li data-i18n="pkg4-b1">Marketing Automation a personalizovaný outreach</li>
-          <li data-i18n="pkg4-b2">Custom AI Agenti pro analýzu trhu a tvorbu obsahu</li>
-          <li data-i18n="pkg4-b3">Efficiency Audit — identifikace a nahrazení procesů kódem</li>
-          <li data-i18n="pkg4-b4">Value Tracking systémy (produktivita, ROI agentů)</li>
-        </ul>
-        <p class="package-out-label" data-i18n="pkg-out-lbl">Výstup</p>
-        <p class="package-out-value" data-i18n="pkg4-output">Autonomní systémy a automatizované procesy</p>
-        <a href="#contact" class="package-cta" data-i18n="pkg-cta">Zjistit více →</a>
+      <div class="flow-step">
+        <div class="flow-num">03</div>
+        <div>
+          <div class="flow-name" data-i18n="f3-name">Growth Engine</div>
+          <div class="flow-desc" data-i18n="f3-desc">Průběžná správa, optimalizace a škálování.</div>
+        </div>
+        <div class="flow-right">
+          <div class="flow-price" data-i18n="f3-price">od 25 900 Kč/měs</div>
+          <a href="#engine" class="flow-cta" data-i18n="flow-more">Více →</a>
+        </div>
       </div>
-
     </div>
   </div>
 </section>
 
-<!-- PRICING TABLE -->
-<section id="pricing">
+<!-- DIAGNOSTIC -->
+<section id="diagnostic">
   <div class="container">
     <div class="section-header animate-in">
-      <div class="section-label"><span class="accent">02</span> — <span data-i18n="s2-label">PŘEHLED CEN</span></div>
-      <h2 data-i18n="s2-h2">Transparentní ceny.</h2>
+      <div class="section-label"><span data-i18n="s-diag-label">KROK 01</span></div>
+      <h2>Growth Diagnostic</h2>
     </div>
-    <div class="pricing-table-wrap animate-in">
-      <table class="pricing-table">
-        <thead>
-          <tr>
-            <th data-i18n="pt-col1">Balíček</th>
-            <th data-i18n="pt-col2">Cena (CZK)</th>
-            <th data-i18n="pt-col3">Cena (EUR)</th>
-            <th data-i18n="pt-col4">Model</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="td-name" data-i18n="pt-r1-name">Growth Audit & Roadmap</td>
-            <td data-i18n="pt-r1-czk">30 000 – 55 000 Kč</td>
-            <td data-i18n="pt-r1-eur">1 200 – 2 200 €</td>
-            <td><span class="pricing-model-badge" data-i18n="pt-r1-model">Fixní cena</span></td>
-          </tr>
-          <tr>
-            <td class="td-name" data-i18n="pt-r2-name">Data & Growth Infrastructure</td>
-            <td data-i18n="pt-r2-czk">80 000 – 150 000+ Kč</td>
-            <td data-i18n="pt-r2-eur">3 200 – 6 000+ €</td>
-            <td><span class="pricing-model-badge" data-i18n="pt-r2-model">Fixní cena</span></td>
-          </tr>
-          <tr>
-            <td class="td-name" data-i18n="pt-r3-name">Fractional Growth Steering</td>
-            <td data-i18n="pt-r3-czk">40 000 – 80 000 Kč / měsíc</td>
-            <td data-i18n="pt-r3-eur">1 600 – 3 200 € / měsíc</td>
-            <td><span class="pricing-model-badge" data-i18n="pt-r3-model">Měsíční retainer</span></td>
-          </tr>
-          <tr>
-            <td class="td-name" data-i18n="pt-r4-name">AI & Automation Blueprint</td>
-            <td data-i18n="pt-r4-czk">50 000 – 120 000 Kč</td>
-            <td data-i18n="pt-r4-eur">2 000 – 4 800 €</td>
-            <td><span class="pricing-model-badge" data-i18n="pt-r4-model">Fixní nebo průběžná</span></td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="grid">
+      <div class="animate-in">
+        <p class="section-perex" data-i18n="diag-perex">Audit napříč všemi vašimi kanály. Porovnání s business metrikami a KPI které chcete dosahovat. Výstup: PDF dokument s tím co jsem našel a jak to fixnout.</p>
+        <h3 style="margin-bottom:20px" data-i18n="diag-incl-h">Co je součástí auditu:</h3>
+        <div class="diag-item"><span class="check">✓</span><span data-i18n="diag-i1">Analýza všech aktivních kanálů (PPC, SEO, Social, Email)</span></div>
+        <div class="diag-item"><span class="check">✓</span><span data-i18n="diag-i2">Unit economics — LTV, CAC, Payback period, ROAS</span></div>
+        <div class="diag-item"><span class="check">✓</span><span data-i18n="diag-i3">Srovnání s vašimi KPI a business cíli</span></div>
+        <div class="diag-item"><span class="check">✓</span><span data-i18n="diag-i4">Customer journey a retence — kde odcházejí zákazníci</span></div>
+        <div class="diag-item"><span class="check">✓</span><span data-i18n="diag-i5">Konkrétní prioritizovaný akční plán</span></div>
+        <div class="diag-item"><span class="check">✓</span><span data-i18n="diag-i6">60minutový call kde probereme výstupy</span></div>
+        <p class="diag-note" data-i18n="diag-note">Základní audit od 4 900 Kč. Cena se upravuje podle počtu kanálů a komplexnosti businessu — přesnou cenu zjistíte na úvodním callu.</p>
+      </div>
+      <div class="animate-in" style="transition-delay:0.1s">
+        <div class="price-card">
+          <span class="price-card-badge" data-i18n="diag-badge">Nejčastější první krok</span>
+          <div class="price-card-price" data-i18n="diag-price-main">od 4 900 Kč</div>
+          <div class="price-card-note" data-i18n="diag-price-note">jednorázově · výstup do 5 dní</div>
+          <ul class="price-card-items">
+            <li data-i18n="diag-li1">✓ PDF výstup s nálezem a doporučeními</li>
+            <li data-i18n="diag-li2">✓ 60min call po dodání reportu</li>
+            <li data-i18n="diag-li3">✓ Plně použitelné bez další spolupráce</li>
+            <li data-i18n="diag-li4">✓ Cena Diagnosticu se odečte ze Sprintu</li>
+          </ul>
+          <div class="price-card-guarantee" data-i18n="diag-guarantee">Pokud z reportu nezískaš žádnou použitelnou informaci — vracíme celou částku.</div>
+          <a href="#contact" class="btn btn-primary btn-full" data-i18n="diag-cta">Objednat Diagnostic →</a>
+        </div>
+      </div>
     </div>
-    <p class="pricing-disclaimer animate-in" data-i18n="pt-disclaimer">Finální cena závisí na rozsahu a komplexnosti projektu. Každá spolupráce začíná úvodním hovorem zdarma.</p>
+  </div>
+</section>
+
+<!-- SPRINT -->
+<section id="sprint">
+  <div class="container">
+    <div class="section-header animate-in">
+      <div class="section-label"><span data-i18n="s-sprint-label">KROK 02</span></div>
+      <h2>Growth Sprint</h2>
+    </div>
+    <div class="grid">
+      <div class="animate-in">
+        <p class="section-perex" data-i18n="sprint-perex">30denní fixní projekt. Použiji svůj growth toolkit, sjednotím data, nastavím dashboard a připravím 90denní strategický plán. Na konci máte fungující systém — ne jen doporučení.</p>
+        <h3 style="margin-bottom:16px" data-i18n="sprint-incl-h">Co dostanete:</h3>
+        <div class="sprint-phases">
+          <div class="sprint-phase">
+            <div class="sprint-phase-title" data-i18n="sp1-title">Týden 1 — Audit &amp; Setup</div>
+            <div class="sprint-phase-text" data-i18n="sp1-text">Datový audit, nastavení trackingu, přístup k systémům</div>
+          </div>
+          <div class="sprint-phase">
+            <div class="sprint-phase-title" data-i18n="sp2-title">Týden 2–3 — Exekuce</div>
+            <div class="sprint-phase-text" data-i18n="sp2-text">Spuštění kampaní, dashboard live, první data</div>
+          </div>
+          <div class="sprint-phase">
+            <div class="sprint-phase-title" data-i18n="sp3-title">Týden 4 — Optimalizace</div>
+            <div class="sprint-phase-text" data-i18n="sp3-text">Vyhodnocení, úpravy, předání systému</div>
+          </div>
+          <div class="sprint-phase">
+            <div class="sprint-phase-title" data-i18n="sp4-title">Výstup</div>
+            <div class="sprint-phase-text" data-i18n="sp4-text">90denní playbook a strategie</div>
+          </div>
+        </div>
+        <ul class="output-list">
+          <li data-i18n="sprint-o1">Funkční datová infrastruktura a dashboard</li>
+          <li data-i18n="sprint-o2">Sjednocené kampaně připravené ke škálování</li>
+          <li data-i18n="sprint-o3">90denní strategický plán a playbook</li>
+          <li data-i18n="sprint-o4">Předání s dokumentací — systém je váš</li>
+        </ul>
+      </div>
+      <div class="animate-in" style="transition-delay:0.1s">
+        <div class="price-card">
+          <span class="price-card-badge" data-i18n="sprint-badge">Fixní projekt · 30 dní</span>
+          <div class="price-card-price" data-i18n="sprint-price-main">od 39 900 Kč</div>
+          <div class="price-card-note" data-i18n="sprint-price-note">fixní cena · scope dle kanálů</div>
+          <div class="price-card-addons">
+            <div class="price-card-addons-title" data-i18n="sprint-info-title">Poznámka k ceně</div>
+            <p data-i18n="sprint-info">Cena závisí na počtu kanálů a komplexnosti. Přesný scope a cenu stanovíme po Diagnosticu nebo na úvodním callu.</p>
+          </div>
+          <ul class="price-card-items">
+            <li data-i18n="sprint-li1">✓ Growth toolkit nasazený na váš byznys</li>
+            <li data-i18n="sprint-li2">✓ Datový dashboard s vašimi metrikami</li>
+            <li data-i18n="sprint-li3">✓ Strategie a 90denní plán</li>
+            <li data-i18n="sprint-li4">✓ Dokumentace a předání</li>
+          </ul>
+          <div class="price-card-condition" data-i18n="sprint-limit">Maximálně 3 klienti současně.</div>
+          <a href="#contact" class="btn btn-primary btn-full" data-i18n="sprint-cta">Zjistit více na callu →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ENGINE -->
+<section id="engine">
+  <div class="container">
+    <div class="section-header animate-in">
+      <div class="section-label"><span data-i18n="s-engine-label">KROK 03</span></div>
+      <h2>Growth Engine</h2>
+    </div>
+    <div class="grid">
+      <div class="animate-in">
+        <p class="section-perex" data-i18n="engine-perex">Průběžná správa po Sprintu. Systém je nastavený — já ho dál monitoruji, optimalizuji a škáluji. Každý měsíc dostanete report a volitelně 30minutový call kde probereme čísla a plán na další měsíc.</p>
+        <h3 style="margin-bottom:20px" data-i18n="engine-incl-h">Co je součástí každý měsíc:</h3>
+        <div class="diag-item"><span class="check">✓</span><span data-i18n="eng-i1">Monitoring a optimalizace aktivních kampaní</span></div>
+        <div class="diag-item"><span class="check">✓</span><span data-i18n="eng-i2">Měsíční report v business metrikách</span></div>
+        <div class="diag-item"><span class="check">✓</span><span data-i18n="eng-i3">Průběžné úpravy podle dat</span></div>
+        <div class="diag-item"><span class="check">✓</span><span data-i18n="eng-i4">Držení se 90denního plánu ze Sprintu</span></div>
+        <div class="diag-item"><span class="check">✓</span><span data-i18n="eng-i5">Volitelně: 30min call za příplatek</span></div>
+      </div>
+      <div class="animate-in" style="transition-delay:0.1s">
+        <div class="price-card">
+          <span class="price-card-badge" data-i18n="engine-badge">Měsíční retainer · min. 3 měsíce</span>
+          <div class="price-card-price" data-i18n="engine-price-main">od 25 900 Kč/měs</div>
+          <div class="price-card-note" data-i18n="engine-price-note">cena dle rozsahu správy</div>
+          <div class="price-card-addons">
+            <div class="price-card-addons-title" data-i18n="engine-addons-title">Volitelné příplatky:</div>
+            <p data-i18n="engine-addons-text">+ 30min měsíční call · Rozšíření o další kanál</p>
+          </div>
+          <div class="price-card-condition" data-i18n="engine-condition">Navazuje na Growth Sprint. Vstup bez Sprintu možný po individuální dohodě.</div>
+          <a href="#contact" class="btn btn-primary btn-full" data-i18n="engine-cta">Zjistit více na callu →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BLOG -->
+<section id="blog-preview">
+  <div class="container">
+    <div class="section-header animate-in">
+      <div class="section-label"><span data-i18n="s-blog-label">BLOG</span></div>
+      <h2 data-i18n="s-blog-h2">Z blogu.</h2>
+    </div>
+    <div class="blog-grid">
+      <a href="#" class="blog-card animate-in">
+        <span class="blog-cat" data-i18n="bp1-cat">Growth</span>
+        <h3 data-i18n="bp1-title">Proč LTV:CAC není metrika — je to kompas.</h3>
+        <div class="blog-meta" data-i18n="bp1-meta">Připravuji · 5 min čtení</div>
+        <p class="blog-excerpt" data-i18n="bp1-excerpt">Většina týmů měří LTV:CAC jako výsledek. Nejlepší týmy ho používají jako navigační systém pro každé rozhodnutí o budgetu.</p>
+        <span class="blog-read-link" data-i18n="blog-read">Číst dál →</span>
+      </a>
+      <a href="#" class="blog-card animate-in" style="transition-delay:0.1s">
+        <span class="blog-cat" data-i18n="bp2-cat">Data</span>
+        <h3 data-i18n="bp2-title">Jak jsem postavil growth infrastrukturu za 3 týdny.</h3>
+        <div class="blog-meta" data-i18n="bp2-meta">Připravuji · 8 min čtení</div>
+        <p class="blog-excerpt" data-i18n="bp2-excerpt">BigQuery, Looker Studio, GTM — a žádný enterprise budget. Celá pipeline od nuly za méně než měsíc.</p>
+        <span class="blog-read-link" data-i18n="blog-read">Číst dál →</span>
+      </a>
+      <a href="#" class="blog-card animate-in" style="transition-delay:0.2s">
+        <span class="blog-cat" data-i18n="bp3-cat">Strategy</span>
+        <h3 data-i18n="bp3-title">Performance bez brandu je pronájem pozornosti.</h3>
+        <div class="blog-meta" data-i18n="bp3-meta">Připravuji · 4 min čtení</div>
+        <p class="blog-excerpt" data-i18n="bp3-excerpt">Reklamy fungují dokud platíte. Brand funguje i když spíte. Proč nejlepší growth strategie kombinuje oboje.</p>
+        <span class="blog-read-link" data-i18n="blog-read">Číst dál →</span>
+      </a>
+    </div>
+    <div class="blog-center animate-in">
+      <a href="blog.html" class="btn btn-secondary" data-i18n="blog-all">Všechny články →</a>
+    </div>
   </div>
 </section>
 
 <!-- CONTACT -->
 <section id="contact">
   <div class="container">
-    <div class="section-header animate-in">
-      <div class="section-label"><span class="accent">03</span> — <span data-i18n="s3-label">POJĎME NA TO</span></div>
-      <h2 data-i18n="s3-h2">Úvodní hovor zdarma.</h2>
+    <div class="section-header animate-in" style="text-align:center">
+      <div class="section-label"><span data-i18n="s-contact-label">POJĎME NA TO</span></div>
+      <h2 data-i18n="s-contact-h2">Začněte konzultací<br>zdarma.</h2>
     </div>
-    <div class="grid">
-      <div>
-        <p class="contact-desc" data-i18n="ci-desc">30 minut, žádné závazky. Řeknete mi kde jste a já řeknu, jestli a jak mohu pomoci. Pokud ne, odkáži vás dál.</p>
-        <div class="contact-links">
-          <a href="mailto:hello@dominikmaslan.com" class="contact-link">
-            <span class="link-icon">✉</span>
-            hello@dominikmaslan.com
-          </a>
-          <a href="https://linkedin.com/in/dominikmaslan" class="contact-link" target="_blank" rel="noopener">
-            <span class="link-icon">in</span>
-            linkedin.com/in/dominikmaslan
-          </a>
-        </div>
-        <p class="contact-response" data-i18n="ci-response">⏱ Odpovídám do 24–48 hodin</p>
-      </div>
-      <form class="contact-form" onsubmit="handleSubmit(event)">
+    <p class="contact-perex animate-in" data-i18n="contact-perex">30 minut, žádné závazky. Vyplňte formulář níže a do 24 hodin se ozvu s termínem callu.</p>
+    <div class="contact-form-wrap animate-in">
+      <form onsubmit="handleSubmit(event)" style="display:flex;flex-direction:column;gap:16px">
         <div class="form-row">
           <div class="field">
             <label for="name" data-i18n="lbl-name">Jméno</label>
@@ -556,28 +739,31 @@
           </div>
         </div>
         <div class="field">
-          <label for="company" data-i18n="lbl-company">Firma</label>
-          <input type="text" id="company" data-i18n-placeholder="ph-company" placeholder="Název firmy nebo startupu" />
+          <label for="company" data-i18n="lbl-company">Firma / web</label>
+          <input type="text" id="company" data-i18n-placeholder="ph-company" placeholder="Název firmy nebo web" />
         </div>
         <div class="field">
           <label for="topic" data-i18n="lbl-topic">Zájem o</label>
           <select id="topic">
             <option value="" data-i18n="opt-0">Vyberte…</option>
-            <option data-i18n="opt-1">Growth Audit & Roadmap</option>
-            <option data-i18n="opt-2">Data & Growth Infrastructure</option>
-            <option data-i18n="opt-3">Fractional Growth Steering</option>
-            <option data-i18n="opt-4">AI & Automation Blueprint</option>
-            <option data-i18n="opt-5">Jiné</option>
+            <option value="consultation" data-i18n="opt-1">Konzultace zdarma</option>
+            <option value="diagnostic" data-i18n="opt-2">Diagnostic</option>
+            <option value="sprint" data-i18n="opt-3">Sprint</option>
+            <option value="engine" data-i18n="opt-4">Engine</option>
+            <option value="other" data-i18n="opt-5">Jiné</option>
           </select>
         </div>
         <div class="field">
           <label for="message" data-i18n="lbl-message">Zpráva</label>
-          <textarea id="message" data-i18n-placeholder="ph-message" placeholder="Řekněte mi o vaší situaci, výzvě nebo cíli…"></textarea>
+          <textarea id="message" data-i18n-placeholder="ph-message" placeholder="Řekněte mi o své situaci — co řešíte, kde jste teď a co chcete dosáhnout."></textarea>
         </div>
-        <button type="submit" class="btn btn-primary btn-full" data-i18n="btn-send">Odeslat zprávu →</button>
-        <p id="form-status" style="font-size:14px;color:var(--accent);display:none;text-align:center;" data-i18n="form-success">
-          Zpráva odeslána — brzy se ozvu.
-        </p>
+        <button type="submit" class="btn btn-primary btn-full" data-i18n="btn-send">Odeslat →</button>
+        <p id="form-status" style="font-size:14px;color:var(--accent);display:none;text-align:center;" data-i18n="form-success">Zpráva odeslána — brzy se ozvu.</p>
+        <div class="trust-row">
+          <span data-i18n="trust1">✓ Odpověď do 24 hodin</span>
+          <span data-i18n="trust2">◎ Bez závazků</span>
+          <span data-i18n="trust3">⬡ Pokud si nedokážu pomoct, řeknu to a odkáži vás dál</span>
+        </div>
       </form>
     </div>
   </div>
@@ -590,7 +776,7 @@
       <p>© 2026 Dominik Maslan. Growth Architect.</p>
       <div class="links">
         <a href="index.html" data-i18n="ft-home">Domů</a>
-        <a href="index.html#pristup" data-i18n="ft-about">Přístup</a>
+        <a href="index.html#o-mne" data-i18n="ft-about">O mně</a>
         <a href="blog.html" data-i18n="ft-blog">Blog</a>
         <a href="#contact" data-i18n="ft-contact">Kontakt</a>
       </div>
@@ -611,8 +797,8 @@
   }, { threshold: 0.1 });
   document.querySelectorAll('.animate-in').forEach(el => observer.observe(el));
 
-  // Form submit (demo)
-  let currentLocale = 'en';
+  // Form submit
+  let currentLocale = 'cs';
   function handleSubmit(e) {
     e.preventDefault();
     const btn = e.target.querySelector('button[type="submit"]');
@@ -629,196 +815,258 @@
   // i18n
   const T = {
     en: {
-      'nav-services':  'Services',
-      'nav-about':     'Approach',
-      'nav-blog':      'Blog',
-      'nav-contact':   'Contact',
-      'hdr-label':     'SERVICES',
-      'hdr-h1':        'Four ways<br>I can help.',
-      'hdr-sub':       'Value-based pricing — you pay for the delivered system and results, not hours worked.',
-      's1-label':      'PACKAGES',
-      's1-h2':         'Choose your engagement model.',
-      'pkg1-badge':    'One-off project · 2–4 weeks',
-      'pkg1-title':    'Growth Audit & Roadmap',
-      'pkg1-price':    'from 30 000 CZK',
-      'pkg1-price-sub':'1 200 – 2 200 € · fixed price',
-      'pkg1-b1':       'Unit Economics Audit (LTV, CAC, Payback period)',
-      'pkg1-b2':       'Funnel Deep-Dive and churn analysis',
-      'pkg1-b3':       'Tech Stack Review and measurement audit',
-      'pkg1-b4':       'Master Plan with ICE priority scoring',
-      'pkg-out-lbl':   'Output',
-      'pkg1-output':   'Audit report + Strategic workshop',
-      'pkg-cta':       'Get in touch →',
-      'pkg2-badge':    'Project engagement · 1–3 months',
-      'pkg2-title':    'Data & Growth Infrastructure',
-      'pkg2-price':    'from 80 000 CZK',
-      'pkg2-price-sub':'3 200 – 6 000+ € · fixed price',
-      'pkg2-b1':       'Custom Data Pipeline (BigQuery, SQL)',
-      'pkg2-b2':       'Looker Studio dashboards tracking profitability',
-      'pkg2-b3':       'GA4 and GTM tracking focused on business events',
-      'pkg2-b4':       'Growth Loops design built into the product',
-      'pkg2-output':   'Fully functional data infrastructure and dashboards',
-      'pkg3-badge':    'Monthly retainer · min. 3–6 months',
-      'pkg3-title':    'Fractional Growth Steering',
-      'pkg3-unit':     ' / month',
-      'pkg3-price-sub':'1 600 – 3 200 € / month · retainer',
-      'pkg3-b1':       'Weekly Growth Sprints and experiment reviews',
-      'pkg3-b2':       'Performance Management for PPC, SEO and CRM teams',
-      'pkg3-b3':       'Dynamic budget allocation by ROI',
-      'pkg3-b4':       'Continuous Optimisation based on data',
-      'pkg3-output':   'Ongoing growth and strategy execution',
-      'pkg4-badge':    'Project or ongoing engagement',
-      'pkg4-title':    'AI & Automation Blueprint',
-      'pkg4-price':    'from 50 000 CZK',
-      'pkg4-price-sub':'2 000 – 4 800 € · fixed or ongoing',
-      'pkg4-b1':       'Marketing Automation and personalised outreach',
-      'pkg4-b2':       'Custom AI Agents for market analysis and content',
-      'pkg4-b3':       'Efficiency Audit — identify and replace processes with code',
-      'pkg4-b4':       'Value Tracking systems (productivity, agent ROI)',
-      'pkg4-output':   'Autonomous systems and automated processes',
-      's2-label':      'PRICING',
-      's2-h2':         'Transparent pricing.',
-      'pt-col1':       'Package',
-      'pt-col2':       'Price (CZK)',
-      'pt-col3':       'Price (EUR)',
-      'pt-col4':       'Model',
-      'pt-r1-name':    'Growth Audit & Roadmap',
-      'pt-r1-czk':     '30 000 – 55 000 CZK',
-      'pt-r1-eur':     '1 200 – 2 200 €',
-      'pt-r1-model':   'Fixed price',
-      'pt-r2-name':    'Data & Growth Infrastructure',
-      'pt-r2-czk':     '80 000 – 150 000+ CZK',
-      'pt-r2-eur':     '3 200 – 6 000+ €',
-      'pt-r2-model':   'Fixed price',
-      'pt-r3-name':    'Fractional Growth Steering',
-      'pt-r3-czk':     '40 000 – 80 000 CZK / month',
-      'pt-r3-eur':     '1 600 – 3 200 € / month',
-      'pt-r3-model':   'Monthly retainer',
-      'pt-r4-name':    'AI & Automation Blueprint',
-      'pt-r4-czk':     '50 000 – 120 000 CZK',
-      'pt-r4-eur':     '2 000 – 4 800 €',
-      'pt-r4-model':   'Fixed or ongoing',
-      'pt-disclaimer': 'Final price depends on scope and complexity. Every engagement starts with a free intro call.',
-      's3-label':      'LET\'S GO',
-      's3-h2':         'Free intro call.',
-      'ci-desc':       '30 minutes, no commitment. Tell me where you are and I\'ll tell you if and how I can help. If not, I\'ll point you in the right direction.',
-      'ci-response':   '⏱ I respond within 24–48 hours',
-      'lbl-name':      'Name',
-      'ph-name':       'Your name',
-      'lbl-email':     'Email',
-      'lbl-company':   'Company',
-      'ph-company':    'Company or startup name',
-      'lbl-topic':     'Interested in',
-      'opt-0':         'Select…',
-      'opt-1':         'Growth Audit & Roadmap',
-      'opt-2':         'Data & Growth Infrastructure',
-      'opt-3':         'Fractional Growth Steering',
-      'opt-4':         'AI & Automation Blueprint',
-      'opt-5':         'Other',
-      'lbl-message':   'Message',
-      'ph-message':    'Tell me about your situation, challenge, or goal…',
-      'btn-send':      'Send message →',
-      'form-success':  'Message sent — I\'ll be in touch soon.',
-      'ft-home':       'Home',
-      'ft-about':      'Approach',
-      'ft-blog':       'Blog',
-      'ft-contact':    'Contact',
+      'nav-services':        'Services',
+      'nav-about':           'About',
+      'nav-blog':            'Blog',
+      'nav-contact':         'Contact',
+      'hdr-label':           'SERVICES',
+      'hdr-h1':              'Four steps<br>to a system that grows.',
+      'hdr-sub':             'Every engagement starts with a free consultation. Then we move based on what your business actually needs.',
+      's-flow-label':        'HOW IT WORKS',
+      's-flow-h2':           'From first call<br>to a working system.',
+      'f0-name':             'Free consultation',
+      'f0-desc':             '30 minutes. We find out if we can work together.',
+      'f0-price':            'Free',
+      'f0-cta':              'Book a call →',
+      'f1-name':             'Growth Diagnostic',
+      'f1-desc':             'All-channel audit, PDF output, next steps.',
+      'f1-price':            'from 4,900 CZK',
+      'f2-name':             'Growth Sprint',
+      'f2-desc':             '30 days. Data, dashboard, strategy, 90-day plan.',
+      'f2-price':            'from 39,900 CZK',
+      'f3-name':             'Growth Engine',
+      'f3-desc':             'Ongoing management, optimisation and scaling.',
+      'f3-price':            'from 25,900 CZK/mo',
+      'flow-more':           'More →',
+      's-diag-label':        'STEP 01',
+      'diag-perex':          'An audit across all your channels. Comparison with business metrics and KPIs you want to achieve. Output: PDF document with findings and how to fix them.',
+      'diag-incl-h':         'What\'s included:',
+      'diag-i1':             'Analysis of all active channels (PPC, SEO, Social, Email)',
+      'diag-i2':             'Unit economics — LTV, CAC, Payback period, ROAS',
+      'diag-i3':             'Comparison with your KPIs and business goals',
+      'diag-i4':             'Customer journey and retention — where customers drop off',
+      'diag-i5':             'Concrete prioritised action plan',
+      'diag-i6':             '60-minute call to walk through the findings',
+      'diag-note':           'Base audit from 4,900 CZK. Price adjusts based on number of channels and business complexity — exact price confirmed on the intro call.',
+      'diag-badge':          'Most common first step',
+      'diag-price-main':     'from 4,900 CZK',
+      'diag-price-note':     'one-time · output within 5 days',
+      'diag-li1':            '✓ PDF output with findings and recommendations',
+      'diag-li2':            '✓ 60min call after report delivery',
+      'diag-li3':            '✓ Fully usable without further engagement',
+      'diag-li4':            '✓ Diagnostic fee deducted from Sprint price',
+      'diag-guarantee':      'If you get no actionable insight — full refund.',
+      'diag-cta':            'Order Diagnostic →',
+      's-sprint-label':      'STEP 02',
+      'sprint-perex':        '30-day fixed project. I apply my growth toolkit to unify data, set up a dashboard, and build a 90-day strategic plan. At the end you have a working system — not just recommendations.',
+      'sprint-incl-h':       'What you get:',
+      'sp1-title':           'Week 1 — Audit &amp; Setup',
+      'sp1-text':            'Data audit, tracking setup, system access',
+      'sp2-title':           'Weeks 2–3 — Execution',
+      'sp2-text':            'Campaign launch, dashboard live, first data',
+      'sp3-title':           'Week 4 — Optimisation',
+      'sp3-text':            'Review, adjustments, system handover',
+      'sp4-title':           'Output',
+      'sp4-text':            '90-day playbook and strategy',
+      'sprint-o1':           'Functional data infrastructure and dashboard',
+      'sprint-o2':           'Unified campaigns ready to scale',
+      'sprint-o3':           '90-day strategic plan and playbook',
+      'sprint-o4':           'Handover with documentation — the system is yours',
+      'sprint-badge':        'Fixed project · 30 days',
+      'sprint-price-main':   'from 39,900 CZK',
+      'sprint-price-note':   'fixed price · scope based on channels',
+      'sprint-info-title':   'Pricing note',
+      'sprint-info':         'Price depends on channels and complexity. Exact scope and price confirmed after Diagnostic or on the intro call.',
+      'sprint-li1':          '✓ Growth toolkit applied to your business',
+      'sprint-li2':          '✓ Data dashboard with your metrics',
+      'sprint-li3':          '✓ Strategy and 90-day plan',
+      'sprint-li4':          '✓ Documentation and handover',
+      'sprint-limit':        'Maximum 3 clients at a time.',
+      'sprint-cta':          'Find out more on a call →',
+      's-engine-label':      'STEP 03',
+      'engine-perex':        'Ongoing management after the Sprint. The system is set up — I monitor, optimise and scale it. Every month you get a report and optionally a 30-minute call to review numbers and set the plan for the next month.',
+      'engine-incl-h':       'What\'s included every month:',
+      'eng-i1':              'Monitoring and optimisation of active campaigns',
+      'eng-i2':              'Monthly report in business metrics',
+      'eng-i3':              'Ongoing adjustments based on data',
+      'eng-i4':              'Following the 90-day plan from the Sprint',
+      'eng-i5':              'Optional: 30-min call as add-on',
+      'engine-badge':        'Monthly retainer · min. 3 months',
+      'engine-price-main':   'from 25,900 CZK/mo',
+      'engine-price-note':   'price based on management scope',
+      'engine-addons-title': 'Optional add-ons:',
+      'engine-addons-text':  '+ 30-min monthly call · Add another channel',
+      'engine-condition':    'Follows the Growth Sprint. Entry without Sprint possible by individual agreement.',
+      'engine-cta':          'Find out more on a call →',
+      's-contact-label':     'LET\'S GO',
+      's-contact-h2':        'Start with a<br>free consultation.',
+      'contact-perex':       '30 minutes, no commitment. Fill in the form below and I\'ll get back to you within 24 hours with a time.',
+      'lbl-name':            'Name',
+      'ph-name':             'Your name',
+      'lbl-email':           'Email',
+      'lbl-company':         'Company / website',
+      'ph-company':          'Company name or website',
+      'lbl-topic':           'Interested in',
+      'opt-0':               'Select…',
+      'opt-1':               'Free consultation',
+      'opt-2':               'Diagnostic',
+      'opt-3':               'Sprint',
+      'opt-4':               'Engine',
+      'opt-5':               'Other',
+      'lbl-message':         'Message',
+      'ph-message':          'Tell me about your situation — what you\'re working on, where you are now, and what you want to achieve.',
+      'btn-send':            'Send →',
+      'form-success':        'Message sent — I\'ll be in touch soon.',
+      'trust1':              '✓ Reply within 24 hours',
+      'trust2':              '◎ No commitment',
+      'trust3':              '⬡ If I can\'t help, I\'ll say so and point you in the right direction',
+      's-blog-label':        'BLOG',
+      's-blog-h2':           'From the blog.',
+      'bp1-cat':             'Growth',
+      'bp1-title':           'Why LTV:CAC isn\'t a metric — it\'s a compass.',
+      'bp1-meta':            'Coming soon · 5 min read',
+      'bp1-excerpt':         'Most teams measure LTV:CAC as an output. The best teams use it as a navigation system for every budget decision.',
+      'bp2-cat':             'Data',
+      'bp2-title':           'How I built a growth infrastructure in 3 weeks.',
+      'bp2-meta':            'Coming soon · 8 min read',
+      'bp2-excerpt':         'BigQuery, Looker Studio, GTM — and no enterprise budget. The entire pipeline from zero in under a month.',
+      'bp3-cat':             'Strategy',
+      'bp3-title':           'Performance without brand is renting attention.',
+      'bp3-meta':            'Coming soon · 4 min read',
+      'bp3-excerpt':         'Ads work while you pay. Brand works while you sleep. Why the best growth strategy combines both.',
+      'blog-read':           'Read more →',
+      'blog-all':            'All articles →',
+      'ft-home':             'Home',
+      'ft-about':            'About',
+      'ft-blog':             'Blog',
+      'ft-contact':          'Contact',
     },
     cs: {
-      'nav-services':  'Služby',
-      'nav-about':     'Přístup',
-      'nav-blog':      'Blog',
-      'nav-contact':   'Kontakt',
-      'hdr-label':     'SLUŽBY',
-      'hdr-h1':        'Čtyři způsoby,<br>jak mohu pomoci.',
-      'hdr-sub':       'Value-based pricing — platíte za doručený systém a výsledky, ne za odpracované hodiny.',
-      's1-label':      'BALÍČKY',
-      's1-h2':         'Vyberte si způsob spolupráce.',
-      'pkg1-badge':    'Jednorázový projekt · 2–4 týdny',
-      'pkg1-title':    'Growth Audit & Roadmap',
-      'pkg1-price':    'od 30 000 Kč',
-      'pkg1-price-sub':'1 200 – 2 200 € · fixní cena',
-      'pkg1-b1':       'Unit Economics Audit (LTV, CAC, Payback period)',
-      'pkg1-b2':       'Funnel Deep-Dive a analýza churnu',
-      'pkg1-b3':       'Tech Stack Review a revize měření',
-      'pkg1-b4':       'Master Plan s ICE skórováním priorit',
-      'pkg-out-lbl':   'Výstup',
-      'pkg1-output':   'Auditní zpráva + Strategický workshop',
-      'pkg-cta':       'Zjistit více →',
-      'pkg2-badge':    'Projektová realizace · 1–3 měsíce',
-      'pkg2-title':    'Data & Growth Infrastructure',
-      'pkg2-price':    'od 80 000 Kč',
-      'pkg2-price-sub':'3 200 – 6 000+ € · fixní cena',
-      'pkg2-b1':       'Custom Data Pipeline (BigQuery, SQL)',
-      'pkg2-b2':       'Looker Studio dashboardy sledující ziskovost',
-      'pkg2-b3':       'GA4 a GTM tracking zaměřený na byznys eventy',
-      'pkg2-b4':       'Growth Loops design přímo do produktu',
-      'pkg2-output':   'Plně funkční datová infrastruktura a dashboardy',
-      'pkg3-badge':    'Měsíční retainer · min. 3–6 měsíců',
-      'pkg3-title':    'Fractional Growth Steering',
-      'pkg3-unit':     ' / měsíc',
-      'pkg3-price-sub':'1 600 – 3 200 € / měsíc · retainer',
-      'pkg3-b1':       'Týdenní Growth Sprints a vyhodnocování experimentů',
-      'pkg3-b2':       'Performance Management PPC, SEO a CRM týmů',
-      'pkg3-b3':       'Dynamická alokace budgetu podle ROI',
-      'pkg3-b4':       'Continuous Optimization na základě dat',
-      'pkg3-output':   'Průběžný růst a exekuce strategie',
-      'pkg4-badge':    'Projektová nebo průběžná spolupráce',
-      'pkg4-title':    'AI & Automation Blueprint',
-      'pkg4-price':    'od 50 000 Kč',
-      'pkg4-price-sub':'2 000 – 4 800 € · fixní nebo průběžná',
-      'pkg4-b1':       'Marketing Automation a personalizovaný outreach',
-      'pkg4-b2':       'Custom AI Agenti pro analýzu trhu a tvorbu obsahu',
-      'pkg4-b3':       'Efficiency Audit — identifikace a nahrazení procesů kódem',
-      'pkg4-b4':       'Value Tracking systémy (produktivita, ROI agentů)',
-      'pkg4-output':   'Autonomní systémy a automatizované procesy',
-      's2-label':      'PŘEHLED CEN',
-      's2-h2':         'Transparentní ceny.',
-      'pt-col1':       'Balíček',
-      'pt-col2':       'Cena (CZK)',
-      'pt-col3':       'Cena (EUR)',
-      'pt-col4':       'Model',
-      'pt-r1-name':    'Growth Audit & Roadmap',
-      'pt-r1-czk':     '30 000 – 55 000 Kč',
-      'pt-r1-eur':     '1 200 – 2 200 €',
-      'pt-r1-model':   'Fixní cena',
-      'pt-r2-name':    'Data & Growth Infrastructure',
-      'pt-r2-czk':     '80 000 – 150 000+ Kč',
-      'pt-r2-eur':     '3 200 – 6 000+ €',
-      'pt-r2-model':   'Fixní cena',
-      'pt-r3-name':    'Fractional Growth Steering',
-      'pt-r3-czk':     '40 000 – 80 000 Kč / měsíc',
-      'pt-r3-eur':     '1 600 – 3 200 € / měsíc',
-      'pt-r3-model':   'Měsíční retainer',
-      'pt-r4-name':    'AI & Automation Blueprint',
-      'pt-r4-czk':     '50 000 – 120 000 Kč',
-      'pt-r4-eur':     '2 000 – 4 800 €',
-      'pt-r4-model':   'Fixní nebo průběžná',
-      'pt-disclaimer': 'Finální cena závisí na rozsahu a komplexnosti projektu. Každá spolupráce začíná úvodním hovorem zdarma.',
-      's3-label':      'POJĎME NA TO',
-      's3-h2':         'Úvodní hovor zdarma.',
-      'ci-desc':       '30 minut, žádné závazky. Řeknete mi kde jste a já řeknu, jestli a jak mohu pomoci. Pokud ne, odkáži vás dál.',
-      'ci-response':   '⏱ Odpovídám do 24–48 hodin',
-      'lbl-name':      'Jméno',
-      'ph-name':       'Vaše jméno',
-      'lbl-email':     'Email',
-      'lbl-company':   'Firma',
-      'ph-company':    'Název firmy nebo startupu',
-      'lbl-topic':     'Zájem o',
-      'opt-0':         'Vyberte…',
-      'opt-1':         'Growth Audit & Roadmap',
-      'opt-2':         'Data & Growth Infrastructure',
-      'opt-3':         'Fractional Growth Steering',
-      'opt-4':         'AI & Automation Blueprint',
-      'opt-5':         'Jiné',
-      'lbl-message':   'Zpráva',
-      'ph-message':    'Řekněte mi o vaší situaci, výzvě nebo cíli…',
-      'btn-send':      'Odeslat zprávu →',
-      'form-success':  'Zpráva odeslána — brzy se ozvu.',
-      'ft-home':       'Domů',
-      'ft-about':      'Přístup',
-      'ft-blog':       'Blog',
-      'ft-contact':    'Kontakt',
+      'nav-services':        'Služby',
+      'nav-about':           'O mně',
+      'nav-blog':            'Blog',
+      'nav-contact':         'Kontakt',
+      'hdr-label':           'SLUŽBY',
+      'hdr-h1':              'Čtyři kroky<br>k systému který roste.',
+      'hdr-sub':             'Každá spolupráce začíná konzultací zdarma. Pak postupujeme podle toho, co váš byznys skutečně potřebuje.',
+      's-flow-label':        'POSTUP SPOLUPRÁCE',
+      's-flow-h2':           'Od prvního callu<br>k fungujícímu systému.',
+      'f0-name':             'Konzultace zdarma',
+      'f0-desc':             '30 minut. Zjistíme jestli si dokážeme pomoct.',
+      'f0-price':            'Zdarma',
+      'f0-cta':              'Domluvit call →',
+      'f1-name':             'Growth Diagnostic',
+      'f1-desc':             'Audit všech kanálů, PDF výstup, next steps.',
+      'f1-price':            'od 4 900 Kč',
+      'f2-name':             'Growth Sprint',
+      'f2-desc':             '30 dní. Data, dashboard, strategie, 90denní plán.',
+      'f2-price':            'od 39 900 Kč',
+      'f3-name':             'Growth Engine',
+      'f3-desc':             'Průběžná správa, optimalizace a škálování.',
+      'f3-price':            'od 25 900 Kč/měs',
+      'flow-more':           'Více →',
+      's-diag-label':        'KROK 01',
+      'diag-perex':          'Audit napříč všemi vašimi kanály. Porovnání s business metrikami a KPI které chcete dosahovat. Výstup: PDF dokument s tím co jsem našel a jak to fixnout.',
+      'diag-incl-h':         'Co je součástí auditu:',
+      'diag-i1':             'Analýza všech aktivních kanálů (PPC, SEO, Social, Email)',
+      'diag-i2':             'Unit economics — LTV, CAC, Payback period, ROAS',
+      'diag-i3':             'Srovnání s vašimi KPI a business cíli',
+      'diag-i4':             'Customer journey a retence — kde odcházejí zákazníci',
+      'diag-i5':             'Konkrétní prioritizovaný akční plán',
+      'diag-i6':             '60minutový call kde probereme výstupy',
+      'diag-note':           'Základní audit od 4 900 Kč. Cena se upravuje podle počtu kanálů a komplexnosti businessu — přesnou cenu zjistíte na úvodním callu.',
+      'diag-badge':          'Nejčastější první krok',
+      'diag-price-main':     'od 4 900 Kč',
+      'diag-price-note':     'jednorázově · výstup do 5 dní',
+      'diag-li1':            '✓ PDF výstup s nálezem a doporučeními',
+      'diag-li2':            '✓ 60min call po dodání reportu',
+      'diag-li3':            '✓ Plně použitelné bez další spolupráce',
+      'diag-li4':            '✓ Cena Diagnosticu se odečte ze Sprintu',
+      'diag-guarantee':      'Pokud z reportu nezískaš žádnou použitelnou informaci — vracíme celou částku.',
+      'diag-cta':            'Objednat Diagnostic →',
+      's-sprint-label':      'KROK 02',
+      'sprint-perex':        '30denní fixní projekt. Použiji svůj growth toolkit, sjednotím data, nastavím dashboard a připravím 90denní strategický plán. Na konci máte fungující systém — ne jen doporučení.',
+      'sprint-incl-h':       'Co dostanete:',
+      'sp1-title':           'Týden 1 — Audit &amp; Setup',
+      'sp1-text':            'Datový audit, nastavení trackingu, přístup k systémům',
+      'sp2-title':           'Týden 2–3 — Exekuce',
+      'sp2-text':            'Spuštění kampaní, dashboard live, první data',
+      'sp3-title':           'Týden 4 — Optimalizace',
+      'sp3-text':            'Vyhodnocení, úpravy, předání systému',
+      'sp4-title':           'Výstup',
+      'sp4-text':            '90denní playbook a strategie',
+      'sprint-o1':           'Funkční datová infrastruktura a dashboard',
+      'sprint-o2':           'Sjednocené kampaně připravené ke škálování',
+      'sprint-o3':           '90denní strategický plán a playbook',
+      'sprint-o4':           'Předání s dokumentací — systém je váš',
+      'sprint-badge':        'Fixní projekt · 30 dní',
+      'sprint-price-main':   'od 39 900 Kč',
+      'sprint-price-note':   'fixní cena · scope dle kanálů',
+      'sprint-info-title':   'Poznámka k ceně',
+      'sprint-info':         'Cena závisí na počtu kanálů a komplexnosti. Přesný scope a cenu stanovíme po Diagnosticu nebo na úvodním callu.',
+      'sprint-li1':          '✓ Growth toolkit nasazený na váš byznys',
+      'sprint-li2':          '✓ Datový dashboard s vašimi metrikami',
+      'sprint-li3':          '✓ Strategie a 90denní plán',
+      'sprint-li4':          '✓ Dokumentace a předání',
+      'sprint-limit':        'Maximálně 3 klienti současně.',
+      'sprint-cta':          'Zjistit více na callu →',
+      's-engine-label':      'KROK 03',
+      'engine-perex':        'Průběžná správa po Sprintu. Systém je nastavený — já ho dál monitoruji, optimalizuji a škáluji. Každý měsíc dostanete report a volitelně 30minutový call kde probereme čísla a plán na další měsíc.',
+      'engine-incl-h':       'Co je součástí každý měsíc:',
+      'eng-i1':              'Monitoring a optimalizace aktivních kampaní',
+      'eng-i2':              'Měsíční report v business metrikách',
+      'eng-i3':              'Průběžné úpravy podle dat',
+      'eng-i4':              'Držení se 90denního plánu ze Sprintu',
+      'eng-i5':              'Volitelně: 30min call za příplatek',
+      'engine-badge':        'Měsíční retainer · min. 3 měsíce',
+      'engine-price-main':   'od 25 900 Kč/měs',
+      'engine-price-note':   'cena dle rozsahu správy',
+      'engine-addons-title': 'Volitelné příplatky:',
+      'engine-addons-text':  '+ 30min měsíční call · Rozšíření o další kanál',
+      'engine-condition':    'Navazuje na Growth Sprint. Vstup bez Sprintu možný po individuální dohodě.',
+      'engine-cta':          'Zjistit více na callu →',
+      's-contact-label':     'POJĎME NA TO',
+      's-contact-h2':        'Začněte konzultací<br>zdarma.',
+      'contact-perex':       '30 minut, žádné závazky. Vyplňte formulář níže a do 24 hodin se ozvu s termínem callu.',
+      'lbl-name':            'Jméno',
+      'ph-name':             'Vaše jméno',
+      'lbl-email':           'Email',
+      'lbl-company':         'Firma / web',
+      'ph-company':          'Název firmy nebo web',
+      'lbl-topic':           'Zájem o',
+      'opt-0':               'Vyberte…',
+      'opt-1':               'Konzultace zdarma',
+      'opt-2':               'Diagnostic',
+      'opt-3':               'Sprint',
+      'opt-4':               'Engine',
+      'opt-5':               'Jiné',
+      'lbl-message':         'Zpráva',
+      'ph-message':          'Řekněte mi o své situaci — co řešíte, kde jste teď a co chcete dosáhnout.',
+      'btn-send':            'Odeslat →',
+      'form-success':        'Zpráva odeslána — brzy se ozvu.',
+      'trust1':              '✓ Odpověď do 24 hodin',
+      'trust2':              '◎ Bez závazků',
+      'trust3':              '⬡ Pokud si nedokážu pomoct, řeknu to a odkáži vás dál',
+      's-blog-label':        'BLOG',
+      's-blog-h2':           'Z blogu.',
+      'bp1-cat':             'Growth',
+      'bp1-title':           'Proč LTV:CAC není metrika — je to kompas.',
+      'bp1-meta':            'Připravuji · 5 min čtení',
+      'bp1-excerpt':         'Většina týmů měří LTV:CAC jako výsledek. Nejlepší týmy ho používají jako navigační systém pro každé rozhodnutí o budgetu.',
+      'bp2-cat':             'Data',
+      'bp2-title':           'Jak jsem postavil growth infrastrukturu za 3 týdny.',
+      'bp2-meta':            'Připravuji · 8 min čtení',
+      'bp2-excerpt':         'BigQuery, Looker Studio, GTM — a žádný enterprise budget. Celá pipeline od nuly za méně než měsíc.',
+      'bp3-cat':             'Strategy',
+      'bp3-title':           'Performance bez brandu je pronájem pozornosti.',
+      'bp3-meta':            'Připravuji · 4 min čtení',
+      'bp3-excerpt':         'Reklamy fungují dokud platíte. Brand funguje i když spíte. Proč nejlepší growth strategie kombinuje oboje.',
+      'blog-read':           'Číst dál →',
+      'blog-all':            'Všechny články →',
+      'ft-home':             'Domů',
+      'ft-about':            'O mně',
+      'ft-blog':             'Blog',
+      'ft-contact':          'Kontakt',
     }
   };
 
@@ -839,9 +1087,7 @@
     localStorage.setItem('locale', loc);
   }
 
-  // Init locale
-  const saved = localStorage.getItem('locale');
-  setLocale(saved === 'cs' ? 'cs' : 'en');
+  setLocale(localStorage.getItem('locale') || 'cs');
 </script>
 </body>
 </html>
