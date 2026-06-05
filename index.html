@@ -102,17 +102,11 @@
     }
     .nav-links a:hover { color: var(--text-primary); }
 
-    .i18n-toggle {
-      display: flex;
-      align-items: center;
-      background: var(--bg-surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      overflow: hidden;
-      flex-shrink: 0;
-    }
+    .nav-right { display: flex; align-items: center; gap: 20px; }
+    .i18n-toggle { display: flex; align-items: center; gap: 6px; }
+    .i18n-sep { color: var(--border); font-size: 12px; }
     .i18n-btn {
-      padding: 6px 12px;
+      padding: 4px 6px;
       background: none;
       border: none;
       color: var(--text-muted);
@@ -121,18 +115,29 @@
       font-size: 12px;
       font-weight: 500;
       letter-spacing: 0.06em;
-      transition: all 0.15s;
+      transition: color 0.15s;
       line-height: 1;
     }
-    .i18n-btn.active { background: var(--accent); color: #08090a; font-weight: 600; }
+    .i18n-btn.active { color: var(--accent); font-weight: 600; }
     .i18n-btn:hover:not(.active) { color: var(--text-primary); }
+    .btn-nav-cta {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--bg-primary);
+      background: var(--accent);
+      border: none;
+      border-radius: 6px;
+      padding: 8px 16px;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: opacity 0.2s;
+    }
+    .btn-nav-cta:hover { opacity: 0.85; }
 
     /* ── Hero ── */
     #hero {
-      min-height: 100vh;
       display: flex;
       align-items: center;
-      padding: 120px 0 80px;
       position: relative;
       overflow: hidden;
     }
@@ -146,10 +151,13 @@
     }
     .hero-inner {
       display: grid;
-      grid-template-columns: 3fr 2fr;
+      grid-template-columns: 1fr 1fr;
       gap: 80px;
       align-items: center;
+      min-height: calc(100vh - 80px);
+      padding: 0 0 80px;
     }
+    .hero-text { display: flex; flex-direction: column; gap: 0; }
     .hero-badge {
       display: inline-flex;
       align-items: center;
@@ -161,6 +169,7 @@
       font-size: 12px;
       color: var(--text-primary);
       margin-bottom: 32px;
+      align-self: flex-start;
     }
     .hero-badge .dot {
       width: 7px; height: 7px;
@@ -461,13 +470,11 @@
     /* ── Responsive ── */
     @media (max-width: 768px) {
       section { padding: 80px 0; }
-      #hero { padding: 100px 0 60px; }
       .video-container { padding: 0 16px; }
       .video-play-btn { width: 56px; height: 56px; }
       .video-play-btn svg { width: 22px; height: 22px; }
       .video-placeholder-title { font-size: 16px; }
-      .hero-inner { grid-template-columns: 1fr; }
-      .dashboard-card { display: none; }
+      .hero-inner { grid-template-columns: 1fr; padding: 100px 0 60px; gap: 48px; }
       .hero-stats-bar { flex-direction: column; gap: 16px; }
       .hero-stat + .hero-stat { border-left: none; padding-left: 0; border-top: 1px solid var(--border); padding-top: 16px; }
       .who-grid { grid-template-columns: 1fr; gap: 32px; }
@@ -482,6 +489,8 @@
       .form-row { grid-template-columns: 1fr; }
       footer .inner { flex-direction: column; gap: 20px; text-align: center; }
       .nav-links { display: none; }
+      .btn-nav-cta { display: none; }
+      .nav-right { gap: 12px; }
       .pricing-cards { grid-template-columns: 1fr; }
       .who-segment-split { grid-template-columns: 1fr; }
       .diag-steps-grid { grid-template-columns: 1fr 1fr; }
@@ -746,6 +755,91 @@
     @media (max-width: 768px) {
       #o-mne .grid { grid-template-columns: 1fr; }
     }
+
+    /* ── Hero Before/After ── */
+    .baf-container { width: 100%; }
+    .baf-labels {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      justify-content: center;
+    }
+    .baf-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 4px;
+    }
+    .baf-label.before { color: #f07178; background: rgba(240,113,120,0.1); border: 1px solid rgba(240,113,120,0.2); }
+    .baf-label.after  { color: var(--accent); background: var(--accent-dim); border: 1px solid rgba(0,208,208,0.2); }
+    .baf-arrow { color: var(--text-muted); font-size: 16px; }
+    .baf-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .baf-card {
+      background: var(--bg-surface);
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .baf-card--after {
+      border-color: rgba(0,208,208,0.25);
+      box-shadow: 0 0 24px rgba(0,208,208,0.06);
+      transition: box-shadow 0.3s, border-color 0.3s;
+    }
+    .baf-card--after:hover { box-shadow: 0 0 40px rgba(0,208,208,0.12); border-color: rgba(0,208,208,0.4); }
+    .baf-card-header {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg-elevated);
+    }
+    .baf-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .baf-dot--red    { background: #f07178; opacity: 0.6; }
+    .baf-dot--yellow { background: #ffcb6b; opacity: 0.6; }
+    .baf-dot--green  { background: #c3e88d; }
+    .baf-card-title { font-size: 11px; font-weight: 500; color: var(--text-muted); letter-spacing: 0.04em; margin-left: 4px; }
+    .baf-rows { display: flex; flex-direction: column; gap: 2px; padding: 12px; }
+    .baf-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      line-height: 1.4;
+    }
+    .baf-row--bad  { background: rgba(240,113,120,0.06); color: var(--text-muted); }
+    .baf-row--bad  .baf-row-icon { color: #f07178; font-size: 11px; flex-shrink: 0; }
+    .baf-row--good { background: rgba(0,208,208,0.05); color: var(--text-secondary); }
+    .baf-row--good .baf-row-icon { color: var(--accent); font-size: 11px; flex-shrink: 0; }
+    .baf-metric {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 14px;
+      border-top: 1px solid var(--border);
+      margin-top: 4px;
+    }
+    .baf-metric-label { font-size: 11px; color: var(--text-muted); font-weight: 500; flex: 1; }
+    .baf-metric--bad  .baf-metric-value { font-size: 18px; font-weight: 300; color: #f07178; letter-spacing: -0.02em; }
+    .baf-metric--good .baf-metric-value { font-size: 18px; font-weight: 300; color: var(--accent); letter-spacing: -0.02em; }
+    .baf-metric-delta { font-size: 11px; color: var(--accent); font-weight: 500; }
+    @keyframes countUp { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+    .baf-metric-animated { animation: countUp 0.8s ease 0.6s both; }
+
+    @media (max-width: 1024px) { .hero-inner { gap: 48px; } }
+    @media (max-width: 768px) {
+      .baf-cards { grid-template-columns: 1fr 1fr; gap: 8px; }
+      .baf-row { font-size: 11px; padding: 6px 8px; }
+    }
+    @media (max-width: 480px) {
+      .baf-cards { grid-template-columns: 1fr; }
+      .baf-card--before { display: none; }
+    }
   </style>
 </head>
 <body>
@@ -758,11 +852,15 @@
       <li><a href="services.html" data-i18n="nav-services">Služby</a></li>
       <li><a href="#proces" data-i18n="nav-how">Jak to funguje</a></li>
       <li><a href="#pricing" data-i18n="nav-pricing">Ceník</a></li>
-      <li><a href="#contact" data-i18n="nav-contact">Kontakt</a></li>
+      <li><a href="blog.html" data-i18n="nav-blog">Blog</a></li>
     </ul>
-    <div class="i18n-toggle">
-      <button class="i18n-btn" data-locale="en" onclick="setLocale('en')">EN</button>
-      <button class="i18n-btn" data-locale="cs" onclick="setLocale('cs')">CZ</button>
+    <div class="nav-right">
+      <div class="i18n-toggle">
+        <button class="i18n-btn" data-locale="cs" onclick="setLocale('cs')">CZ</button>
+        <span class="i18n-sep">|</span>
+        <button class="i18n-btn" data-locale="en" onclick="setLocale('en')">EN</button>
+      </div>
+      <a href="#contact" class="btn btn-nav-cta" data-i18n="nav-cta">Free call →</a>
     </div>
   </div>
 </nav>
@@ -771,15 +869,17 @@
 <section id="hero">
   <div class="container">
     <div class="hero-inner">
-      <div>
+
+      <!-- Levý sloupec: text -->
+      <div class="hero-text">
         <div class="hero-badge">
           <span class="dot"></span>
           <span data-i18n="hero-badge">Dostupný pro nové projekty</span>
         </div>
         <h1 data-i18n="hero-h1">Stratég i exekutor<br>v jednom.</h1>
-        <p class="hero-sub" data-i18n="hero-sub">Za 7 let v marketingu — od specializovaných rolí přes startupy až po CMO pozici — jsem zjistil, že největší problém nebývá výkon jednotlivých kanálů. Bývá to chybějící propojení mezi nimi. Dnes díky AI zvládám sám to, na co dřív bylo potřeba celého týmu. A výsledky jsou měřitelné v business metrikách, ne v líbivých reportech.</p>
+        <p class="hero-sub" data-i18n="hero-sub">Za 7 let v marketingu jsem zjistil, že největší problém nebývá výkon jednotlivých kanálů. Bývá to chybějící propojení mezi nimi. Dnes díky AI zvládám sám to, na co dřív bylo potřeba celého týmu.</p>
         <div class="btn-group">
-          <a href="#contact" class="btn btn-primary" data-i18n="btn-cta1">Začněte konzultací zdarma →</a>
+          <a href="#contact" class="btn btn-primary" data-i18n="btn-cta1">Začněte free callem →</a>
           <a href="#proces" class="btn btn-secondary" data-i18n="btn-cta2">Jak to funguje ↓</a>
         </div>
         <div class="hero-stats-bar">
@@ -788,32 +888,64 @@
           <div class="hero-stat"><span class="stat-value" data-i18n="stat3">Konzultace zdarma</span></div>
         </div>
       </div>
-      <div class="dashboard-card">
-        <div class="dash-header">
-          <div class="dash-title">Growth Audit Dashboard</div>
-          <div class="dash-subtitle">Last 30 days</div>
-        </div>
-        <div class="dash-metric">
-          <span class="dash-metric-label">LTV:CAC</span>
-          <span class="dash-metric-value">4.2× <span class="dash-up">↑ +0.8</span></span>
-        </div>
-        <div class="dash-metric">
-          <span class="dash-metric-label">CAC</span>
-          <span class="dash-metric-value">12 400 CZK</span>
-        </div>
-        <div class="dash-metric">
-          <span class="dash-metric-label">Payback</span>
-          <span class="dash-metric-value">8.1 mo</span>
-        </div>
-        <div class="dash-progress-wrap">
-          <div class="dash-progress-label"><span>MRR</span><span>82%</span></div>
-          <div class="dash-progress-track"><div class="dash-progress-fill" id="mrrFill"></div></div>
-        </div>
-        <div class="dash-sparkline">
-          <div class="dash-sparkline-label">MRR trend</div>
-          <div class="sparkline-bars" id="sparkBars"></div>
+
+      <!-- Pravý sloupec: Before/After -->
+      <div class="hero-visual">
+        <div class="baf-container">
+          <div class="baf-labels">
+            <span class="baf-label before" data-i18n="baf-before">Před</span>
+            <div class="baf-arrow">→</div>
+            <span class="baf-label after" data-i18n="baf-after">Po</span>
+          </div>
+          <div class="baf-cards">
+
+            <!-- BEFORE karta -->
+            <div class="baf-card baf-card--before">
+              <div class="baf-card-header">
+                <span class="baf-dot baf-dot--red"></span>
+                <span class="baf-dot baf-dot--yellow"></span>
+                <span class="baf-dot baf-dot--green"></span>
+                <span class="baf-card-title" data-i18n="baf-before-title">Aktuální stav</span>
+              </div>
+              <div class="baf-rows">
+                <div class="baf-row baf-row--bad"><span class="baf-row-icon">✗</span><span data-i18n="baf-b1">4 platformy, 0 shody</span></div>
+                <div class="baf-row baf-row--bad"><span class="baf-row-icon">✗</span><span data-i18n="baf-b2">Nevíte co vydělává</span></div>
+                <div class="baf-row baf-row--bad"><span class="baf-row-icon">✗</span><span data-i18n="baf-b3">Report plný líbivých čísel</span></div>
+                <div class="baf-row baf-row--bad"><span class="baf-row-icon">✗</span><span data-i18n="baf-b4">Kanály bez strategie</span></div>
+                <div class="baf-row baf-row--bad"><span class="baf-row-icon">✗</span><span data-i18n="baf-b5">LTV:CAC neznáte</span></div>
+              </div>
+              <div class="baf-metric baf-metric--bad">
+                <span class="baf-metric-label">LTV:CAC</span>
+                <span class="baf-metric-value">1.4×</span>
+              </div>
+            </div>
+
+            <!-- AFTER karta -->
+            <div class="baf-card baf-card--after">
+              <div class="baf-card-header">
+                <span class="baf-dot baf-dot--red"></span>
+                <span class="baf-dot baf-dot--yellow"></span>
+                <span class="baf-dot baf-dot--green"></span>
+                <span class="baf-card-title" data-i18n="baf-after-title">Po spolupráci</span>
+              </div>
+              <div class="baf-rows">
+                <div class="baf-row baf-row--good"><span class="baf-row-icon">✓</span><span data-i18n="baf-a1">Jeden dashboard, jasná data</span></div>
+                <div class="baf-row baf-row--good"><span class="baf-row-icon">✓</span><span data-i18n="baf-a2">Víte co roste a proč</span></div>
+                <div class="baf-row baf-row--good"><span class="baf-row-icon">✓</span><span data-i18n="baf-a3">Report v business metrikách</span></div>
+                <div class="baf-row baf-row--good"><span class="baf-row-icon">✓</span><span data-i18n="baf-a4">90denní plán a strategie</span></div>
+                <div class="baf-row baf-row--good"><span class="baf-row-icon">✓</span><span data-i18n="baf-a5">LTV:CAC měříte každý měsíc</span></div>
+              </div>
+              <div class="baf-metric baf-metric--good">
+                <span class="baf-metric-label">LTV:CAC</span>
+                <span class="baf-metric-value baf-metric-animated">4.2×</span>
+                <span class="baf-metric-delta">↑ +2.8</span>
+              </div>
+            </div>
+
+          </div>
         </div>
       </div>
+
     </div>
   </div>
 </section>
@@ -1327,12 +1459,27 @@
       'nav-services':    'Services',
       'nav-how':         'How it works',
       'nav-pricing':     'Pricing',
-      'nav-contact':     'Contact',
+      'nav-blog':        'Blog',
+      'nav-cta':         'Free call →',
       'hero-badge':      'Available for new projects',
       'hero-h1':         'Strategist and executor<br>in one.',
       'hero-sub':        'After 7 years in marketing, I\'ve found that the biggest problem is rarely channel performance. It\'s the missing connection between them. Today, with AI, I handle alone what used to require a whole team. And results are measured in business metrics, not vanity reports.',
-      'btn-cta1':        'Start with a free consultation →',
+      'btn-cta1':        'Start with a free call →',
       'btn-cta2':        'How it works ↓',
+      'baf-before':       'Before',
+      'baf-after':        'After',
+      'baf-before-title': 'Current state',
+      'baf-after-title':  'After working together',
+      'baf-b1': '4 platforms, 0 alignment',
+      'baf-b2': "You don't know what earns",
+      'baf-b3': 'Report full of vanity metrics',
+      'baf-b4': 'Channels without strategy',
+      'baf-b5': "You don't know your LTV:CAC",
+      'baf-a1': 'One dashboard, clear data',
+      'baf-a2': 'You know what grows and why',
+      'baf-a3': 'Report in business metrics',
+      'baf-a4': '90-day plan and strategy',
+      'baf-a5': 'LTV:CAC tracked every month',
       'stat1':           '7+ years in growth marketing',
       'stat2':           'First step from 4,900 CZK',
       'stat3':           'Free consultation',
@@ -1578,12 +1725,27 @@
       'nav-services':    'Služby',
       'nav-how':         'Jak to funguje',
       'nav-pricing':     'Ceník',
-      'nav-contact':     'Kontakt',
+      'nav-blog':        'Blog',
+      'nav-cta':         'Free call →',
       'hero-badge':      'Dostupný pro nové projekty',
       'hero-h1':         'Stratég i exekutor<br>v jednom.',
       'hero-sub':        'Za 7 let v marketingu — od specializovaných rolí přes startupy až po CMO pozici — jsem zjistil, že největší problém nebývá výkon jednotlivých kanálů. Bývá to chybějící propojení mezi nimi. Dnes díky AI zvládám sám to, na co dřív bylo potřeba celého týmu. A výsledky jsou měřitelné v business metrikách, ne v líbivých reportech.',
-      'btn-cta1':        'Začněte konzultací zdarma →',
+      'btn-cta1':        'Začněte free callem →',
       'btn-cta2':        'Jak to funguje ↓',
+      'baf-before':       'Před',
+      'baf-after':        'Po',
+      'baf-before-title': 'Aktuální stav',
+      'baf-after-title':  'Po spolupráci',
+      'baf-b1': '4 platformy, 0 shody',
+      'baf-b2': 'Nevíte co vydělává',
+      'baf-b3': 'Report plný líbivých čísel',
+      'baf-b4': 'Kanály bez strategie',
+      'baf-b5': 'LTV:CAC neznáte',
+      'baf-a1': 'Jeden dashboard, jasná data',
+      'baf-a2': 'Víte co roste a proč',
+      'baf-a3': 'Report v business metrikách',
+      'baf-a4': '90denní plán a strategie',
+      'baf-a5': 'LTV:CAC měříte každý měsíc',
       'stat1':           '7+ let v growth marketingu',
       'stat2':           'První krok od 4 900 Kč',
       'stat3':           'Konzultace zdarma',
@@ -1738,7 +1900,7 @@
       'faq1-q':          'Je to opravdu zdarma?',
       'faq1-a':          'Ano. Call je pro mě způsob, jak zjistit, jestli si dokážu pomoct. Pokud nedokážu, řeknu to rovnou a doporučím koho kontaktovat.',
       'faq2-q':          'Co kdybychom chtěli jen audit, ne celý engagement?',
-      'faq2-a':          'Growth Setup začíná na 39 000 Kč a je přirozeným dalším krokem po Diagnosticu. Na callu se rozhodneme, jestli to dává smysl pro vaši situaci.',
+      'faq2-a':          'Growth Setup začíná na 39 900 Kč a je přirozeným dalším krokem po Diagnosticu. Na callu společně rozhodneme, jestli dává smysl pro vaši situaci.',
       'faq3-q':          'Pracujete i s firmami mimo Praha?',
       'faq3-a':          'Pracuji plně remote. Klienti jsou z Čech, Moravy i ze zahraničí. Discovery call je vždy online.',
       'faq4-q':          'Jak rychle vidíme první výsledky?',
